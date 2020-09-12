@@ -1,0 +1,67 @@
+{
+  "caretaker": "Bill",
+  "dependent": "Bill",
+  "pillBoxes": [
+    {
+      "name": "Morning",
+      "frequency": "Daily",
+      "pills": [
+        {
+          "name": "C"
+        },
+        {
+          "name": "D"
+        },
+        {
+          "name": "Fish (Krill) Oil"
+        },
+        {
+          "name": "Glipizide"
+        },
+        {
+          "name": "Probiotic"
+        },
+        {
+          "name": "Zinc"
+        },
+        {
+          "name": "Extra Virgin Olive Oil",
+          "dose": "Two tablespoons"
+        }
+      ]
+    },
+    {
+      "name": "Dinner",
+      "frequency": "Daily",
+      "pills": [
+        {
+          "name": "Metformin"
+        }
+      ]
+    },
+    {
+      "name": "Bedtime",
+      "frequency": "Daily",
+      "pills": [
+        {
+          "name": "Baby aspirin"
+        },
+        {
+          "name": "C"
+        },
+        {
+          "name": "Cinsulin - Cinnamon"
+        },
+        {
+          "name": "Lisinopril - 1/2 of 5mg"
+        },
+        {
+          "name": "Simvastatin"
+        },
+        {
+          "name": "Ubiquinol - CoQ10"
+        }
+      ]
+    }
+  ]
+}

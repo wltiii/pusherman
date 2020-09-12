@@ -1,0 +1,31 @@
+{
+  "caretaker": "Bill",
+  "dependent": "Coda",
+  "pillBoxes": [
+    {
+      "name": "Morning",
+      "frequency": "Daily",
+      "pills": [
+        {
+          "name": "C"
+        },
+        {
+          "name": "Extra Virgin Olive Oil",
+          "dose": "Two tablespoons"
+        }
+      ]
+    },
+    {
+      "name": "Bedtime",
+      "frequency": "Daily",
+      "pills": [
+        {
+          "name": "Cinsulin - Cinnamon"
+        },
+        {
+          "name": "Ubiquinol - CoQ10"
+        }
+      ]
+    }
+  ]
+}
