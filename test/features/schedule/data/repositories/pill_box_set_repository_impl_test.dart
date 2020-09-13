@@ -4,9 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
-import 'package:pusherman/features/schedule/data/models/pill_box_model.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
-import 'package:pusherman/features/schedule/data/models/pill_model.dart';
 import 'package:pusherman/features/schedule/data/repositories/pill_box_set_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 
@@ -49,8 +47,55 @@ void main() {
       group('getByDependent', () {
         test('returns PillBoxSet from remote data source when found', () async {
           // given
-          when(mockRemoteDataSource.getByDependent(dependent)).thenAnswer((
-              _) async => pillBoxSet);
+          when(mockRemoteDataSource.getByDependent(dependent))
+              .thenAnswer((_) async => pillBoxSet);
+          // when
+          final result = await repository.getByDependent(dependent);
+          // then
+          verify(mockRemoteDataSource.getByDependent(dependent));
+          expect(result, equals(Right(pillBoxSet)));
+        });
+
+        test('does not retrieve from local', () async {
+          // when
+          await repository.getByDependent(dependent);
+          // then
+          verifyNever(mockLocalDataSource.getByDependent(any));
+        });
+
+        test('stores remote result to local', () async {
+          throw UnimplementedError();
+        });
+
+        test('returns ServerFailure when remote call fails', () async {
+          throw UnimplementedError();
+        });
+      });
+
+      group('cachePillBoxSet', () {
+        test('saves a PillBoxSet to remote and local', () async {
+          // given
+          // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+
+          // when
+          await repository.cachePillBoxSet(pillBoxSet);
+          // then
+          verify(mockRemoteDataSource.cachePillBoxSet(pillBoxSet));
+          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
+        });
+      });
+    });
+
+    group('device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      group('getByDependent', () {
+        test('returns PillBoxSet from local data source', () async {
+          // given
+          when(mockLocalDataSource.getByDependent(dependent))
+              .thenAnswer((_) async => pillBoxSet);
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -58,33 +103,38 @@ void main() {
           expect(result, equals(Right(pillBoxSet)));
         });
 
-        test('does not retrieve from local data when online', () async {
+        test('does not retrieve from remote', () async {
           // when
           await repository.getByDependent(dependent);
           // then
-          verifyNever(mockLocalDataSource.getByDependent(any));
+          verifyNever(mockRemoteDataSource.getByDependent(any));
+        });
+
+        test('returns CacheFailure when there is no cached data', () async {
+          throw UnimplementedError();
         });
       });
-      // });
 
       group('cachePillBoxSet', () {
-        test('saves a PillBoxSet', () async {
+        test('saves a PillBoxSet to local', () async {
           // given
           // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
 
           // when
-          final result = await repository.cachePillBoxSet(pillBoxSet);
+          await repository.cachePillBoxSet(pillBoxSet);
           // then
-          // expect(result, equals(Right(expectedPillBoxSet)));
+          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
+        });
+        test('does not save to remote', () async {
+          // given
+          // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+
+          // when
+          await repository.cachePillBoxSet(pillBoxSet);
+          // then
+          verifyNever(mockRemoteDataSource.cachePillBoxSet(pillBoxSet));
         });
       });
-    });
-
-    group('device is offline', () {
-      setUp((){
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-      });
-
     });
   });
 
