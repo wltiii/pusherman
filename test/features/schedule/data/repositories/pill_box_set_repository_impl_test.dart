@@ -1,6 +1,8 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
+import 'package:pusherman/core/error/exception.dart';
+import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
@@ -64,20 +66,43 @@ void main() {
         });
 
         test('stores remote result to local', () async {
-          throw UnimplementedError();
+          // given
+          when(mockRemoteDataSource.getByDependent(dependent))
+              .thenAnswer((_) async => pillBoxSet);
+          // when
+          await repository.getByDependent(dependent);
+          // then
+          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
         });
 
         test('returns ServerFailure when remote call fails', () async {
-          throw UnimplementedError();
+          // given
+          when(mockRemoteDataSource.getByDependent(dependent))
+              .thenThrow(ServerException());
+          // when
+          final result = await repository.getByDependent(dependent);
+          // then
+          verifyNever(mockLocalDataSource.cachePillBoxSet(any));
+          expect(result, equals(Left(ServerFailure())));
         });
+
+        test('returns cached data when remote call fails', () async {
+          // given
+          when(mockRemoteDataSource.getByDependent(dependent))
+              .thenThrow(ServerException());
+          when(mockLocalDataSource.getByDependent(dependent))
+              .thenAnswer((_) async => pillBoxSet);
+          // when
+          final result = await repository.getByDependent(dependent);
+          // then
+          verify(mockLocalDataSource.getByDependent(dependent));
+          expect(result, equals(Right(pillBoxSet)));
+        }, skip: 'do i want to return a failure? or to return from local?');
       });
 
       group('cachePillBoxSet', () {
         test('saves a PillBoxSet to remote and local', () async {
-          // given
-          // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
-
-          // when
+           // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then
           verify(mockRemoteDataSource.cachePillBoxSet(pillBoxSet));
@@ -111,24 +136,24 @@ void main() {
         });
 
         test('returns CacheFailure when there is no cached data', () async {
-          throw UnimplementedError();
+          // given
+          when(mockLocalDataSource.getByDependent(dependent))
+              .thenThrow(CacheException());
+          // when
+          final result = await repository.getByDependent(dependent);
+          // then
+          expect(result, equals(Left(CacheFailure())));
         });
       });
 
       group('cachePillBoxSet', () {
         test('saves a PillBoxSet to local', () async {
-          // given
-          // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
-
           // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then
           verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
         });
         test('does not save to remote', () async {
-          // given
-          // final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
-
           // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then

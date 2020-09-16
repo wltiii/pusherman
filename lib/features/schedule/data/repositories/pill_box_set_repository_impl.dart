@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
+import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
+import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 
 import '../../domain/repositories/pill_box_set_repository.dart';
@@ -23,8 +25,27 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
   @override
   Future<Either<Failure, PillBoxSet>> getByDependent(String dependent) async {
     return (await networkInfo.isConnected)
-        ? await _getByDependent(dependent, remoteDataSource)
-        : await _getByDependent(dependent, localDataSource);
+        ? await _getFromRemote(dependent)
+        : await _getFromLocal(dependent);
+  }
+
+  Future<Either<Failure, PillBoxSet>> _getFromRemote(String dependent) async {
+    try {
+      PillBoxSetModel pillBoxSet = await remoteDataSource.getByDependent(dependent);
+      await cachePillBoxSet(pillBoxSet);
+      return Right(pillBoxSet);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, PillBoxSet>> _getFromLocal(String dependent) async {
+    try {
+      PillBoxSetModel pillBoxSet = await localDataSource.getByDependent(dependent);
+      return Right(pillBoxSet);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 
   Future<Either<Failure, PillBoxSet>> _getByDependent(String dependent, PillBoxSetDataSource dataSource) async {
