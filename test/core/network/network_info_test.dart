@@ -1,31 +1,34 @@
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:pusherman/core/network/network_info.dart';
 
-class MockNetworkInfo implements NetworkInfo {
-  @override
-  // TODO: implement isConnected
-  Future<bool> get isConnected => throw UnimplementedError();
-}
+class MockDataConnectionChecker extends Mock implements DataConnectionChecker {}
 
 void main() {
   NetworkInfo networkInfo;
+  MockDataConnectionChecker mockDataConnectionChecker;
 
   setUp(() {
-    networkInfo = MockNetworkInfo();
+    mockDataConnectionChecker = MockDataConnectionChecker();
+    networkInfo = NetworkInfoImpl(mockDataConnectionChecker);
   });
 
   group('isConnected', () {
-    test('should forward the call to DataConnectionChecker.hasConnection', () async {
+    test(
+      'should forward the call to DataConnectionChecker.hasConnection',
+      () async {
         // given
         final givenConnectionFuture = Future.value(true);
 
-//        when(mockDataConnectionChecker.hasConnection)
-//            .thenAnswer((_) => tHasConnectionFuture);
+        when(mockDataConnectionChecker.hasConnection)
+            .thenAnswer((_) => givenConnectionFuture);
+
         // when
         final result = networkInfo.isConnected;
+
         // then
-//        verify(mockDataConnectionChecker.hasConnection);
+        verify(mockDataConnectionChecker.hasConnection);
         expect(result, givenConnectionFuture);
       },
     );
