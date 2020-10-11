@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
-import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/data/repositories/pill_box_set_repository_impl.dart';
@@ -15,7 +15,7 @@ import '../../../../fixtures/fixture_reader.dart';
 class MockNetworkInfo extends Mock
     implements NetworkInfo {}
 class MockLocalDataSource extends Mock
-    implements PillBoxSetLocalDataSource {}
+    implements PillBoxSetDataSource {}
 class MockRemoteDataSource extends Mock
     implements PillBoxSetRemoteDataSource {}
 
