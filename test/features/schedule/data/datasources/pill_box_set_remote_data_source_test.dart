@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
+import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import '../../../../fixtures/fixture_reader.dart';
@@ -11,10 +12,12 @@ class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
   group('PillBoxSetRemoteDataSource', () {
-    PillBoxSetRemoteDataSource dataSource ;
+    PillBoxSetDataSource dataSource;
+    MockHttpClient mockHttpClient;
 
     setUp(() {
-      dataSource = PillBoxSetRemoteDataSourceImpl();
+      mockHttpClient = MockHttpClient();
+      dataSource = PillBoxSetRemoteDataSourceImpl(client: mockHttpClient);
     });
 
     group('getByDependent', () {

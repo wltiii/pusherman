@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
@@ -48,11 +50,14 @@ void main() {
       test('caches a PillBoxSetModel', () async {
         // given
         final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+        final expectedJsonString = json.encode(givenPillBoxSet);
         // when
         await dataSource.cachePillBoxSet(givenPillBoxSet);
         // then
-        // TODO expect exception not thrown, then add verifies
-//      expect(result, equals(expectedPillBoxSet));
+        verify(mockSharedPreferences.setString(
+          CACHED_PILL_BOX_SET + givenPillBoxSet.dependent,
+          expectedJsonString,
+        ));
       });
 
     });
