@@ -3,5 +3,5 @@ import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 
 abstract class PillBoxSetDataSource {
   Future<PillBoxSetModel> getByDependent(String dependent);
-  Future<void> cachePillBoxSet(PillBoxSetModel pillBoxSet);
+  Future<void> put(PillBoxSetModel pillBoxSet);
 }

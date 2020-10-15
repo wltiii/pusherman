@@ -46,13 +46,13 @@ void main() {
 
     });
 
-    group('cachePillBoxSet', () {
-      test('caches a PillBoxSetModel', () async {
+    group('PUT', () {
+      test('creates a PillBoxSetModel', () async {
         // given
         final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
         // when
-        await dataSource.cachePillBoxSet(givenPillBoxSet);
+        await dataSource.put(givenPillBoxSet);
         // then
         verify(mockSharedPreferences.setString(
           CACHED_PILL_BOX_SET + givenPillBoxSet.dependent,

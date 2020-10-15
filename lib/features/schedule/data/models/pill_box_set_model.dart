@@ -29,17 +29,6 @@ class PillBoxSetModel extends PillBoxSet /*implements JsonModel<PillBoxSetModel>
     );
   }
 
-  // static JsonModel<PillBoxSetModel> fromJson(Map<String, dynamic> json) {
-  //   return PillBoxSetModel(
-  //     caretaker: json['caretaker'],
-  //     dependent: json['dependent'],
-  //     pillBoxes: json['pillBoxes']
-  //         .map((pillBox) => PillBoxModel.fromJson(pillBox))
-  //         .toList()
-  //         .cast<PillBoxModel>(),
-  //   );
-  // }
-
   Map<String, dynamic> toJson() {
     return {
       "caretaker": caretaker,

@@ -26,7 +26,7 @@ class PillBoxSetLocalDataSourceImpl implements PillBoxSetDataSource {
   }
 
   @override
-  Future<void> cachePillBoxSet(PillBoxSetModel model) {
+  Future<void> put(PillBoxSetModel model) {
     final key = CACHED_PILL_BOX_SET + model.dependent;
     final modelAsString = json.encode(model.toJson());
     return sharedPreferences.setString(key, modelAsString);

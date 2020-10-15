@@ -5,7 +5,6 @@ import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
-import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/data/repositories/pill_box_set_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
@@ -17,7 +16,7 @@ class MockNetworkInfo extends Mock
 class MockLocalDataSource extends Mock
     implements PillBoxSetDataSource {}
 class MockRemoteDataSource extends Mock
-    implements PillBoxSetRemoteDataSource {}
+    implements PillBoxSetDataSource {}
 
 void main() {
   group('PillBoxSetRepositoryImpl', () {
@@ -72,7 +71,7 @@ void main() {
           // when
           await repository.getByDependent(dependent);
           // then
-          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
+          verify(mockLocalDataSource.put(pillBoxSet));
         });
 
         test('returns ServerFailure when remote call fails', () async {
@@ -82,7 +81,7 @@ void main() {
           // when
           final result = await repository.getByDependent(dependent);
           // then
-          verifyNever(mockLocalDataSource.cachePillBoxSet(any));
+          verifyNever(mockLocalDataSource.put(any));
           expect(result, equals(Left(ServerFailure())));
         });
 
@@ -97,7 +96,7 @@ void main() {
           // then
           verify(mockLocalDataSource.getByDependent(dependent));
           expect(result, equals(Right(pillBoxSet)));
-        }, skip: 'do i want to return a failure? or to return from local?');
+        });
       });
 
       group('cachePillBoxSet', () {
@@ -105,8 +104,8 @@ void main() {
            // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then
-          verify(mockRemoteDataSource.cachePillBoxSet(pillBoxSet));
-          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
+          verify(mockRemoteDataSource.put(pillBoxSet));
+          verify(mockLocalDataSource.put(pillBoxSet));
         });
       });
     });
@@ -151,13 +150,13 @@ void main() {
           // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then
-          verify(mockLocalDataSource.cachePillBoxSet(pillBoxSet));
+          verify(mockLocalDataSource.put(pillBoxSet));
         });
         test('does not save to remote', () async {
           // when
           await repository.cachePillBoxSet(pillBoxSet);
           // then
-          verifyNever(mockRemoteDataSource.cachePillBoxSet(pillBoxSet));
+          verifyNever(mockRemoteDataSource.put(pillBoxSet));
         });
       });
     });

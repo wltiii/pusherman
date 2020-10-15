@@ -13,7 +13,7 @@ import '../../domain/repositories/pill_box_set_repository.dart';
 class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
   final NetworkInfo networkInfo;
   final PillBoxSetDataSource localDataSource;
-  final PillBoxSetRemoteDataSource remoteDataSource;
+  final PillBoxSetDataSource remoteDataSource;
 
   PillBoxSetRepositoryImpl({
     @required this.networkInfo,
@@ -56,9 +56,9 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
 
   @override
   Future<void> cachePillBoxSet(PillBoxSet pillBoxSet) async {
-    await localDataSource.cachePillBoxSet(pillBoxSet);
+    await localDataSource.put(pillBoxSet);
     if (await networkInfo.isConnected) {
-      await remoteDataSource.cachePillBoxSet(pillBoxSet);
+      await remoteDataSource.put(pillBoxSet);
     }
   }
 }
