@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
@@ -74,10 +74,12 @@ void main() {
           verify(mockLocalDataSource.put(pillBoxSet));
         });
 
-        test('returns ServerFailure when remote call fails', () async {
+        test('returns ServerFailure when remote and local calls fail', () async {
           // given
           when(mockRemoteDataSource.getByDependent(dependent))
               .thenThrow(ServerException());
+          when(mockLocalDataSource.getByDependent(dependent))
+              .thenThrow(CacheException());
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -102,7 +104,7 @@ void main() {
       group('cachePillBoxSet', () {
         test('saves a PillBoxSet to remote and local', () async {
            // when
-          await repository.cachePillBoxSet(pillBoxSet);
+          await repository.put(pillBoxSet);
           // then
           verify(mockRemoteDataSource.put(pillBoxSet));
           verify(mockLocalDataSource.put(pillBoxSet));
@@ -145,16 +147,16 @@ void main() {
         });
       });
 
-      group('cachePillBoxSet', () {
+      group('PUT', () {
         test('saves a PillBoxSet to local', () async {
           // when
-          await repository.cachePillBoxSet(pillBoxSet);
+          await repository.put(pillBoxSet);
           // then
           verify(mockLocalDataSource.put(pillBoxSet));
         });
         test('does not save to remote', () async {
           // when
-          await repository.cachePillBoxSet(pillBoxSet);
+          await repository.put(pillBoxSet);
           // then
           verifyNever(mockRemoteDataSource.put(pillBoxSet));
         });

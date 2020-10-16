@@ -6,4 +6,5 @@ import '../entities/pill_box_set.dart';
 
 abstract class PillBoxSetRepository {
   Future<Either<Failure, PillBoxSet>> getByDependent(String dependent);
+  Future<void> put(PillBoxSet pillBoxSet);
 }
