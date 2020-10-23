@@ -28,9 +28,9 @@ void main() {
         // given
         final aDependent = 'Coda';
         final key = CACHED_PILL_BOX_SET + aDependent;
-        final expectedPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+        final expectedPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
         when(mockSharedPreferences.getString(key))
-            .thenReturn(fixtureAsString('pill_box_set.json'));
+            .thenReturn(fixtureAsString('coda_pill_box_set.json'));
         // when
         final result = await dataSource.getByDependent(aDependent);
         // then
@@ -49,7 +49,7 @@ void main() {
     group('PUT', () {
       test('creates a PillBoxSetModel', () async {
         // given
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
         // when
         await dataSource.put(givenPillBoxSet);

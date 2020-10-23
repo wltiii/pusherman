@@ -15,7 +15,6 @@ void main() {
   );
 
   final pillBoxSet = PillBoxSet(
-      caretaker: "Bill",
       dependent: 'Coda',
       pillBoxes: [pillBox]
   );
@@ -28,7 +27,6 @@ void main() {
 
     test('instantiates a PillBoxSet from named argument constructor', ()
     {
-      expect(pillBoxSet.caretaker, equals('Bill'));
       expect(pillBoxSet.dependent, equals('Coda'));
       expect(pillBoxSet.pillBoxes.length, equals(1));
     });
@@ -38,7 +36,7 @@ void main() {
   group("Equatable", () {
     test('props contains list of all properties that determine equality when constructed', ()
     {
-      expect(pillBoxSet.props, equals([pillBoxSet.caretaker, pillBoxSet.dependent, pillBoxSet.pillBoxes]));
+      expect(pillBoxSet.props, equals([pillBoxSet.dependent, pillBoxSet.pillBoxes]));
     });
 
     test('stringify is turned on when constructed', ()

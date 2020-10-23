@@ -1,0 +1,17 @@
+{
+  "dependent": "Coda",
+  "pillBoxes": [
+    {
+      "name": "On 15th",
+      "frequency": "Monthly",
+      "pills": [
+        {
+          "name": "NexGard"
+        },
+        {
+          "name": "Heartgard"
+        }
+      ]
+    }
+  ]
+}

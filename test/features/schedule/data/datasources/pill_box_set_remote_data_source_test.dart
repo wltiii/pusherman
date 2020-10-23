@@ -24,7 +24,7 @@ void main() {
 
     void mockHttpGetWithStatus(status) {
       final body =
-          status == 200 ? fixtureAsString('pill_box_set.json') : 'Boom!';
+          status == 200 ? fixtureAsString('coda_pill_box_set.json') : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
@@ -52,7 +52,7 @@ void main() {
         mockHttpGetWithStatus(200);
         final aDependent = 'Coda';
         final expectedPillBoxSet =
-            PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+            PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
 
         // when
         final result = await dataSource.getByDependent(aDependent);
@@ -83,7 +83,7 @@ void main() {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
               (_) async => http.Response(expectedJsonString, 201),
@@ -110,7 +110,7 @@ void main() {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
               (_) async => http.Response(expectedJsonString, 201),
@@ -129,7 +129,7 @@ void main() {
 
       // test('updates a PillBoxSetModel', () async {
       //   // given
-      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
       //   final expectedJsonString = json.encode(givenPillBoxSet);
       //
       //   // when
@@ -144,7 +144,7 @@ void main() {
 
       // test('fails to create/update', () async {
       //   // given
-      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
       //   final expectedJsonString = json.encode(givenPillBoxSet);
       //
       //   // when

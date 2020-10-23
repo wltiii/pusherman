@@ -25,7 +25,7 @@ void main() {
     MockRemoteDataSource mockRemoteDataSource;
     PillBoxSetRepositoryImpl repository;
 
-    final pillBoxSetModel = PillBoxSetModel.fromJson(fixtureAsMap('pill_box_set.json'));
+    final pillBoxSetModel = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
     final dependent = pillBoxSetModel.dependent;
     final PillBoxSet pillBoxSet = pillBoxSetModel;
 

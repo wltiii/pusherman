@@ -14,7 +14,6 @@ void main() {
   MockPillBoxSetRepository mockPillBoxSetRepository;
 
   final pillBoxSet = PillBoxSet(
-      caretaker: "Bill",
       dependent: 'Zorba',
       pillBoxes: [
         PillBox(

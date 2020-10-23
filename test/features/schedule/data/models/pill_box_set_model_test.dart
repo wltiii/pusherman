@@ -9,49 +9,32 @@ import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import '../../../../fixtures/fixture_reader.dart' show fixtureAsString;
 
 void main() {
-  final vitaminC = PillModel(name: "C");
-  final evoo = PillModel(name: "Extra Virgin Olive Oil");
-  final cinsulin = PillModel(name: "Cinsulin - Cinnamon");
-  final coQ10 = PillModel(name: "Ubiquinol - CoQ10");
+  final NexGard = PillModel(name: "NexGard");
+  final Heartgard = PillModel(name: "Heartgard");
 
-  final morningPills = PillBoxModel(name: 'Morning', frequency: "Daily", pills: [vitaminC, evoo]);
-  final eveningPills = PillBoxModel(name: 'Bedtime', frequency: "Daily", pills: [cinsulin, coQ10]);
+  final pillBox = PillBoxModel(name: "On 15th", frequency: "Monthly", pills: [NexGard, Heartgard]);
 
-  final pillBoxes = [morningPills, eveningPills];
+  final pillBoxes = [pillBox];
 
   final pillBoxSetModel = PillBoxSetModel(
-    caretaker: "Bill",
     dependent: "Coda",
     pillBoxes: pillBoxes,
   );
 
-  final pillBoxSetJson = fixtureAsString('pill_box_set.json');
+  final pillBoxSetJson = fixtureAsString('coda_pill_box_set.json');
 
-  final pillBoxSetMap = {
-    "caretaker": "Bill",
+  final expectedPillBoxSetMap = {
     "dependent": "Coda",
     "pillBoxes": [
       {
-        "name": "Morning",
-        "frequency": "Daily",
+        "name": "On 15th",
+        "frequency": "Monthly",
         "pills": [
           {
-            "name": "C",
+            "name": "NexGard",
           },
           {
-            "name": "Extra Virgin Olive Oil",
-          }
-        ]
-      },
-      {
-        "name": "Bedtime",
-        "frequency": "Daily",
-        "pills": [
-          {
-            "name": "Cinsulin - Cinnamon",
-          },
-          {
-            "name": "Ubiquinol - CoQ10",
+            "name": "Heartgard",
           }
         ]
       }
@@ -60,7 +43,6 @@ void main() {
 
   group("construction", () {
     test('instantiates a PillBoxSetModel from named constructor', () async {
-      expect(pillBoxSetModel.caretaker, equals('Bill'));
       expect(pillBoxSetModel.dependent, equals('Coda'));
       expect(pillBoxSetModel.pillBoxes, pillBoxes);
     });
@@ -84,7 +66,7 @@ void main() {
       // when
       final result = pillBoxSetModel.toJson();
       // then
-      expect(result, pillBoxSetMap);
+      expect(result, expectedPillBoxSetMap);
     });
   });
 }

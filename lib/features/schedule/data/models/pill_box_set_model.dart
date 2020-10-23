@@ -9,18 +9,15 @@ class PillBoxSetModel extends PillBoxSet /*implements JsonModel<PillBoxSetModel>
   final List<PillBoxModel> pillBoxes;
 
   PillBoxSetModel({
-    @required String caretaker,
     @required String dependent,
     @required this.pillBoxes
   }) : super(
-      caretaker: caretaker,
       dependent: dependent,
     pillBoxes: pillBoxes
   );
 
   factory PillBoxSetModel.fromJson(Map<String, dynamic> json) {
     return PillBoxSetModel(
-      caretaker: json['caretaker'],
       dependent: json['dependent'],
       pillBoxes: json['pillBoxes']
           .map((pillBox) => PillBoxModel.fromJson(pillBox))
@@ -31,7 +28,6 @@ class PillBoxSetModel extends PillBoxSet /*implements JsonModel<PillBoxSetModel>
 
   Map<String, dynamic> toJson() {
     return {
-      "caretaker": caretaker,
       "dependent": dependent,
       "pillBoxes": (pillBoxes).map((pillBox) => pillBox.toJson()).toList(),
     };
