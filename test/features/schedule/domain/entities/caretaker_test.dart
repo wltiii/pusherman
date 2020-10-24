@@ -3,8 +3,8 @@ import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final pillbox = Caretaker(
-      caretaker: 'Morning',
+  final caretaker = Caretaker(
+      name: 'Mick',
       dependents: [
         'John',
         'Paul',
@@ -15,27 +15,25 @@ void main() {
 
   group("construction", () {
     test('should be a subclass of Equatable entity', () async {
-      expect(pillbox, isA<Equatable>());
+      expect(caretaker, isA<Equatable>());
     });
 
-    test('instantiates a PillBox from named argument constructor', ()
+    test('instantiates a Caretaker from named argument constructor', ()
     {
-      expect(pillbox.name, equals('Morning'));
-      expect(pillbox.frequency, equals('Daily'));
-      expect(pillbox.pills.length, equals(2));
+      expect(caretaker.name, equals('Mick'));
+      expect(caretaker.dependents.length, equals(4));
     });
-
   });
 
   group("Equatable", () {
     test('props contains list of all properties that determine equality when constructed', ()
     {
-      expect(pillbox.props, equals([pillbox.name, pillbox.frequency, pillbox.pills]));
+      expect(caretaker.props, equals([caretaker.name, caretaker.dependents]));
     });
 
     test('stringify is turned on when constructed', ()
     {
-      expect(pillbox.stringify, isTrue);
+      expect(caretaker.stringify, isTrue);
     });
   });
 }
