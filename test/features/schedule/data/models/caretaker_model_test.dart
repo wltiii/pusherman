@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
-import 'package:pusherman/features/schedule/data/models/pill_box_model.dart';
-import 'package:pusherman/features/schedule/data/models/pill_model.dart';
 import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 

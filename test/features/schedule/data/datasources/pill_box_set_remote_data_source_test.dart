@@ -90,12 +90,9 @@ void main() {
         );
 
         // when
-        final result = await dataSource.put(givenPillBoxSet);
+        await dataSource.put(givenPillBoxSet);
 
         // then
-        print('expectedUrl=$expectedUrl');
-        print('expectedJsonString=$expectedJsonString');
-        print('expectedHeaders=$expectedHeaders');
         verify(mockHttpClient.put(
           expectedUrl,
           body: expectedJsonString,
@@ -117,7 +114,7 @@ void main() {
         );
 
         // when
-        final result = await dataSource.put(givenPillBoxSet);
+        await dataSource.put(givenPillBoxSet);
 
         // then
         verify(mockHttpClient.put(

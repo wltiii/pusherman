@@ -1,8 +1,6 @@
 import 'package:meta/meta.dart';
-import 'package:pusherman/features/schedule/data/models/json_model.dart';
 import 'pill_box_model.dart';
 
-import 'pill_model.dart';
 import '../../domain/entities/pill_box_set.dart';
 
 class PillBoxSetModel extends PillBoxSet /*implements JsonModel<PillBoxSetModel>*/ {

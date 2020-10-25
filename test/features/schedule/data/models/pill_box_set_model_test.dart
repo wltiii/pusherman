@@ -9,10 +9,10 @@ import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import '../../../../fixtures/fixture_reader.dart' show fixtureAsString;
 
 void main() {
-  final NexGard = PillModel(name: "NexGard");
-  final Heartgard = PillModel(name: "Heartgard");
+  final nexGard = PillModel(name: "NexGard");
+  final heartgard = PillModel(name: "Heartgard");
 
-  final pillBox = PillBoxModel(name: "On 15th", frequency: "Monthly", pills: [NexGard, Heartgard]);
+  final pillBox = PillBoxModel(name: "On 15th", frequency: "Monthly", pills: [nexGard, heartgard]);
 
   final pillBoxes = [pillBox];
 

@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-            "Dependent: ${dependent}",
+            "Dependent: $dependent",
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal)
         ),
       ]
