@@ -6,6 +6,7 @@ import 'package:test/test.dart';
 
 void main() {
 
+  final List<String> caretakers = ["Bill", "Pooh"];
   final pillBox = PillBox(
       name: 'Morning',
       frequency: 'Daily',
@@ -16,6 +17,7 @@ void main() {
 
   final pillBoxSet = PillBoxSet(
       dependent: 'Coda',
+      caretakers: caretakers,
       pillBoxes: [pillBox]
   );
 
@@ -28,6 +30,7 @@ void main() {
     test('instantiates a PillBoxSet from named argument constructor', ()
     {
       expect(pillBoxSet.dependent, equals('Coda'));
+      expect(pillBoxSet.caretakers.length, equals(2));
       expect(pillBoxSet.pillBoxes.length, equals(1));
     });
 
@@ -36,7 +39,7 @@ void main() {
   group("Equatable", () {
     test('props contains list of all properties that determine equality when constructed', ()
     {
-      expect(pillBoxSet.props, equals([pillBoxSet.dependent, pillBoxSet.pillBoxes]));
+      expect(pillBoxSet.props, equals([pillBoxSet.dependent, pillBoxSet.caretakers, pillBoxSet.pillBoxes]));
     });
 
     test('stringify is turned on when constructed', ()

@@ -13,11 +13,12 @@ void main() {
   final heartgard = PillModel(name: "Heartgard");
 
   final pillBox = PillBoxModel(name: "On 15th", frequency: "Monthly", pills: [nexGard, heartgard]);
-
+  final caretakers = ["Bill", "Pooh"];
   final pillBoxes = [pillBox];
 
   final pillBoxSetModel = PillBoxSetModel(
     dependent: "Coda",
+    caretakers: caretakers,
     pillBoxes: pillBoxes,
   );
 
@@ -25,6 +26,10 @@ void main() {
 
   final expectedPillBoxSetMap = {
     "dependent": "Coda",
+    "caretakers": [
+      "Bill",
+      "Pooh"
+    ],
     "pillBoxes": [
       {
         "name": "On 15th",
@@ -44,6 +49,7 @@ void main() {
   group("construction", () {
     test('instantiates a PillBoxSetModel from named constructor', () async {
       expect(pillBoxSetModel.dependent, equals('Coda'));
+      expect(pillBoxSetModel.caretakers, equals(caretakers));
       expect(pillBoxSetModel.pillBoxes, pillBoxes);
     });
 

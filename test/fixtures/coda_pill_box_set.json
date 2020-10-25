@@ -1,5 +1,9 @@
 {
   "dependent": "Coda",
+  "caretakers": [
+    "Bill",
+    "Pooh"
+  ],
   "pillBoxes": [
     {
       "name": "On 15th",
