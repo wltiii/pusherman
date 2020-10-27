@@ -15,6 +15,7 @@ void main() {
 
   final pillBoxSet = PillBoxSet(
       dependent: 'Zorba',
+      caretakers: ['Bill'],
       pillBoxes: [
         PillBox(
             name: 'Morning',
