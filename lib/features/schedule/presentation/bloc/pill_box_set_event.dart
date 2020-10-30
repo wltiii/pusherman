@@ -7,10 +7,10 @@ abstract class PillBoxSetEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetPillBoxSet extends PillBoxSetEvent {
+class GetPillBoxSetForDependent extends PillBoxSetEvent {
   final String dependent;
 
-  GetPillBoxSet({@required this.dependent});
+  GetPillBoxSetForDependent({@required this.dependent});
 
   @override
   List<Object> get props => [dependent];
