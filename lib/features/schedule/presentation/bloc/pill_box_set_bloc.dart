@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import '../../../../core/presentation/converter/input_converter.dart';
 import '../../domain/usecases/get_pill_box_set.dart';
 import './bloc.dart';
+import 'package:meta/meta.dart';
 
 class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
   final GetPillBoxSet getPillBoxSet;
