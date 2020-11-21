@@ -32,6 +32,12 @@ void main() {
   group('GET PillBoxSet', () {
     final givenDependent = 'bill';
     final expectedDependent = 'bill';
+    final pillBoxSet = PillBoxSet(
+        dependent: 'Coda',
+        caretakers: caretakers,
+        pillBoxes: [pillBox]
+    );
+
 
     // TODO this test should be only necessary initially and
     // TODO removed once other logic/tests can do this as course of action
@@ -68,6 +74,16 @@ void main() {
 
       // when
       bloc.add(GetPillBoxSetForDependent(null));
+    });
+
+    test('gets a pill box set', () async {
+      // given
+      when(mockGetPillBoxSet(givenDependent))
+          .thenAnswer((_) async => Right());
+
+      // when
+
+      // then
     });
   });
 }
