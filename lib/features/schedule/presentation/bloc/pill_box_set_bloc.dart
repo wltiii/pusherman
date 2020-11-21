@@ -8,6 +8,9 @@ import '../../../../core/presentation/converter/input_converter.dart';
 import '../../domain/usecases/get_pill_box_set.dart';
 import './bloc.dart';
 
+const String DEPENDENT_NOT_FOUND = "Could not find a pill box set for the dependent.";
+const String DEPENDENT_NOT_ENTERED = "Dependent was not entered or invalid.";
+
 class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
   final GetPillBoxSet getPillBoxSet;
   final InputConverter inputConverter;
@@ -26,6 +29,22 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
   Stream<PillBoxSetState> mapEventToState(
     PillBoxSetEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if(event is GetPillBoxSetForDependent) {
+      final inputEither = inputConverter.toWordString(event.dependent);
+
+      yield* inputEither.fold(
+        (failure) async* {
+          yield PillBoxSetError(message: DEPENDENT_NOT_ENTERED);
+        },
+        (string) async* {
+          // TODO: implement mapEventToState
+          print("add logic here!");
+          // yield Loading();
+          // final failureOrTrivia =
+          // await getPillBoxSet(Params(number: integer));
+          // yield* _eitherLoadedOrErrorState(failureOrTrivia);
+        },
+      );
+    }
   }
 }

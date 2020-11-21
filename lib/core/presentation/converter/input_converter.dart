@@ -12,6 +12,17 @@ class InputConverter {
       return Left(InvalidInputFailure());
     }
   }
+
+  Either<Failure, String> toWordString(String s) {
+    if (s == null) {
+      return Left(InvalidInputFailure());
+    }
+    String trimmedString = s.trim();
+    if (trimmedString.isEmpty) {
+      return Left(InvalidInputFailure());
+    }
+    return Right(trimmedString);
+  }
 }
 
 class InvalidInputFailure extends Failure {}

@@ -7,10 +7,12 @@ abstract class PillBoxSetEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetPillBoxSetGetEvent extends PillBoxSetEvent {
+class GetPillBoxSetForDependent extends PillBoxSetEvent {
   final String dependent;
 
-  GetPillBoxSetGetEvent({@required this.dependent});
+  // TODO why is this using a standard constructor rather than named?
+  // GetPillBoxSetGetEvent({@required this.dependent});
+  GetPillBoxSetForDependent(this.dependent);
 
   @override
   List<Object> get props => [dependent];
