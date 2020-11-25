@@ -1,5 +1,3 @@
-//DELETE THIS
-
 import 'package:flutter/material.dart';
 
 import 'features/schedule/domain/entities/pill_box.dart';
