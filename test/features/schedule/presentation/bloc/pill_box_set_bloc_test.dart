@@ -1,9 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
+import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/bloc.dart';
+
+import '../../../../fixtures/fixture_reader.dart';
 
 class MockGetPillBoxSet extends Mock implements GetPillBoxSet {}
 
@@ -30,14 +35,10 @@ void main() {
   });
 
   group('GET PillBoxSet', () {
-    final givenDependent = 'bill';
-    final expectedDependent = 'bill';
-    final pillBoxSet = PillBoxSet(
-        dependent: 'Coda',
-        caretakers: caretakers,
-        pillBoxes: [pillBox]
-    );
-
+    final pillBoxSetMap = fixtureAsMap('coda_pill_box_set.json');
+    final givenDependent = pillBoxSetMap['dependent'];
+    final expectedDependent = pillBoxSetMap['dependent'];
+    final PillBoxSet expectedPillBoxSet = PillBoxSetModel.fromJson(pillBoxSetMap);
 
     // TODO this test should be only necessary initially and
     // TODO removed once other logic/tests can do this as course of action
@@ -66,7 +67,7 @@ void main() {
       // given
       final expectedEmissions = [
         PillBoxSetEmpty(),
-        PillBoxSetError(message: DEPENDENT_NOT_ENTERED)
+        PillBoxSetError(message: DEPENDENT_INVALID)
       ];
 
       // expect
@@ -78,12 +79,78 @@ void main() {
 
     test('gets a pill box set', () async {
       // given
-      when(mockGetPillBoxSet(givenDependent))
-          .thenAnswer((_) async => Right());
+      when(mockGetPillBoxSet(any))
+          .thenAnswer((_) async => Right(expectedPillBoxSet));
 
       // when
+      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      await untilCalled(mockGetPillBoxSet(any));
 
       // then
+      verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+    });
+
+    test('emits [Loading, Loaded] when data is successfully retrieved', () async {
+      // given
+      final expectedEmissions = [
+        PillBoxSetEmpty(),
+        PillBoxSetLoading(),
+        PillBoxSetLoaded(pillBoxSet: expectedPillBoxSet)
+      ];
+      when(mockGetPillBoxSet(any))
+          .thenAnswer((_) async => Right(expectedPillBoxSet));
+
+      // expect
+      expectLater(bloc, emitsInOrder(expectedEmissions));
+
+      // when
+      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      // await untilCalled(mockGetPillBoxSet(any));
+      //
+      // // then
+      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+    });
+
+    test('emits [Loading, Error] when server retrieval fails', () async {
+      // given
+      final expectedEmissions = [
+        PillBoxSetEmpty(),
+        PillBoxSetLoading(),
+        PillBoxSetError(message: UNAVAILABLE_NETWORK)
+      ];
+      when(mockGetPillBoxSet(any))
+          .thenAnswer((_) async => Left(ServerFailure()));
+
+      // expect
+      expectLater(bloc, emitsInOrder(expectedEmissions));
+
+      // when
+      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      // await untilCalled(mockGetPillBoxSet(any));
+      //
+      // // then
+      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+    });
+
+    test('emits [Loading, Error] when cache retrieval fails', () async {
+      // given
+      final expectedEmissions = [
+        PillBoxSetEmpty(),
+        PillBoxSetLoading(),
+        PillBoxSetError(message: DEPENDENT_NOT_FOUND)
+      ];
+      when(mockGetPillBoxSet(any))
+          .thenAnswer((_) async => Left(CacheFailure()));
+
+      // expect
+      expectLater(bloc, emitsInOrder(expectedEmissions));
+
+      // when
+      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      // await untilCalled(mockGetPillBoxSet(any));
+      //
+      // // then
+      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
     });
   });
 }
