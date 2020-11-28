@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^0.5.8
   # check connectivity
   data_connection_checker: ^0.3.4
+  # sealed unions implementation
+  sealed_unions: "^3.0.2+2"
 
 
   # The following adds the Cupertino Icons font to your application.

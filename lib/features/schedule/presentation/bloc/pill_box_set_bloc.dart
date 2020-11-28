@@ -39,19 +39,30 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
           yield PillBoxSetError(message: DEPENDENT_INVALID);
         },
         (dependent) async* {
-          yield PillBoxSetLoading();
-          getPillBoxSet(Params(dependent: dependent));
-          final failureOrSet = await getPillBoxSet(Params(dependent: dependent));
-          yield failureOrSet.fold(
-              (failure) => PillBoxSetError(message: failure is ServerFailure
-                  ? UNAVAILABLE_NETWORK
-                  : DEPENDENT_NOT_FOUND
-              ),
-              (pillBoxSet) => PillBoxSetLoaded(pillBoxSet: pillBoxSet),
-          );
-          // yield* _eitherLoadedOrErrorState(failureOrTrivia);
+          yield* _loadOrError(dependent);
         },
       );
+    }
+  }
+
+  Stream<PillBoxSetState> _loadOrError(String dependent) async* {
+    yield PillBoxSetLoading();
+    final failureOrPillBoxSet = await getPillBoxSet(Params(dependent: dependent));
+    yield failureOrPillBoxSet.fold(
+        (failure) => PillBoxSetError(message: _buildPillBoxSetError(failure)),
+        (pillBoxSet) => PillBoxSetLoaded(pillBoxSet: pillBoxSet),
+    );
+  }
+
+  String _buildPillBoxSetError(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return UNAVAILABLE_NETWORK;
+      case CacheFailure:
+        return DEPENDENT_NOT_FOUND;
+        //TODO default is untested - use a sealed union instead!
+      default:
+        return 'Unexpected Error';
     }
   }
 }
