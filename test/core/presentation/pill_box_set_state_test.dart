@@ -3,8 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_state.dart';
 
+class PillBoxSetDummy extends PillBoxSetState {}
+
 void main() {
-  final pillBoxState = PillBoxSetState();
+  final pillBoxState = PillBoxSetDummy();
   final emptyState = PillBoxSetEmpty();
   final loadingState = PillBoxSetLoading();
   final loadedState = PillBoxSetLoaded(pillBoxSet: PillBoxSet(caretakers: [], dependent: 'aDependent', pillBoxes: []));

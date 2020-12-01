@@ -60,7 +60,7 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
         return UNAVAILABLE_NETWORK;
       case CacheFailure:
         return DEPENDENT_NOT_FOUND;
-        //TODO default is untested - use a sealed union instead!
+        //TODO default is untested - use freezed instead!
       default:
         return 'Unexpected Error';
     }
