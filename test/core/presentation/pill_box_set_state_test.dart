@@ -6,7 +6,7 @@ import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_state
 class PillBoxSetDummy extends PillBoxSetState {}
 
 void main() {
-  final pillBoxState = PillBoxSetDummy();
+  final dummyState = PillBoxSetDummy();
   final emptyState = PillBoxSetEmpty();
   final loadingState = PillBoxSetLoading();
   final loadedState = PillBoxSetLoaded(pillBoxSet: PillBoxSet(caretakers: [], dependent: 'aDependent', pillBoxes: []));
@@ -14,7 +14,7 @@ void main() {
 
   group("Equatable", () {
     test('should be a subclass of Equatable entity', () async {
-      expect(pillBoxState, isA<Equatable>());
+      expect(dummyState, isA<Equatable>());
       expect(emptyState, isA<Equatable>());
       expect(loadingState, isA<Equatable>());
       expect(loadedState, isA<Equatable>());
@@ -22,7 +22,7 @@ void main() {
     });
 
     test('contains correct number of props', () {
-      expect(pillBoxState.props.length, equals(0));
+      expect(dummyState.props.length, equals(0));
       expect(emptyState.props.length, equals(0));
       expect(loadingState.props.length, equals(0));
       expect(loadedState.props.length, equals(1));
