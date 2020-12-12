@@ -17,8 +17,7 @@ import 'features/schedule/presentation/bloc/pill_box_set_bloc.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> init() async {
-  // Features - Schedule
-
+  //! Features - Schedule
   // Bloc
   serviceLocator.registerFactory(() =>
       PillBoxSetBloc(
@@ -40,11 +39,11 @@ Future<void> init() async {
   );
 
   // Data sources
-  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(() =>
-      PillBoxSetLocalDataSourceImpl(sharedPreferences: serviceLocator())
+  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(
+      () =>  PillBoxSetLocalDataSourceImpl(sharedPreferences: serviceLocator())
   );
-  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(() =>
-      PillBoxSetRemoteDataSourceImpl(client: serviceLocator())
+  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(
+      () => PillBoxSetRemoteDataSourceImpl(client: serviceLocator())
   );
 
   // Core

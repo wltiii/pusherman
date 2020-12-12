@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_state.dart';
-import 'package:pusherman/features/schedule/presentation/widgets/message_widget.dart';
-import 'package:pusherman/features/schedule/presentation/widgets/pill_box_set_widget.dart';
-import 'package:pusherman/features/schedule/presentation/widgets/spinner_widget.dart';
 
-import '../../../../injection_container.dart';
+import '../../../../service_locator.dart';
 import '../bloc/pill_box_set_bloc.dart';
+import '../bloc/pill_box_set_state.dart';
+import '../widgets/message_widget.dart';
+import '../widgets/pill_box_set_widget.dart';
+import '../widgets/spinner_widget.dart';
 
 class DependentPillBoxesPage extends StatelessWidget {
   @override
