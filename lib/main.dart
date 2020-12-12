@@ -7,6 +7,7 @@ import 'service_locator.dart' as di;
 void main() async {
   print("main");
   await di.init();
+  print("main2");
   runApp(MyApp());
 }
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pusherman',
+      title: 'Pusherman2',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.blueGrey,

@@ -16,9 +16,10 @@ class DependentPillBoxesPage extends StatelessWidget {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Pusherman'),
+        title: Text('Pusherman3'),
       ),
       body: buildPillBoxSetBody(context)
+      //body: Text('body is here')
     );
   }
 
@@ -30,20 +31,39 @@ class DependentPillBoxesPage extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget> [
+             // Text('children array...'),
+              //Text('children array2...')
+             //MessageWidget(message: 'initial view')
               BlocBuilder<PillBoxSetBloc, PillBoxSetState>(
                 builder: (context, state) {
                   // TODO do not case like this!
                   if (state is PillBoxSetEmpty) {
-                    return MessageWidget(message: 'initial view');
+                    //return MessageWidget(message: 'initial view');
+                    print('1');
+                    return Text('one');
                   }
                   else if (state is PillBoxSetLoading) {
-                    return SpinnerWidget();
+                    //return SpinnerWidget();
+                    print('2');
+                    return Text('two');
+                    //return MessageWidget(message: 'loading view');
                   }
                   else if (state is PillBoxSetLoaded) {
-                    return PillBoxesSetWidget(pillBoxSet: state.pillBoxSet);
+                    //return MessageWidget(message: 'loaded view');
+                    print('3');
+                    return Text('three');
+                    //return PillBoxesSetWidget(pillBoxSet: state.pillBoxSet);
                   }
                   else if (state is PillBoxSetError) {
-                    return MessageWidget(message: state.message);
+                    print('4');
+                    return Text('four');
+                    //return MessageWidget(message: 'error view');
+                    //return MessageWidget(message: state.message);
+                  }
+                  else{
+                    //return MessageWidget(message: 'subsequent view');
+                    print('5');
+                    return Text('five');
                   }
                 }
               ),

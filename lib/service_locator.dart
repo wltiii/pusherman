@@ -39,10 +39,10 @@ Future<void> init() async {
   );
 
   // Data sources
-  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(
+  serviceLocator.registerLazySingleton<PillBoxSetLocalDataSourceImpl>(
       () =>  PillBoxSetLocalDataSourceImpl(sharedPreferences: serviceLocator())
   );
-  serviceLocator.registerLazySingleton<PillBoxSetDataSource>(
+  serviceLocator.registerLazySingleton<PillBoxSetRemoteDataSourceImpl>(
       () => PillBoxSetRemoteDataSourceImpl(client: serviceLocator())
   );
 
