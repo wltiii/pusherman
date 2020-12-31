@@ -1,4 +1,4 @@
-import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
+import '../models/caretaker_model.dart';
 
 abstract class CaretakerDataSource {
   Future<CaretakerModel> get(String name);

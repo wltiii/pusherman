@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 String fixtureAsString(String name) => Directory.current.path.endsWith('/test')
     ? File('fixtures/$name').readAsStringSync()

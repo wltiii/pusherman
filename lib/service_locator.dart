@@ -1,60 +1,58 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:pusherman/core/network/network_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/network/network_info.dart';
 import 'core/presentation/converter/input_converter.dart';
-import 'features/schedule/data/repositories/pill_box_set_repository_impl.dart';
-import 'features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
+import 'features/schedule/data/repositories/pill_box_set_repository_impl.dart';
 import 'features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'features/schedule/domain/usecases/get_pill_box_set.dart';
 import 'features/schedule/presentation/bloc/pill_box_set_bloc.dart';
 
-final serviceLocator = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> init() async {
   //! Features - Schedule
   // Bloc
-  serviceLocator.registerFactory(() =>
+  sl.registerFactory(() =>
       PillBoxSetBloc(
-          pillBoxSetGetter: serviceLocator(),
-          inputConverter: serviceLocator()
+          pillBoxSetGetter: sl.get<GetPillBoxSet>(),
+          inputConverter: sl.get<InputConverter>(),
       )
   );
 
   // Use cases
-  serviceLocator.registerLazySingleton(() => GetPillBoxSet(serviceLocator()));
+  sl.registerLazySingleton(() => GetPillBoxSet(sl.get<PillBoxSetRepository>()));
 
   // Repository
-  serviceLocator.registerLazySingleton<PillBoxSetRepository>(() =>
+  sl.registerLazySingleton<PillBoxSetRepository>(() =>
       PillBoxSetRepositoryImpl(
-          networkInfo: serviceLocator(),
-          localDataSource: serviceLocator(),
-          remoteDataSource: serviceLocator()
+          networkInfo: sl.get<NetworkInfo>(),
+          localDataSource: sl.get<PillBoxSetLocalDataSource>(),
+          remoteDataSource: sl.get<PillBoxSetRemoteDataSource>(),
       )
   );
 
   // Data sources
-  serviceLocator.registerLazySingleton<PillBoxSetLocalDataSourceImpl>(
-      () =>  PillBoxSetLocalDataSourceImpl(sharedPreferences: serviceLocator())
+  sl.registerLazySingleton<PillBoxSetLocalDataSource>(
+      () =>  PillBoxSetLocalDataSourceImpl(sharedPreferences: sl())
   );
-  serviceLocator.registerLazySingleton<PillBoxSetRemoteDataSourceImpl>(
-      () => PillBoxSetRemoteDataSourceImpl(client: serviceLocator())
-  );
-
-  // Core
-  serviceLocator.registerLazySingleton(() => InputConverter());
-  serviceLocator.registerLazySingleton<NetworkInfo>(() =>
-      NetworkInfoImpl(serviceLocator())
+  sl.registerLazySingleton<PillBoxSetRemoteDataSource>(
+      () => PillBoxSetRemoteDataSourceImpl(client: sl.get<http.Client>())
   );
 
-  // External
+  //! Core
+  sl.registerLazySingleton<InputConverter>(() => InputConverter());
+  sl.registerLazySingleton<NetworkInfo>(() =>
+      NetworkInfoImpl(sl.get<DataConnectionChecker>())
+  );
+
+  //! External
   final sharedPreferences = await SharedPreferences.getInstance();
-  serviceLocator.registerLazySingleton(() => sharedPreferences);
-  serviceLocator.registerLazySingleton(() => http.Client());
-  serviceLocator.registerLazySingleton(() => DataConnectionChecker());
+  sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+  sl.registerLazySingleton<http.Client>(() => http.Client());
+  sl.registerLazySingleton<DataConnectionChecker>(() => DataConnectionChecker());
 }

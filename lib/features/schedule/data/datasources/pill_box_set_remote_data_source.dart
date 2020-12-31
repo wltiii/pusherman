@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:pusherman/core/error/exception.dart';
-import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../core/error/exception.dart';
+import '../models/pill_box_set_model.dart';
 
 import 'pill_box_set_data_source.dart';
 
@@ -11,7 +12,11 @@ import 'pill_box_set_data_source.dart';
 const BASE_HOST_URI = 'localhost:8000';
 const DEPENDENT_PATH = 'dependent';
 
-class PillBoxSetRemoteDataSourceImpl implements PillBoxSetDataSource {
+//TODO make sure there are tests that verify the impl is a PillBoxSetRemoteDataSource
+abstract class PillBoxSetRemoteDataSource extends PillBoxSetDataSource {
+}
+
+class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
   final http.Client client;
 
   PillBoxSetRemoteDataSourceImpl({
@@ -20,7 +25,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetDataSource {
 
   @override
   Future<PillBoxSetModel> getByDependent(String dependent) async {
-    final uri = new Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/$dependent');
+    final uri = Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/$dependent');
     final headers = {'Content-Type': 'application/json'};
     final response = await client.get(
       uri.toString(),
@@ -36,7 +41,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetDataSource {
 
   @override
   Future<void> put(PillBoxSetModel pillBoxSet) async {
-    final uri = new Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/${pillBoxSet.dependent}');
+    final uri = Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/${pillBoxSet.dependent}');
     final headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     final body = json.encode(pillBoxSet.toJson());
     print('url=${uri.toString()}');

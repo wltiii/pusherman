@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+import '../../../../core/error/failure.dart';
+import '../../../../core/usecases/usecase.dart';
 import '../entities/caretaker.dart';
 import '../repositories/caretaker_repository.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../../../core/error/failure.dart';
 
 
 class GetCaretaker implements UseCase<Caretaker, Params> {

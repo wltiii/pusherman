@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import 'pill_model.dart';
 import '../../domain/entities/pill_box.dart';
+import 'pill_model.dart';
 
 class PillBoxModel extends PillBox {
   final List<PillModel> pills;

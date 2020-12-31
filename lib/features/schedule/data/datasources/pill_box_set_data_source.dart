@@ -1,4 +1,4 @@
-import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
+import '../models/pill_box_set_model.dart';
 
 abstract class PillBoxSetDataSource {
   Future<PillBoxSetModel> getByDependent(String dependent);

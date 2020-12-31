@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 void main() {
 
-  final List<String> caretakers = ["Bill", "Pooh"];
+  final caretakers = ["Bill", "Pooh"];
   final pillBox = PillBox(
       name: 'Morning',
       frequency: 'Daily',

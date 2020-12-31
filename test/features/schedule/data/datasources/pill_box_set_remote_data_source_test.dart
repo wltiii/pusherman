@@ -103,7 +103,7 @@ void main() {
       test('creates a PillBoxSetModel', () async {
         // given
         var expectedUrl = 'http://localhost:8000/dependent/Coda';
-        Map<String,String> expectedHeaders = {
+        var expectedHeaders = {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };

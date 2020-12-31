@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+
+import '../../domain/entities/pill_box.dart';
+import '../../domain/entities/pill_box_set.dart';
 
 class PillBoxesSetWidget extends StatelessWidget {
   final PillBoxSet pillBoxSet;
@@ -33,14 +34,14 @@ class PillBoxesSetWidget extends StatelessWidget {
   Widget _buildSetTitle(PillBox pillbox) {
     return Text(
         pillbox.name,
-        style: new TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
+        style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
     );
   }
 
   Widget _buildSetSubtitle(PillBox pillbox) {
     return Text(
         pillbox.frequency,
-        style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)
+        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)
     );
   }
 
@@ -50,7 +51,7 @@ class PillBoxesSetWidget extends StatelessWidget {
         children: [
           Text(
               "Dependent: $dependent",
-              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal)
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal)
           ),
         ]
     );
@@ -58,6 +59,7 @@ class PillBoxesSetWidget extends StatelessWidget {
 
   Widget _buildPillList(List pills) {
     return ExpansionTile(
+      title: Text('Pills'),
       children: pills.map((pill) => _buildPillItem(pill)).toList(),
     );
   }
@@ -65,7 +67,7 @@ class PillBoxesSetWidget extends StatelessWidget {
   Widget _buildPillItem(String pill) {
     return Text(
         pill,
-        style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal)
+        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal)
     );
   }
 }

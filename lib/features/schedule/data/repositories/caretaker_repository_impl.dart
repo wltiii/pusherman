@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:pusherman/core/error/exception.dart';
-import 'package:pusherman/core/error/failure.dart';
-import 'package:pusherman/core/network/network_info.dart';
-import 'package:pusherman/features/schedule/data/datasources/caretaker_data_source.dart';
-import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
-import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 
+import '../../../../core/error/exception.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/network/network_info.dart';
+import '../../domain/entities/caretaker.dart';
 import '../../domain/repositories/caretaker_repository.dart';
+import '../datasources/caretaker_data_source.dart';
+import '../models/caretaker_model.dart';
 
 class CaretakerRepositoryImpl implements CaretakerRepository {
   final NetworkInfo networkInfo;
