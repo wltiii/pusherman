@@ -9,6 +9,15 @@ void main() {
     inputConverter = InputConverter();
   });
 
+  group('construction', () {
+    test('factory', () {
+      final instance = InputConverter();
+      expect(instance, isNot(null));
+      expect(instance, isA<InputConverter>());
+    });
+  });
+
+
   group('to unsigned integer', () {
     test('converts a string representing an unsigned integer to an integer', () async {
       // given

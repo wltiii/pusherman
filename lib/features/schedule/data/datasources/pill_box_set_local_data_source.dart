@@ -22,9 +22,16 @@ class PillBoxSetLocalDataSourceImpl implements PillBoxSetLocalDataSource {
 
   @override
   Future<PillBoxSetModel> getByDependent(String dependent) {
-    final cachedPillBoxSet = sharedPreferences.getString(CACHED_PILL_BOX_SET + dependent);
+    final cachedPillBoxSet = sharedPreferences.getString(
+        CACHED_PILL_BOX_SET + dependent
+    );
+
     if (cachedPillBoxSet != null) {
-      return Future.value(PillBoxSetModel.fromJson(json.decode(cachedPillBoxSet)));
+      return Future.value(
+          PillBoxSetModel.fromJson(
+              json.decode(cachedPillBoxSet)
+          )
+      );
     }
 
     throw CacheException();

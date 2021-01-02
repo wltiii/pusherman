@@ -3,6 +3,12 @@ import 'package:dartz/dartz.dart';
 import '../../error/failure.dart';
 
 class InputConverter {
+  static final InputConverter _instance = InputConverter._();
+
+  factory InputConverter() => _instance;
+
+  InputConverter._() { }
+
   Either<Failure, int> toUnsignedInteger(String s) {
     try {
       var i = int.parse(s);

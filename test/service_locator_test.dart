@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
+import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
@@ -26,11 +27,11 @@ void main() async {
     test('SharedPreferences', () {
       expect(di.sl.isRegistered<SharedPreferences>(), isTrue);
     });
-    test('NetworkInfo', () async {
-      expect(di.sl.isRegistered<NetworkInfo>(), isTrue);
-    });
     test('InputConverter', () {
       expect(di.sl.isRegistered<InputConverter>(), isTrue);
+    });
+    test('NetworkInfo', () async {
+      expect(di.sl.isRegistered<NetworkInfo>(), isTrue);
     });
     test('PillBoxSetLocalDataSource', () {
       expect(di.sl.isRegistered<PillBoxSetLocalDataSource>(), isTrue);
@@ -47,6 +48,26 @@ void main() async {
     test('PillBoxSetBloc', () {
       expect(di.sl.isRegistered<PillBoxSetBloc>(), isTrue);
     });
-
   });
+
+  group('gets instance', () {
+    test('DataConnectionChecker', () {
+      final instance = di.sl.get<DataConnectionChecker>();
+      expect(instance, isNot(null));
+      expect(instance, isA<DataConnectionChecker>());
+    });
+    test('InputConverter', () {
+      final instance = di.sl.get<InputConverter>();
+      expect(instance, isNot(null));
+      expect(instance, isA<InputConverter>());
+    });
+    test('PillBoxSetLocalDataSource', () async {
+      final instance = di.sl.get<PillBoxSetLocalDataSource>();
+      expect(instance, isNot(null));
+      expect(instance, isA<PillBoxSetLocalDataSource>());
+      // TODO throws expected CacheException - catch it
+      // PillBoxSetModel model = await instance.getByDependent('dependent');
+    });
+  });
+
 }
