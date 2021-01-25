@@ -1,21 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/pill_box.dart';
-import '../../domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 
 class PillBoxesSetWidget extends StatelessWidget {
   final PillBoxSet pillBoxSet;
 
   const PillBoxesSetWidget({
-    Key key,
+    @required Key key,
     @required this.pillBoxSet,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    pillBoxSet.pillBoxes.forEach((pillBox) =>
-        _buildSetItem(pillBox, pillBoxSet.dependent)
+    // List<Widget> widgets = [];
+    // pillBoxSet.pillBoxes.forEach((pillBox) =>
+    //     widgets.add(_buildSetItem(pillBox, pillBoxSet.dependent))
+    // );
+    // List<Widget> widgets = pillBoxSet.pillBoxes.map((box) => _buildPillItem)
+    //     .toList() as List<Widget>;
+    // return Column(
+    //   children: widgets,
+    // );
+    return Column(
+      children: pillBoxSet.pillBoxes.map((box) => _buildPillItem)
+          .toList() as List<Widget>,
     );
   }
 

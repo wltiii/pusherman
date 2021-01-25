@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
-import '../../../../core/error/exception.dart';
-import '../models/pill_box_set_model.dart';
+import 'package:pusherman/core/error/exception.dart';
+import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 
 import 'pill_box_set_data_source.dart';
 
@@ -40,7 +41,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
   }
 
   @override
-  Future<void> put(PillBoxSetModel pillBoxSet) async {
+  Future<Response> put(PillBoxSetModel pillBoxSet) async {
     final uri = Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/${pillBoxSet.dependent}');
     final headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     final body = json.encode(pillBoxSet.toJson());

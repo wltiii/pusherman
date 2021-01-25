@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
-import '../entities/pill_box_set.dart';
+import 'package:pusherman/core/error/failure.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 
 
 abstract class PillBoxSetRepository {

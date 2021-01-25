@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import '../../../../core/error/failure.dart';
+import 'package:pusherman/core/error/failure.dart';
 
-import '../../../../core/presentation/converter/input_converter.dart';
-import '../../domain/usecases/get_pill_box_set.dart';
-import './bloc.dart';
+import 'package:pusherman/core/presentation/converter/input_converter.dart';
+import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
+import 'package:pusherman/features/schedule/presentation/bloc/bloc.dart';
 
 const String DEPENDENT_NOT_FOUND = "Could not find a pill box set for the dependent.";
 const String DEPENDENT_INVALID = "Dependent was not entered or invalid.";

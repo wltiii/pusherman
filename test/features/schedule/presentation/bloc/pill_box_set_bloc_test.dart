@@ -30,6 +30,15 @@ void main() {
   });
 
   test('initialState returns empty state', () {
+    // given
+    mockGetPillBoxSet = MockGetPillBoxSet();
+    inputConverter = InputConverter();
+
+    bloc = PillBoxSetBloc(
+      pillBoxSetGetter: mockGetPillBoxSet,
+      inputConverter: inputConverter,
+    );
+
     // assert
     expect(bloc.initialState, equals(PillBoxSetEmpty()));
   });
@@ -43,28 +52,43 @@ void main() {
     // TODO this test should be only necessary initially and
     // TODO removed once other logic/tests can do this as course of action
     test('calls InputConverter to validate and convert the dependent', () async {
-        // given
-        final mockInputConverter = MockInputConverter();
+      // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
 
-        when(mockInputConverter.toWordString(any))
-            .thenReturn(Right(expectedDependent));
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
 
-        bloc = PillBoxSetBloc(
-          pillBoxSetGetter: mockGetPillBoxSet,
-          inputConverter: mockInputConverter,
-        );
+      final mockInputConverter = MockInputConverter();
 
-        // when
-        bloc.add(GetPillBoxSetForDependent(givenDependent));
-        await untilCalled(mockInputConverter.toWordString(any));
+      when(mockInputConverter.toWordString(any))
+          .thenReturn(Right(expectedDependent));
 
-        // then
-        verify(mockInputConverter.toWordString(expectedDependent));
-      },
-    );
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: mockInputConverter,
+      );
+
+      // when
+      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      await untilCalled(mockInputConverter.toWordString(any));
+
+      // then
+      verify(mockInputConverter.toWordString(expectedDependent));
+    });
 
     test('emits [error] states when dependent is invalid', () async {
       // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
+
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
+
       final expectedEmissions = [
         PillBoxSetEmpty(),
         PillBoxSetError(message: DEPENDENT_INVALID)
@@ -79,6 +103,14 @@ void main() {
 
     test('gets a pill box set', () async {
       // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
+
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
+
       when(mockGetPillBoxSet(any))
           .thenAnswer((_) async => Right(expectedPillBoxSet));
 
@@ -92,6 +124,13 @@ void main() {
 
     test('emits [Loading, Loaded] when data is successfully retrieved', () async {
       // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
+
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
       final expectedEmissions = [
         PillBoxSetEmpty(),
         PillBoxSetLoading(),
@@ -113,6 +152,13 @@ void main() {
 
     test('emits [Loading, Error] when server retrieval fails', () async {
       // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
+
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
       final expectedEmissions = [
         PillBoxSetEmpty(),
         PillBoxSetLoading(),
@@ -134,6 +180,13 @@ void main() {
 
     test('emits [Loading, Error] when cache retrieval fails', () async {
       // given
+      mockGetPillBoxSet = MockGetPillBoxSet();
+      inputConverter = InputConverter();
+
+      bloc = PillBoxSetBloc(
+        pillBoxSetGetter: mockGetPillBoxSet,
+        inputConverter: inputConverter,
+      );
       final expectedEmissions = [
         PillBoxSetEmpty(),
         PillBoxSetLoading(),

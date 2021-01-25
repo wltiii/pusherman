@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../core/error/exception.dart';
-import '../models/caretaker_model.dart';
+import 'package:pusherman/core/error/exception.dart';
+import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'caretaker_data_source.dart';
 
 const CACHED_CARETAKER = 'CACHED_CARETAKER_';

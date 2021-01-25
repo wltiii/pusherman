@@ -4,9 +4,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/presentation/converter/input_converter.dart';
-import '../../domain/usecases/get_caretaker.dart';
-import './bloc.dart';
+import 'package:pusherman/core/presentation/converter/input_converter.dart';
+import 'package:pusherman/features/schedule/domain/usecases/get_caretaker.dart';
+import 'package:pusherman/features/schedule/presentation/bloc/bloc.dart';
 
 class CaretakerBloc extends Bloc<CaretakerEvent, CaretakerState> {
   final GetCaretaker getCaretaker;

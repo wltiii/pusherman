@@ -1,5 +1,5 @@
 import 'package:meta/meta.dart';
-import '../../domain/entities/caretaker.dart';
+import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 
 class CaretakerModel extends Caretaker {
 

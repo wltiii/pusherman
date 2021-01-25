@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../../domain/entities/pill_box.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
 import 'pill_model.dart';
 
 class PillBoxModel extends PillBox {

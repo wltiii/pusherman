@@ -1,18 +1,15 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:http/http.dart' as http;
+import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
-import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:pusherman/core/network/network_info.dart';
-
-import '../lib/service_locator.dart' as di;
+import 'package:pusherman/service_locator.dart' as di;
 
 void main() async {
   await di.init();
@@ -51,15 +48,30 @@ void main() async {
   });
 
   group('gets instance', () {
-    test('DataConnectionChecker', () {
+    test('DataConnectionChecker', () async {
       final instance = di.sl.get<DataConnectionChecker>();
       expect(instance, isNot(null));
       expect(instance, isA<DataConnectionChecker>());
+      var result = await instance.hasConnection;
+      expect(result, isTrue);
     });
+
+    // test('it can detect a connection', () async {
+    //   final instance = DataConnectionChecker();
+    //   var result = await instance.hasConnection;
+    //   expect(result, isTrue);
+    // });
     test('InputConverter', () {
       final instance = di.sl.get<InputConverter>();
       expect(instance, isNot(null));
       expect(instance, isA<InputConverter>());
+    });
+    test('NetworkInfo', () async {
+      final instance = di.sl.get<NetworkInfo>();
+      expect(instance, isNot(null));
+      expect(instance, isA<NetworkInfo>());
+      bool connected = await instance.isConnected;
+      expect(connected, isTrue);
     });
     test('PillBoxSetLocalDataSource', () async {
       final instance = di.sl.get<PillBoxSetLocalDataSource>();

@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../entities/caretaker.dart';
-import '../repositories/caretaker_repository.dart';
+import 'package:pusherman/core/error/failure.dart';
+import 'package:pusherman/core/usecases/usecase.dart';
+import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
+import 'package:pusherman/features/schedule/domain/repositories/caretaker_repository.dart';
 
 
 class GetCaretaker implements UseCase<Caretaker, Params> {
@@ -22,7 +22,7 @@ class GetCaretaker implements UseCase<Caretaker, Params> {
 class Params extends Equatable {
   final String name;
 
-  Params({@required this.name});
+  Params({ @required this.name });
 
   @override
   List<Object> get props => [name];

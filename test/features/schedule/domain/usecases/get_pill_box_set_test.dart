@@ -34,8 +34,12 @@ void main() {
 
   test('gets pill box set from the repository', () async {
     // given
+    // TODO why doesn't setUp work? Shouldn't need the following two lines
+    mockPillBoxSetRepository = MockPillBoxSetRepository();
+    useCase = GetPillBoxSet(mockPillBoxSetRepository);
+
     String givenDependent = 'Zorba';
-    when(mockPillBoxSetRepository.getByDependent(any))
+    when(mockPillBoxSetRepository.getByDependent(givenDependent))
         .thenAnswer((_) async => Right(pillBoxSet));
     // when
     final result = await useCase(Params(dependent: givenDependent));

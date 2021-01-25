@@ -10,9 +10,21 @@ abstract class PillBoxSetEvent extends Equatable {
 class GetPillBoxSetForDependent extends PillBoxSetEvent {
   final String dependent;
 
-  // TODO why is this using a standard constructor rather than named?
-  // GetPillBoxSetGetEvent({@required this.dependent});
-  GetPillBoxSetForDependent(this.dependent);
+  factory GetPillBoxSetForDependent(String input) =>
+      input == null
+          ? GetPillBoxSetForDependent._('')
+          : GetPillBoxSetForDependent._(input);
+  // GetPillBoxSetForDependent({this.dependent});
+  GetPillBoxSetForDependent._(this.dependent);
+  // GetPillBoxSetForDependent(this.dependent);
+
+  /*
+  static final InputConverter _instance = InputConverter._();
+
+  factory InputConverter() => _instance;
+
+  InputConverter._() { }
+   */
 
   @override
   List<Object> get props => [dependent];

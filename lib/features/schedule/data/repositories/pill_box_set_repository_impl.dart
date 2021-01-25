@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/entities/pill_box_set.dart';
-import '../../domain/repositories/pill_box_set_repository.dart';
-import '../datasources/pill_box_set_data_source.dart';
-import '../models/pill_box_set_model.dart';
+import 'package:pusherman/core/error/exception.dart';
+import 'package:pusherman/core/error/failure.dart';
+import 'package:pusherman/core/network/network_info.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
+import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
+import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 
 class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
   final NetworkInfo networkInfo;
@@ -50,8 +50,16 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
     }
   }
 
+  // TODO this impl is an "adapter". The abstract class is the port.
+  // TODO the above is hexagonal architecture descriptions. in Clean Arch,
+  // TODO this impl is an external interface (?) and the abstract class is
+  // TODO a gateway (?)
   @override
   Future<void> put(PillBoxSet pillBoxSet) async {
+    // TODO does it make map the domain entity to the persistence model here?
+    // TODO diagram this and think about it. but, this seems right.
+    // TODO NOTE: the following line appears to set they type to the model
+    var model = pillBoxSet as PillBoxSetModel;
     await localDataSource.put(pillBoxSet);
     if (await networkInfo.isConnected) {
       await remoteDataSource.put(pillBoxSet);

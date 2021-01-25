@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import '../../domain/entities/pill.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill.dart';
 
 class PillModel extends Pill {
   PillModel({

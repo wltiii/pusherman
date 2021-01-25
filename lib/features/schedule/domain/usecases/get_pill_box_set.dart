@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../entities/pill_box_set.dart';
-import '../repositories/pill_box_set_repository.dart';
+import 'package:pusherman/core/error/failure.dart';
+import 'package:pusherman/core/usecases/usecase.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 
 
 class GetPillBoxSet implements UseCase<PillBoxSet, Params> {
@@ -22,7 +22,7 @@ class GetPillBoxSet implements UseCase<PillBoxSet, Params> {
 class Params extends Equatable {
   final String dependent;
 
-  Params({@required this.dependent});
+  Params({ @required this.dependent });
 
   @override
   List<Object> get props => [dependent];
