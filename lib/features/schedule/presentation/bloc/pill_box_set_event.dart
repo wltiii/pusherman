@@ -14,17 +14,8 @@ class GetPillBoxSetForDependent extends PillBoxSetEvent {
       input == null
           ? GetPillBoxSetForDependent._('')
           : GetPillBoxSetForDependent._(input);
-  // GetPillBoxSetForDependent({this.dependent});
+
   GetPillBoxSetForDependent._(this.dependent);
-  // GetPillBoxSetForDependent(this.dependent);
-
-  /*
-  static final InputConverter _instance = InputConverter._();
-
-  factory InputConverter() => _instance;
-
-  InputConverter._() { }
-   */
 
   @override
   List<Object> get props => [dependent];
