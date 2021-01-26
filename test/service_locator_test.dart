@@ -55,12 +55,6 @@ void main() async {
       var result = await instance.hasConnection;
       expect(result, isTrue);
     });
-
-    // test('it can detect a connection', () async {
-    //   final instance = DataConnectionChecker();
-    //   var result = await instance.hasConnection;
-    //   expect(result, isTrue);
-    // });
     test('InputConverter', () {
       final instance = di.sl.get<InputConverter>();
       expect(instance, isNot(null));
