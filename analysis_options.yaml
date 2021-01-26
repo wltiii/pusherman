@@ -1,2 +1,6 @@
 include: package:effective_dart/analysis_options.yaml
 
+analyzer:
+  errors:
+    always_use_package_imports: info # because get_it requires consistent imports
+    prefer_relative_imports: ignore # because get_it requires consistent imports
