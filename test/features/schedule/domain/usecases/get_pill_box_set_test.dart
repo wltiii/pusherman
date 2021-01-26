@@ -38,7 +38,7 @@ void main() {
     mockPillBoxSetRepository = MockPillBoxSetRepository();
     useCase = GetPillBoxSet(mockPillBoxSetRepository);
 
-    String givenDependent = 'Zorba';
+    var givenDependent = 'Zorba';
     when(mockPillBoxSetRepository.getByDependent(givenDependent))
         .thenAnswer((_) async => Right(pillBoxSet));
     // when

@@ -70,7 +70,7 @@ void main() async {
       final instance = di.sl.get<NetworkInfo>();
       expect(instance, isNot(null));
       expect(instance, isA<NetworkInfo>());
-      bool connected = await instance.isConnected;
+      var connected = await instance.isConnected;
       expect(connected, isTrue);
     });
     test('PillBoxSetLocalDataSource', () async {

@@ -26,7 +26,7 @@ class InputConverter {
     if (s == null) {
       return Left(InvalidInputFailure());
     }
-    String trimmedString = s.trim();
+    var trimmedString = s.trim();
     if (trimmedString.isEmpty) {
       return Left(InvalidInputFailure());
     }

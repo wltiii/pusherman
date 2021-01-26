@@ -29,7 +29,7 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
 
   Future<Either<Failure, PillBoxSet>> _getFromRemote(String dependent) async {
     try {
-      PillBoxSetModel pillBoxSet = await remoteDataSource.getByDependent(dependent);
+      var pillBoxSet = await remoteDataSource.getByDependent(dependent);
       await put(pillBoxSet);
       return Right(pillBoxSet);
     } on ServerException {
@@ -43,7 +43,7 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
 
   Future<Either<Failure, PillBoxSet>> _getFromLocal(String dependent) async {
     try {
-      PillBoxSetModel pillBoxSet = await localDataSource.getByDependent(dependent);
+      var pillBoxSet = await localDataSource.getByDependent(dependent);
       return Right(pillBoxSet);
     } on CacheException {
       return Left(CacheFailure());

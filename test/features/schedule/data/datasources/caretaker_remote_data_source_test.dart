@@ -79,7 +79,7 @@ void main() {
       test('puts with correct URI and headers', () async {
         // given
         var expectedUrl = 'http://localhost:8000/caretaker/Bill';
-        Map<String,String> expectedHeaders = {
+        var expectedHeaders = {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
@@ -103,7 +103,7 @@ void main() {
       test('creates a CaretakerModel', () async {
         // given
         var expectedUrl = 'http://localhost:8000/caretaker/Bill';
-        Map<String,String> expectedHeaders = {
+        var expectedHeaders = <String,String>{
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };

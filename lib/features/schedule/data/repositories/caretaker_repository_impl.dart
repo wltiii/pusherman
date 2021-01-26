@@ -27,7 +27,7 @@ class CaretakerRepositoryImpl implements CaretakerRepository {
 
   Future<Either<Failure, Caretaker>> _getFromRemote(String dependent) async {
     try {
-      CaretakerModel caretaker = await remoteDataSource.get(dependent);
+      var caretaker = await remoteDataSource.get(dependent);
       await put(caretaker);
       return Right(caretaker);
     } on ServerException {
@@ -41,7 +41,7 @@ class CaretakerRepositoryImpl implements CaretakerRepository {
 
   Future<Either<Failure, Caretaker>> _getFromLocal(String dependent) async {
     try {
-      CaretakerModel caretaker = await localDataSource.get(dependent);
+      var caretaker = await localDataSource.get(dependent);
       return Right(caretaker);
     } on CacheException {
       return Left(CacheFailure());

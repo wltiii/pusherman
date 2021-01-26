@@ -79,7 +79,7 @@ void main() {
       test('puts with correct URI and headers', () async {
         // given
         var expectedUrl = 'http://localhost:8000/dependent/Coda';
-        Map<String,String> expectedHeaders = {
+        var expectedHeaders = <String,String>{
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
