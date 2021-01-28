@@ -48,9 +48,8 @@ Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
   sl.registerLazySingleton<http.Client>(() => http.Client());
-  sl.registerLazySingleton<DataConnectionChecker>(() => DataConnectionChecker());
-  print('ServiceLocator.DataConnectionChecker.isRegistered=' + sl.isRegistered<DataConnectionChecker>().toString());
-  // var checker = sl.get<DataConnectionChecker>();
   var checker = DataConnectionChecker();
+  sl.registerLazySingleton<DataConnectionChecker>(() => checker);
+  print('ServiceLocator.DataConnectionChecker.isRegistered=' + sl.isRegistered<DataConnectionChecker>().toString());
   print('DataConnectionChecker.hasConnection=' + (await checker.hasConnection).toString());
 }

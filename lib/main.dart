@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'features/schedule/presentation/pages/dependent_pill_boxes_page.dart';
 import 'service_locator.dart' as di;
 
-
 void main() async {
   print("main");
   WidgetsFlutterBinding.ensureInitialized();
