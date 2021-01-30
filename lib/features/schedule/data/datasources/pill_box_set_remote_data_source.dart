@@ -45,9 +45,6 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
     final uri = Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/${pillBoxSet.dependent}');
     final headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     final body = json.encode(pillBoxSet.toJson());
-    print('url=${uri.toString()}');
-    print('body=$body');
-    print('headers=$headers');
 
     var response = await client.put(
       uri.toString(),

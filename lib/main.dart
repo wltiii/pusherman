@@ -4,10 +4,8 @@ import 'features/schedule/presentation/pages/dependent_pill_boxes_page.dart';
 import 'service_locator.dart' as di;
 
 void main() async {
-  print("main");
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  print("main2");
   runApp(MyApp());
 }
 

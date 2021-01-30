@@ -13,7 +13,6 @@ import 'package:pusherman/features/schedule/presentation/widgets/spinner_widget.
 class DependentPillBoxesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // print('building...');
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -29,9 +28,6 @@ class DependentPillBoxesPage extends StatelessWidget {
   }
 
   BlocProvider<PillBoxSetBloc> buildPillBoxSetBody(BuildContext context) {
-    print("buildPillBoxSetBody");
-    print('PillBoxSetBloc.isRegistered=' + sl.isRegistered<PillBoxSetBloc>().toString());
-    print('DataConnectionChecker.isRegistered=' + sl.isRegistered<DataConnectionChecker>().toString());
     return BlocProvider(
       create: (_) => sl.get<PillBoxSetBloc>(),
       child: Center(
@@ -44,37 +40,31 @@ class DependentPillBoxesPage extends StatelessWidget {
               buildMessageWidget(),
               BlocBuilder<PillBoxSetBloc, PillBoxSetState>(
                 builder: (context, state) {
-                  print('BlocBuilder.builder');
                   // TODO do not case like this!
                   if (state is PillBoxSetEmpty) {
                     //return MessageWidget(message: 'initial view');
-                    print('BlocBuilder.builder: PillBoxSetEmpty');
                     return Text('one');
                   }
                   else if (state is PillBoxSetLoading) {
                     //return SpinnerWidget();
-                    print('BlocBuilder.builder: PillBoxSetLoading');
                     return Text('two');
                     //return MessageWidget(message: 'loading view');
                   }
                   else if (state is PillBoxSetLoaded) {
                     //return MessageWidget(message: 'loaded view');
-                    print('BlocBuilder.builder: PillBoxSetLoaded');
-                    // return Text('three');
+                    return Text('three');
                     return PillBoxesSetWidget(
                         key: Key('PillBoxesSetWidget'),
                         pillBoxSet: state.pillBoxSet
                     );
                   }
                   else if (state is PillBoxSetError) {
-                    print('BlocBuilder.builder: PillBoxSetError');
                     return Text('four');
                     //return MessageWidget(message: 'error view');
                     //return MessageWidget(message: state.message);
                   }
                   else{
                     //return MessageWidget(message: 'subsequent view');
-                    print('BlocBuilder.builder: why am i here');
                     return Text('five');
                   }
                 }
@@ -99,5 +89,3 @@ class DependentPillBoxesPage extends StatelessWidget {
   // _DependentPillBoxesPageState createState() => _DependentPillBoxesPageState();
 
 }
-
-

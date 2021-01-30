@@ -40,9 +40,6 @@ class CaretakerRemoteDataSourceImpl implements CaretakerDataSource {
     final uri = Uri.http(BASE_HOST_URI, '/$CARETAKER_PATH/${caretaker.name}');
     final headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
     final body = json.encode(caretaker.toJson());
-    print('url=${uri.toString()}');
-    print('body=$body');
-    print('headers=$headers');
 
     var response = await client.put(
       uri.toString(),
