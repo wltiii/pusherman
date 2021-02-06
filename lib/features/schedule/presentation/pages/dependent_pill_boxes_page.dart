@@ -35,28 +35,24 @@ class DependentPillBoxesPage extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget> [
-              Text('child1'),
-              Text('child2'),
-              buildMessageWidget(),
+              // buildMessageWidget(),
               BlocBuilder<PillBoxSetBloc, PillBoxSetState>(
                 builder: (context, state) {
                   // TODO do not case like this!
                   if (state is PillBoxSetEmpty) {
-                    //return MessageWidget(message: 'initial view');
-                    return Text('one');
+                    return MessageWidget(message: "I'm your friend.");
                   }
                   else if (state is PillBoxSetLoading) {
                     //return SpinnerWidget();
-                    return Text('two');
-                    //return MessageWidget(message: 'loading view');
+                    // return Text('two');
+                    return MessageWidget(message: "I'm your doctor");
                   }
                   else if (state is PillBoxSetLoaded) {
-                    //return MessageWidget(message: 'loaded view');
-                    return Text('three');
-                    return PillBoxesSetWidget(
-                        key: Key('PillBoxesSetWidget'),
-                        pillBoxSet: state.pillBoxSet
-                    );
+                    return MessageWidget(message: "I'm your pusherman");
+                    // return PillBoxesSetWidget(
+                    //     key: Key('PillBoxesSetWidget'),
+                    //     pillBoxSet: state.pillBoxSet
+                    // );
                   }
                   else if (state is PillBoxSetError) {
                     return Text('four');
