@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pusherman/route_generator.dart';
 
 import 'features/schedule/presentation/pages/dependent_pill_boxes_page.dart';
 import 'service_locator.dart' as di;
@@ -14,13 +15,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pusherman2',
+      title: "Pusherman - I'm Your Doctor",
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: DependentPillBoxesPage(),
+      initialRoute: isSetupComplete() ? '/' : '/setup',
+      // home: DependentPillBoxesPage(),
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
+  }
+
+  bool isSetupComplete() {
+    return false;
   }
 }

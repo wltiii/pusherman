@@ -14,19 +14,19 @@ class PillBoxesSetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<Widget> widgets = [];
-    // pillBoxSet.pillBoxes.forEach((pillBox) =>
-    //     widgets.add(_buildSetItem(pillBox, pillBoxSet.dependent))
-    // );
+    List<Widget> widgets = [];
+    pillBoxSet.pillBoxes.forEach((pillBox) =>
+        widgets.add(_buildSetItem(pillBox, pillBoxSet.dependent))
+    );
     // List<Widget> widgets = pillBoxSet.pillBoxes.map((box) => _buildPillItem)
     //     .toList() as List<Widget>;
-    // return Column(
-    //   children: widgets,
-    // );
     return Column(
-      children: pillBoxSet.pillBoxes.map((box) => _buildPillItem)
-          .toList() as List<Widget>,
+      children: widgets,
     );
+    // return Column(
+    //   children: pillBoxSet.pillBoxes.map((box) => _buildPillItem)
+    //       .toList() as List<Widget>,
+    // );
   }
 
   Widget _buildSetItem(PillBox pillbox, String dependent) {

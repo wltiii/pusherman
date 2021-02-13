@@ -2,6 +2,8 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/presentation/widgets/app_controls.dart';
 
 import 'package:pusherman/service_locator.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
@@ -19,10 +21,10 @@ class DependentPillBoxesPage extends StatelessWidget {
         // the App.build method, and use it to set our appbar title.
         title: Text('Pusherman3'),
       ),
-      body: SingleChildScrollView(
-          child: buildPillBoxSetBody(context)
-      ),
-      // body: buildPillBoxSetBody(context)
+      // body: SingleChildScrollView(
+      //     child: buildPillBoxSetBody(context)
+      // ),
+      body: buildPillBoxSetBody(context)
       // body: Text('body is here')
     );
   }
@@ -41,6 +43,11 @@ class DependentPillBoxesPage extends StatelessWidget {
                   // TODO do not case like this!
                   if (state is PillBoxSetEmpty) {
                     return MessageWidget(message: "I'm your friend.");
+                    // return PillBoxesSetWidget(
+                    //     key: Key('PillBoxesSetWidget'),
+                    //     pillBoxSet: PillBoxSet(dependent: '', caretakers: [''], pillBoxes: [])
+                    // );
+
                   }
                   else if (state is PillBoxSetLoading) {
                     //return SpinnerWidget();
@@ -65,7 +72,11 @@ class DependentPillBoxesPage extends StatelessWidget {
                   }
                 }
               ),
-
+                // AppControls()
+              PillBoxesSetWidget(
+                  key: Key('PillBoxesSetWidget'),
+                  pillBoxSet: PillBoxSet(dependent: '', caretakers: [''], pillBoxes: [])
+              )
             ]
           ),
         )
@@ -76,7 +87,7 @@ class DependentPillBoxesPage extends StatelessWidget {
     );
   }
 
-  MessageWidget buildMessageWidget() => MessageWidget(key: Key('message-widget'), message: 'initial view');
+  // MessageWidget buildMessageWidget() => MessageWidget(key: Key('message-widget'), message: 'initial view');
   // DependentPillBoxesPage({Key key, this.title}) : super(key: key);
 
   // final String title;

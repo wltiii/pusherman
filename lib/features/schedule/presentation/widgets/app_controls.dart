@@ -20,33 +20,49 @@ class _AppControlsState extends State<AppControls> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TextField(
-          controller: controller,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: 'Input a number',
-          ),
-          onChanged: (value) {
-            inputStr = value;
-          },
-          onSubmitted: (_) {
-            dispatchConcrete();
-          },
-        ),
-        SizedBox(height: 10),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: RaisedButton(
-                child: Text('Search'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: dispatchConcrete,
-              ),
-            ),
-          ],
-        )
+    ExpansionTile(
+      title: Text(
+          'Morning',
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
+      ),
+
+      subtitle: Text(
+        'Daily',
+        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)
+      ),
+        // onExpansionChanged: dispatchConcrete();
+    // children: [
+    // _buildDependent(dependent),
+    // _buildPillList(pillbox.pills),
+    // ]
+    ),
+        // TextField(
+        //   controller: controller,
+        //   keyboardType: TextInputType.number,
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(),
+        //     hintText: 'Input a number',
+        //   ),
+        //   onChanged: (value) {
+        //     inputStr = value;
+        //   },
+        //   onSubmitted: (_) {
+        //     dispatchConcrete();
+        //   },
+        // ),
+        // SizedBox(height: 10),
+        // Row(
+        //   children: <Widget>[
+        //     Expanded(
+        //       child: RaisedButton(
+        //         child: Text('Search'),
+        //         color: Theme.of(context).accentColor,
+        //         textTheme: ButtonTextTheme.primary,
+        //         onPressed: dispatchConcrete,
+        //       ),
+        //     ),
+        //   ],
+        // )
       ],
     );
   }
