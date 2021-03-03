@@ -6,8 +6,8 @@ import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/widgets/app_controls.dart';
 
 import 'package:pusherman/service_locator.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_state.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/setup/bloc.dart';
 import 'package:pusherman/features/schedule/presentation/widgets/message_widget.dart';
 import 'package:pusherman/features/schedule/presentation/widgets/pill_box_set_widget.dart';
 import 'package:pusherman/features/schedule/presentation/widgets/spinner_widget.dart';
@@ -24,8 +24,26 @@ class DependentPillBoxesPage extends StatelessWidget {
       // body: SingleChildScrollView(
       //     child: buildPillBoxSetBody(context)
       // ),
-      body: buildPillBoxSetBody(context)
+      body: buildPillBoxSetBody(context),
       // body: Text('body is here')
+      //   bottomNavigationBar: BlocBuilder<SetupBloc, SetupState>(
+      //       builder: (BuildContext context, SetupState state) {
+      //         return BottomNavigationBar(
+      //           // currentIndex:
+      //           // context.select((SetupBloc bloc) => bloc.currentIndex),
+      //           items: const <BottomNavigationBarItem>[
+      //             BottomNavigationBarItem(
+      //               icon: Icon(Icons.add_circle_outline),
+      //               // tooltip: 'Setup',
+      //               label: 'Setup',
+      //             ),
+      //           ],
+      //           onTap: (index) => MessageWidget(message: "I'm your pusherman"),
+      //               // context
+      //               // .read<SetupBloc>()
+      //               // .add(PageTapped(index: index)),
+      //         );
+      //       }),
     );
   }
 
@@ -61,6 +79,13 @@ class DependentPillBoxesPage extends StatelessWidget {
                     //     pillBoxSet: state.pillBoxSet
                     // );
                   }
+                  else if (state is PillBoxSetSetup) {
+                    return MessageWidget(message: "Doctor! Doctor! Give me the news!");
+                    // return PillBoxesSetWidget(
+                    //     key: Key('PillBoxesSetWidget'),
+                    //     pillBoxSet: state.pillBoxSet
+                    // );
+                  }
                   else if (state is PillBoxSetError) {
                     return Text('four');
                     //return MessageWidget(message: 'error view');
@@ -72,11 +97,11 @@ class DependentPillBoxesPage extends StatelessWidget {
                   }
                 }
               ),
-                // AppControls()
-              PillBoxesSetWidget(
-                  key: Key('PillBoxesSetWidget'),
-                  pillBoxSet: PillBoxSet(dependent: '', caretakers: [''], pillBoxes: [])
-              )
+                AppControls()
+              // PillBoxesSetWidget(
+              //     key: Key('PillBoxesSetWidget'),
+              //     pillBoxSet: PillBoxSet(dependent: '', caretakers: [''], pillBoxes: [])
+              // )
             ]
           ),
         )

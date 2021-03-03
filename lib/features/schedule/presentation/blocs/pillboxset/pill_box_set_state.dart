@@ -13,6 +13,10 @@ class PillBoxSetEmpty extends PillBoxSetState {}
 
 class PillBoxSetLoading extends PillBoxSetState {}
 
+class PillBoxSetSetup extends PillBoxSetState {}
+
+class PillBoxSetSetupDone extends PillBoxSetState {}
+
 class PillBoxSetLoaded extends PillBoxSetState {
   final PillBoxSet pillBoxSet;
 

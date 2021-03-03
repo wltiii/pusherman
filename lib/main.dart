@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pusherman/route_generator.dart';
 
-import 'features/schedule/presentation/pages/dependent_pill_boxes_page.dart';
+// import 'features/schedule/presentation/pages/dependent_pill_boxes_page.dart';
 import 'service_locator.dart' as di;
 
 void main() async {
@@ -28,6 +28,6 @@ class MyApp extends StatelessWidget {
   }
 
   bool isSetupComplete() {
-    return false;
+    return true;
   }
 }

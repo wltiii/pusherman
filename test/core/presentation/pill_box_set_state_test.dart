@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_state.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
 
 class PillBoxSetDummy extends PillBoxSetState {}
 

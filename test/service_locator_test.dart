@@ -6,7 +6,7 @@ import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
 import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import 'package:pusherman/service_locator.dart' as di;

@@ -6,7 +6,7 @@ import 'package:pusherman/core/presentation/converter/input_converter.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/bloc.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -72,7 +72,7 @@ void main() {
       );
 
       // when
-      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
       await untilCalled(mockInputConverter.toWordString(any));
 
       // then
@@ -98,7 +98,7 @@ void main() {
       expectLater(bloc, emitsInOrder(expectedEmissions));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(null));
+      bloc.add(GetPillBoxSetForDependentEvent(null));
     });
 
     test('gets a pill box set', () async {
@@ -115,7 +115,7 @@ void main() {
           .thenAnswer((_) async => Right(expectedPillBoxSet));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
       await untilCalled(mockGetPillBoxSet(any));
 
       // then
@@ -143,7 +143,7 @@ void main() {
       expectLater(bloc, emitsInOrder(expectedEmissions));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
       // await untilCalled(mockGetPillBoxSet(any));
       //
       // // then
@@ -171,7 +171,7 @@ void main() {
       expectLater(bloc, emitsInOrder(expectedEmissions));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
       // await untilCalled(mockGetPillBoxSet(any));
       //
       // // then
@@ -199,7 +199,7 @@ void main() {
       expectLater(bloc, emitsInOrder(expectedEmissions));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(givenDependent));
+      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
       // await untilCalled(mockGetPillBoxSet(any));
       //
       // // then

@@ -9,7 +9,7 @@ import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote
 import 'package:pusherman/features/schedule/data/repositories/pill_box_set_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
-import 'package:pusherman/features/schedule/presentation/bloc/pill_box_set_bloc.dart';
+import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
 
 final sl = GetIt.instance;
