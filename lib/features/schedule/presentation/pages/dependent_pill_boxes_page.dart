@@ -59,7 +59,7 @@ class DependentPillBoxesPage extends StatelessWidget {
               BlocBuilder<PillBoxSetBloc, PillBoxSetState>(
                 builder: (context, state) {
                   // TODO do not case like this!
-                  if (state is PillBoxSetEmpty) {
+                  if (state is PillBoxSetInitialState) {
                     return MessageWidget(message: "I'm your friend.");
                     // return PillBoxesSetWidget(
                     //     key: Key('PillBoxesSetWidget'),

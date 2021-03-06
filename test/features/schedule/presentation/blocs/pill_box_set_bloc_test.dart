@@ -12,8 +12,6 @@ import '../../../../fixtures/fixture_reader.dart';
 
 class MockGetPillBoxSet extends Mock implements GetPillBoxSet {}
 
-class MockInputConverter extends Mock implements InputConverter {}
-
 void main() {
   PillBoxSetBloc bloc;
   MockGetPillBoxSet mockGetPillBoxSet;
@@ -40,44 +38,13 @@ void main() {
     );
 
     // assert
-    expect(bloc.initialState, equals(PillBoxSetEmpty()));
+    expect(bloc.initialState, equals(PillBoxSetInitialState()));
   });
 
   group('GET PillBoxSet', () {
     final pillBoxSetMap = fixtureAsMap('coda_pill_box_set.json');
     final givenDependent = pillBoxSetMap['dependent'];
-    final expectedDependent = pillBoxSetMap['dependent'];
     final PillBoxSet expectedPillBoxSet = PillBoxSetModel.fromJson(pillBoxSetMap);
-
-    // TODO this test should be only necessary initially and
-    // TODO removed once other logic/tests can do this as course of action
-    test('calls InputConverter to validate and convert the dependent', () async {
-      // given
-      mockGetPillBoxSet = MockGetPillBoxSet();
-      inputConverter = InputConverter();
-
-      bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
-        inputConverter: inputConverter,
-      );
-
-      final mockInputConverter = MockInputConverter();
-
-      when(mockInputConverter.toWordString(any))
-          .thenReturn(Right(expectedDependent));
-
-      bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
-        inputConverter: mockInputConverter,
-      );
-
-      // when
-      bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
-      await untilCalled(mockInputConverter.toWordString(any));
-
-      // then
-      verify(mockInputConverter.toWordString(expectedDependent));
-    });
 
     test('emits [error] states when dependent is invalid', () async {
       // given
@@ -90,7 +57,6 @@ void main() {
       );
 
       final expectedEmissions = [
-        PillBoxSetEmpty(),
         PillBoxSetError(message: DEPENDENT_INVALID)
       ];
 
@@ -132,7 +98,6 @@ void main() {
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
-        PillBoxSetEmpty(),
         PillBoxSetLoading(),
         PillBoxSetLoaded(pillBoxSet: expectedPillBoxSet)
       ];
@@ -144,10 +109,10 @@ void main() {
 
       // when
       bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
-      // await untilCalled(mockGetPillBoxSet(any));
-      //
-      // // then
-      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+      await untilCalled(mockGetPillBoxSet(any));
+
+      // then
+      verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
     });
 
     test('emits [Loading, Error] when server retrieval fails', () async {
@@ -160,7 +125,6 @@ void main() {
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
-        PillBoxSetEmpty(),
         PillBoxSetLoading(),
         PillBoxSetError(message: UNAVAILABLE_NETWORK)
       ];
@@ -172,10 +136,10 @@ void main() {
 
       // when
       bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
-      // await untilCalled(mockGetPillBoxSet(any));
-      //
-      // // then
-      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+      await untilCalled(mockGetPillBoxSet(any));
+
+      // then
+      verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
     });
 
     test('emits [Loading, Error] when cache retrieval fails', () async {
@@ -188,7 +152,6 @@ void main() {
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
-        PillBoxSetEmpty(),
         PillBoxSetLoading(),
         PillBoxSetError(message: DEPENDENT_NOT_FOUND)
       ];
@@ -200,10 +163,10 @@ void main() {
 
       // when
       bloc.add(GetPillBoxSetForDependentEvent(givenDependent));
-      // await untilCalled(mockGetPillBoxSet(any));
-      //
-      // // then
-      // verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
+      await untilCalled(mockGetPillBoxSet(any));
+
+      // then
+      verify(mockGetPillBoxSet(Params(dependent: givenDependent)));
     });
   });
 }

@@ -14,7 +14,7 @@ abstract class CaretakerState extends Equatable {
 //   List<Object> get props => [];
 // }
 
-class CaretakerEmpty extends CaretakerState {}
+class CaretakerInitialState extends CaretakerState {}
 
 class CaretakerLoading extends CaretakerState {}
 

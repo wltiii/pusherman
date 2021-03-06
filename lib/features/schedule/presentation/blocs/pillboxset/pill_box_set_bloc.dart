@@ -17,18 +17,34 @@ const String DEPENDENT_INVALID = "Dependent was not entered or invalid.";
 const String UNAVAILABLE_NETWORK = "Network is unavailable.";
 
 class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
-  final GetPillBoxSet getPillBoxSet;
+  GetPillBoxSet getPillBoxSet;
   final InputConverter inputConverter;
 
+  // PillBoxSetBloc({
+  //   @required GetPillBoxSet pillBoxSetGetter,
+  //   @required this.inputConverter,
+  // })  : super()
+
+  // UserRegBloc({
+  //   @required UserRepository userRepository
+  // }) : super(UserRegInitialState()) {
+  //   userRepository = UserRepository();
+  // }
   PillBoxSetBloc({
     @required GetPillBoxSet pillBoxSetGetter,
     @required this.inputConverter,
-  })  : assert(pillBoxSetGetter != null),
-        assert(inputConverter != null),
-        getPillBoxSet = pillBoxSetGetter;
+  }) : super(PillBoxSetInitialState()) {
+    getPillBoxSet = pillBoxSetGetter;
+  }
+  // PillBoxSetBloc({
+  //   @required GetPillBoxSet pillBoxSetGetter,
+  //   @required this.inputConverter,
+  // })  : assert(pillBoxSetGetter != null),
+  //       assert(inputConverter != null),
+  //       getPillBoxSet = pillBoxSetGetter;
 
   @override
-  PillBoxSetState get initialState => PillBoxSetEmpty();
+  PillBoxSetState get initialState => PillBoxSetInitialState();
 
   @override
   Stream<PillBoxSetState> mapEventToState(PillBoxSetEvent event) async* {

@@ -9,7 +9,7 @@ abstract class PillBoxSetState extends Equatable {
   List<Object> get props => [];
 }
 
-class PillBoxSetEmpty extends PillBoxSetState {}
+class PillBoxSetInitialState extends PillBoxSetState {}
 
 class PillBoxSetLoading extends PillBoxSetState {}
 

@@ -8,7 +8,7 @@ import 'package:pusherman/features/schedule/presentation/blocs/setup/bloc.dart';
 // import '../../repositories/repositories.dart';
 
 class SetupBloc extends Bloc<SetupEvent, SetupState> {
-  SetupBloc(/*{this.firstPageRepository, this.secondPageRepository}*/);
+  SetupBloc() : super(SetupInitialState());
       // : assert(firstPageRepository != null),
       //   assert(secondPageRepository != null),
       //   super(SetupLoading());
@@ -18,7 +18,7 @@ class SetupBloc extends Bloc<SetupEvent, SetupState> {
   // int currentIndex = 0;
 
   @override
-  SetupState get initialState => SetupEmpty();
+  SetupState get initialState => SetupInitialState();
 
   @override
   Stream<SetupState> mapEventToState(

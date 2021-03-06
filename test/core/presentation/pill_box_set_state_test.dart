@@ -7,7 +7,7 @@ class PillBoxSetDummy extends PillBoxSetState {}
 
 void main() {
   final dummyState = PillBoxSetDummy();
-  final emptyState = PillBoxSetEmpty();
+  final emptyState = PillBoxSetInitialState();
   final loadingState = PillBoxSetLoading();
   final loadedState = PillBoxSetLoaded(pillBoxSet: PillBoxSet(caretakers: [], dependent: 'aDependent', pillBoxes: []));
   final errorState = PillBoxSetError(message: 'anError');

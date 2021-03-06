@@ -8,18 +8,18 @@ import 'package:pusherman/features/schedule/domain/usecases/get_caretaker.dart';
 import 'package:pusherman/features/schedule/presentation/blocs/caretaker/bloc.dart';
 
 class CaretakerBloc extends Bloc<CaretakerEvent, CaretakerState> {
-  final GetCaretaker getCaretaker;
+  GetCaretaker getCaretaker;
   final InputConverter inputConverter;
 
   CaretakerBloc({
     @required GetCaretaker caretakerGetter,
     @required this.inputConverter,
-  })  : assert(caretakerGetter != null),
-        assert(inputConverter != null),
-        getCaretaker = caretakerGetter;
+  })  : super(CaretakerInitialState()) {
+    getCaretaker = caretakerGetter;
+  }
 
   @override
-  CaretakerState get initialState => CaretakerEmpty();
+  CaretakerState get initialState => CaretakerInitialState();
 
   @override
   Stream<CaretakerState> mapEventToState(

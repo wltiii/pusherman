@@ -17,7 +17,7 @@ abstract class SetupState extends Equatable {
 //   String toString() => 'CurrentIndexChanged to $currentIndex';
 // }
 
-class SetupEmpty extends SetupState {}
+class SetupInitialState extends SetupState {}
 
 class SetupLoading extends SetupState {
   @override
