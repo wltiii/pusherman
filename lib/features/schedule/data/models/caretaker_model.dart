@@ -4,8 +4,8 @@ import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 class CaretakerModel extends Caretaker {
 
   CaretakerModel({
-    @required String name,
-    @required dependents,
+    required String name,
+    required dependents,
   }) : super(
     name: name, dependents: dependents
   );

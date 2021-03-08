@@ -6,7 +6,7 @@ class GetPillBoxSetForDependentEvent extends PillBoxSetEvent {
   final String dependent;
 
   // TODO null safely will allow input to be null - tiernary not needed
-  factory GetPillBoxSetForDependentEvent(String input) =>
+  factory GetPillBoxSetForDependentEvent(String? input) =>
       input == null
           ? GetPillBoxSetForDependentEvent._('')
           : GetPillBoxSetForDependentEvent._(input);

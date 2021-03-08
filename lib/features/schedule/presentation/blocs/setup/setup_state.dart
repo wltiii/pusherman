@@ -27,7 +27,7 @@ class SetupLoading extends SetupState {
 class FirstPageLoaded extends SetupState {
   final String text;
 
-  FirstPageLoaded({@required this.text});
+  FirstPageLoaded({required this.text});
 
   @override
   String toString() => 'FirstPageLoaded with text: $text';
@@ -36,7 +36,7 @@ class FirstPageLoaded extends SetupState {
 class SecondPageLoaded extends SetupState {
   final int number;
 
-  SecondPageLoaded({@required this.number});
+  SecondPageLoaded({ required this.number });
 
   @override
   String toString() => 'SecondPageLoaded with number: $number';

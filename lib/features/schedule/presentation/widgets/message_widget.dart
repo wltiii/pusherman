@@ -4,8 +4,8 @@ class MessageWidget extends StatelessWidget {
   final String message;
 
   const MessageWidget({
-    @required Key key,
-    @required this.message,
+    required Key key,
+    required this.message,
   }) : super(key: key);
 
   @override

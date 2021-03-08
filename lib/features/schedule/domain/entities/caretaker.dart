@@ -6,8 +6,8 @@ class Caretaker extends Equatable {
   final List<String> dependents;
 
   Caretaker({
-    @required this.name,
-    @required this.dependents
+    required this.name,
+    required this.dependents
   });
 
   @override

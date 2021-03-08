@@ -21,7 +21,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
   final http.Client client;
 
   PillBoxSetRemoteDataSourceImpl({
-    @required this.client,
+    required this.client,
   });
 
   @override

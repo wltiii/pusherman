@@ -8,9 +8,9 @@ class PillBoxSet extends Equatable {
   final List<PillBox> pillBoxes;
 
   PillBoxSet({
-    @required this.dependent,
-    @required this.caretakers,
-    @required this.pillBoxes,
+    required this.dependent,
+    required this.caretakers,
+    required this.pillBoxes,
   });
 
   @override

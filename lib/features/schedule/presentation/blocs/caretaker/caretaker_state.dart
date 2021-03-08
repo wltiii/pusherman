@@ -21,7 +21,7 @@ class CaretakerLoading extends CaretakerState {}
 class CaretakerLoaded extends CaretakerState {
   final Caretaker caretaker;
 
-  CaretakerLoaded({ @required this.caretaker });
+  CaretakerLoaded({ required this.caretaker });
 
   @override
   List<Object> get props => [caretaker];
@@ -29,7 +29,7 @@ class CaretakerLoaded extends CaretakerState {
 class CaretakerError extends CaretakerState {
   final String message;
 
-  CaretakerError({ @required this.message });
+  CaretakerError({ required this.message });
 
   @override
   List<Object> get props => [message];

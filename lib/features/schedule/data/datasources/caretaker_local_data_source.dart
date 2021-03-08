@@ -13,7 +13,7 @@ class CaretakerLocalDataSourceImpl implements CaretakerDataSource {
   final SharedPreferences sharedPreferences;
 
   CaretakerLocalDataSourceImpl({
-    @required this.sharedPreferences,
+    required this.sharedPreferences,
   });
 
   @override

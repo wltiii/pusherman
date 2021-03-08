@@ -8,8 +8,8 @@ class PillBoxesSetWidget extends StatelessWidget {
   final PillBoxSet pillBoxSet;
 
   const PillBoxesSetWidget({
-    @required Key key,
-    @required this.pillBoxSet,
+    required Key key,
+    required this.pillBoxSet,
   }) : super(key: key);
 
   @override

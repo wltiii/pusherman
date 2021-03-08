@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SpinnerWidget extends StatelessWidget {
   const SpinnerWidget({
-    @required Key key,
+    required Key key,
   }) : super(key: key);
 
   @override

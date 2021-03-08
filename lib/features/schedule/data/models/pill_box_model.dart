@@ -7,9 +7,9 @@ class PillBoxModel extends PillBox {
   final List<PillModel> pills;
   
   PillBoxModel({
-    @required String name,
-    @required String frequency,
-    @required this.pills,
+    required String name,
+    required String frequency,
+    required this.pills,
   }) : super(
     name: name,
     frequency: frequency,

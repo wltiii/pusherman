@@ -20,7 +20,7 @@ class PillBoxSetSetupDone extends PillBoxSetState {}
 class PillBoxSetLoaded extends PillBoxSetState {
   final PillBoxSet pillBoxSet;
 
-  PillBoxSetLoaded({ @required this.pillBoxSet });
+  PillBoxSetLoaded({ required this.pillBoxSet });
 
   @override
   List<Object> get props => [pillBoxSet];
@@ -28,7 +28,7 @@ class PillBoxSetLoaded extends PillBoxSetState {
 class PillBoxSetError extends PillBoxSetState {
   final String message;
 
-  PillBoxSetError({ @required this.message });
+  PillBoxSetError({ required this.message });
 
   @override
   List<Object> get props => [message];

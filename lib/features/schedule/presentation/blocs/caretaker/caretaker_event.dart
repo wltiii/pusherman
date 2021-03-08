@@ -10,7 +10,7 @@ abstract class CaretakerEvent extends Equatable {
 class CaretakerGetEvent extends CaretakerEvent {
   final String name;
 
-  CaretakerGetEvent({ @required this.name });
+  CaretakerGetEvent({ required this.name });
 
   @override
   List<Object> get props => [name];

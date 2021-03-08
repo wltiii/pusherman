@@ -15,9 +15,9 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
   final PillBoxSetDataSource remoteDataSource;
 
   PillBoxSetRepositoryImpl({
-    @required this.networkInfo,
-    @required this.localDataSource,
-    @required this.remoteDataSource,
+    required this.networkInfo,
+    required this.localDataSource,
+    required this.remoteDataSource,
   });
 
   @override

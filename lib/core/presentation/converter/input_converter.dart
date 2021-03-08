@@ -7,7 +7,7 @@ class InputConverter {
 
   factory InputConverter() => _instance;
 
-  InputConverter._() { }
+  InputConverter._();
 
   Either<Failure, int> toUnsignedInteger(String s) {
     try {
@@ -22,7 +22,7 @@ class InputConverter {
   // TODO this probably should error when leading/trailing whitespace, or
   // TODO if any  whitespace. Consider another method for validating
   // TODO user and dependent names
-  Either<Failure, String> toWordString(String s) {
+  Either<Failure, String> toWordString(String? s) {
     if (s == null) {
       return Left(InvalidInputFailure());
     }

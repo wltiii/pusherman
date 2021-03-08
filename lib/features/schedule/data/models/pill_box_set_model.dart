@@ -7,9 +7,9 @@ class PillBoxSetModel extends PillBoxSet /*implements JsonModel<PillBoxSetModel>
   final List<PillBoxModel> pillBoxes;
 
   PillBoxSetModel({
-    @required String dependent,
-    @required List<String> caretakers,
-    @required this.pillBoxes
+    required String dependent,
+    required List<String> caretakers,
+    required this.pillBoxes
   }) : super(
     dependent: dependent,
     caretakers: caretakers,

@@ -31,8 +31,8 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
   //   userRepository = UserRepository();
   // }
   PillBoxSetBloc({
-    @required GetPillBoxSet pillBoxSetGetter,
-    @required this.inputConverter,
+    required GetPillBoxSet pillBoxSetGetter,
+    required this.inputConverter,
   }) : super(PillBoxSetInitialState()) {
     getPillBoxSet = pillBoxSetGetter;
   }

@@ -12,8 +12,8 @@ class CaretakerBloc extends Bloc<CaretakerEvent, CaretakerState> {
   final InputConverter inputConverter;
 
   CaretakerBloc({
-    @required GetCaretaker caretakerGetter,
-    @required this.inputConverter,
+    required GetCaretaker caretakerGetter,
+    required this.inputConverter,
   })  : super(CaretakerInitialState()) {
     getCaretaker = caretakerGetter;
   }

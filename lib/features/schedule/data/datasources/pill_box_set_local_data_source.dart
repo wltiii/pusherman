@@ -17,7 +17,7 @@ class PillBoxSetLocalDataSourceImpl implements PillBoxSetLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   PillBoxSetLocalDataSourceImpl({
-    @required this.sharedPreferences,
+    required this.sharedPreferences,
   });
 
   @override

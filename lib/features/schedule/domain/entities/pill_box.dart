@@ -8,9 +8,9 @@ class PillBox extends Equatable {
   final List<Pill> pills;
 
   PillBox({
-    @required this.name,
-    @required this.frequency,
-    @required this.pills
+    required this.name,
+    required this.frequency,
+    required this.pills
   });
 
   @override

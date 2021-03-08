@@ -17,7 +17,7 @@ class AppStarted extends SetupEvent {
 class PageTapped extends SetupEvent {
   final int index;
 
-  PageTapped({ @required this.index });
+  PageTapped({ required this.index });
 
   @override
   String toString() => 'PageTapped: $index';

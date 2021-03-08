@@ -22,7 +22,7 @@ class GetCaretaker implements UseCase<Caretaker, Params> {
 class Params extends Equatable {
   final String name;
 
-  Params({ @required this.name });
+  Params({ required this.name });
 
   @override
   List<Object> get props => [name];

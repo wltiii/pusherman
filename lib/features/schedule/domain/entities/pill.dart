@@ -5,7 +5,7 @@ class Pill extends Equatable {
   final String name;
 
   Pill({
-    @required this.name,
+    required this.name,
   });
 
   @override

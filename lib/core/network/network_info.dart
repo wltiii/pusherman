@@ -3,7 +3,9 @@ TODO Note: remember to properly cancel the subscription when it's no longer need
 TODO See https://pub.dev/packages/data_connection_checker
 TODO See https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out/27312494#27312494
  */
-import 'package:data_connection_checker/data_connection_checker.dart';
+//TODO temporarily use fork until owner migrates to null safety
+// import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:data_connection_checker/lib/data_connection_checker.dart';
 
 abstract class NetworkInfo {
   Future<bool> get isConnected;

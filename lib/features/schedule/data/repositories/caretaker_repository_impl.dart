@@ -15,9 +15,9 @@ class CaretakerRepositoryImpl implements CaretakerRepository {
   final CaretakerDataSource remoteDataSource;
 
   CaretakerRepositoryImpl({
-    @required this.networkInfo,
-    @required this.localDataSource,
-    @required this.remoteDataSource,
+    required this.networkInfo,
+    required this.localDataSource,
+    required this.remoteDataSource,
   });
 
   @override

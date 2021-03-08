@@ -16,7 +16,7 @@ class CaretakerRemoteDataSourceImpl implements CaretakerDataSource {
   final http.Client client;
 
   CaretakerRemoteDataSourceImpl({
-    @required this.client,
+    required this.client,
   });
 
   @override
