@@ -39,11 +39,16 @@ dependencies:
   # Local cache
   shared_preferences: ^2.0.3
   # check connectivity
-  # TODO - the following latest v.0.3.4 is not null safe, importing a fork
-  data_connection_checker:
-    git:
-      url: https://github.com/jifalops/data_connection_checker.git
-      ref: master
+  # TODO - data_connection_checker appears to be unmaintained and is not null safe, importing a fork
+  # i could not get the github import to work - though spent little time on it
+  # retaining this so i have a link to said project. may want to see about updating
+  # internet_connection_project with updates from jifalops
+#  data_connection_checker:
+#    git:
+#      url: https://github.com/jifalops/data_connection_checker.git
+#      ref: master
+  # check connectivity (replaces data_connection_checker)
+  internet_connection_checker: ^0.0.1
   # annotations for freezed
   freezed_annotation: ^0.14.0
 

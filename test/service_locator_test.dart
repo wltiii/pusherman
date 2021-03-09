@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:http/http.dart' as http;
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
@@ -15,8 +15,8 @@ void main() async {
   await di.init();
 
   group('is registered', () {
-    test('DataConnectionChecker', () async {
-      expect(di.sl.isRegistered<DataConnectionChecker>(), isTrue);
+    test('InternetConnectionChecker', () async {
+      expect(di.sl.isRegistered<InternetConnectionChecker>(), isTrue);
     });
     test('http.Client', () {
       expect(di.sl.isRegistered<http.Client>(), isTrue);
@@ -48,10 +48,10 @@ void main() async {
   });
 
   group('gets instance', () {
-    test('DataConnectionChecker', () async {
-      final instance = di.sl.get<DataConnectionChecker>();
+    test('InternetConnectionChecker', () async {
+      final instance = di.sl.get<InternetConnectionChecker>();
       expect(instance, isNot(null));
-      expect(instance, isA<DataConnectionChecker>());
+      expect(instance, isA<InternetConnectionChecker>());
       var result = await instance.hasConnection;
       expect(result, isTrue);
     });
