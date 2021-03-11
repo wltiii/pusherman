@@ -29,7 +29,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
     final uri = Uri.http(BASE_HOST_URI, '/$DEPENDENT_PATH/$dependent');
     final headers = {'Content-Type': 'application/json'};
     final response = await client.get(
-      uri.toString(),
+      uri,
       headers: headers,
     );
 
@@ -47,7 +47,7 @@ class PillBoxSetRemoteDataSourceImpl implements PillBoxSetRemoteDataSource {
     final body = json.encode(pillBoxSet.toJson());
 
     var response = await client.put(
-      uri.toString(),
+      uri,
       body: body,
       headers: headers,
     );
