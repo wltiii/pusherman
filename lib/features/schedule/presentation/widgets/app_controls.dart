@@ -4,7 +4,7 @@ import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.d
 
 class AppControls extends StatefulWidget {
   const AppControls({
-    required Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
