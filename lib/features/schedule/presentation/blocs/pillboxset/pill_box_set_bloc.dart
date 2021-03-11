@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
-import 'package:pusherman/core/error/failure.dart';
 
+import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
 import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
+import 'package:pusherman/service_locator.dart' as di;
 
 import 'get_pill_box_set_event.dart';
 
@@ -17,6 +18,7 @@ const String DEPENDENT_INVALID = "Dependent was not entered or invalid.";
 const String UNAVAILABLE_NETWORK = "Network is unavailable.";
 
 class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
+  // TODO can this be final?
   GetPillBoxSet getPillBoxSet;
   final InputConverter inputConverter;
 
@@ -31,10 +33,11 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
   //   userRepository = UserRepository();
   // }
   PillBoxSetBloc({
-    required GetPillBoxSet pillBoxSetGetter,
+    // required GetPillBoxSet pillBoxSetGetter,
+    required this.getPillBoxSet,
     required this.inputConverter,
   }) : super(PillBoxSetInitialState()) {
-    getPillBoxSet = pillBoxSetGetter;
+    getPillBoxSet = di.sl.get<GetPillBoxSet>();
   }
   // PillBoxSetBloc({
   //   @required GetPillBoxSet pillBoxSetGetter,

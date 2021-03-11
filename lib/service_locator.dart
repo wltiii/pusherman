@@ -17,8 +17,8 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerFactory(() =>
       PillBoxSetBloc(
-          pillBoxSetGetter: sl.get<GetPillBoxSet>(),
-          inputConverter: sl.get<InputConverter>(),
+        getPillBoxSet: sl.get<GetPillBoxSet>(),
+        inputConverter: sl.get<InputConverter>(),
       )
   );
 

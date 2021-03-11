@@ -13,7 +13,7 @@ class AppControls extends StatefulWidget {
 
 class _AppControlsState extends State<AppControls> {
   final controller = TextEditingController();
-  String inputStr;
+  // String inputStr;
 
   @override
   Widget build(BuildContext context) {
