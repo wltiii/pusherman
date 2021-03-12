@@ -1,18 +1,16 @@
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:mockito/annotations.dart';
+
+import 'network_info_test.mocks.dart';
 import 'package:pusherman/core/network/network_info.dart';
 
-class MockInternetConnectionChecker extends Mock implements InternetConnectionChecker {}
+@GenerateMocks([InternetConnectionChecker])
 
 void main() {
-  NetworkInfo networkInfo;
-  MockInternetConnectionChecker mockInternetConnectionChecker;
-
-  setUp(() {
-    mockInternetConnectionChecker = MockInternetConnectionChecker();
-    networkInfo = NetworkInfoImpl(mockInternetConnectionChecker);
-  });
+  var mockInternetConnectionChecker = MockInternetConnectionChecker();
+  NetworkInfo networkInfo = NetworkInfoImpl(mockInternetConnectionChecker);
 
   group('isConnected', () {
     test(
