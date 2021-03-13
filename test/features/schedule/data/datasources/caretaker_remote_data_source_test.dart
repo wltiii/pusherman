@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/features/schedule/data/datasources/caretaker_data_source.dart';
@@ -9,22 +10,18 @@ import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'package:test/test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
+import 'caretaker_remote_data_source_test.mocks.dart';
 
-class MockHttpClient extends Mock implements http.Client {}
+@GenerateMocks([http.Client])
 
 void main() {
   group('CaretakerRemoteDataSource', () {
-    CaretakerDataSource dataSource;
-    MockHttpClient mockHttpClient;
-
-    setUp(() {
-      mockHttpClient = MockHttpClient();
-      dataSource = CaretakerRemoteDataSourceImpl(client: mockHttpClient);
-    });
+    var mockHttpClient = MockClient();
+    CaretakerDataSource dataSource =
+        CaretakerRemoteDataSourceImpl(client: mockHttpClient);
 
     void mockHttpGetWithStatus(status) {
-      final body =
-          status == 200 ? fixtureAsString('caretaker.json') : 'Boom!';
+      final body = status == 200 ? fixtureAsString('caretaker.json') : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
@@ -42,7 +39,7 @@ void main() {
 
         // then
         verify(mockHttpClient.get(
-          'http://localhost:8000/caretaker/Coda',
+          Uri(path: 'http://localhost:8000/caretaker/Coda'),
           headers: {'Content-Type': 'application/json'},
         ));
       });
@@ -78,15 +75,16 @@ void main() {
     group('PUT', () {
       test('puts with correct URI and headers', () async {
         // given
-        var expectedUrl = 'http://localhost:8000/caretaker/Bill';
+        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
         var expectedHeaders = {
-          'Content-Type' : 'application/json',
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final givenCaretaker =
+            CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
@@ -102,15 +100,16 @@ void main() {
 
       test('creates a CaretakerModel', () async {
         // given
-        var expectedUrl = 'http://localhost:8000/caretaker/Bill';
-        var expectedHeaders = <String,String>{
-          'Content-Type' : 'application/json',
+        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
+        var expectedHeaders = <String, String>{
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final givenCaretaker =
+            CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
@@ -153,7 +152,6 @@ void main() {
       //     expectedJsonString,
       //   ));
       // });
-
     });
   });
 }
