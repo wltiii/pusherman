@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
@@ -9,31 +10,25 @@ import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dar
 import 'package:pusherman/features/schedule/presentation/blocs/pillboxset/bloc.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
+import 'pill_box_set_bloc_test.mocks.dart';
 
-class MockGetPillBoxSet extends Mock implements GetPillBoxSet {}
+@GenerateMocks([GetPillBoxSet])
 
 void main() {
-  PillBoxSetBloc bloc;
-  MockGetPillBoxSet mockGetPillBoxSet;
+  var mockGetPillBoxSet = MockGetPillBoxSet();
   InputConverter inputConverter;
+  PillBoxSetBloc bloc = PillBoxSetBloc(
+    getPillBoxSet: mockGetPillBoxSet,
+    inputConverter: InputConverter(),
+  );
 
-  setUp(() {
-    mockGetPillBoxSet = MockGetPillBoxSet();
-    inputConverter = InputConverter();
-
-    bloc = PillBoxSetBloc(
-      pillBoxSetGetter: mockGetPillBoxSet,
-      inputConverter: inputConverter,
-    );
-  });
-
-  test('initialState returns empty state', () {
+  test('create returns initialState state', () {
     // given
     mockGetPillBoxSet = MockGetPillBoxSet();
     inputConverter = InputConverter();
 
     bloc = PillBoxSetBloc(
-      pillBoxSetGetter: mockGetPillBoxSet,
+      getPillBoxSet: mockGetPillBoxSet,
       inputConverter: inputConverter,
     );
 
@@ -48,11 +43,12 @@ void main() {
 
     test('emits [error] states when dependent is invalid', () async {
       // given
+      // TODO why is this being initialized in every test?
       mockGetPillBoxSet = MockGetPillBoxSet();
       inputConverter = InputConverter();
 
       bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
+        getPillBoxSet: mockGetPillBoxSet,
         inputConverter: inputConverter,
       );
 
@@ -73,7 +69,7 @@ void main() {
       inputConverter = InputConverter();
 
       bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
+        getPillBoxSet: mockGetPillBoxSet,
         inputConverter: inputConverter,
       );
 
@@ -94,7 +90,7 @@ void main() {
       inputConverter = InputConverter();
 
       bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
+        getPillBoxSet: mockGetPillBoxSet,
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
@@ -121,7 +117,7 @@ void main() {
       inputConverter = InputConverter();
 
       bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
+        getPillBoxSet: mockGetPillBoxSet,
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
@@ -148,7 +144,7 @@ void main() {
       inputConverter = InputConverter();
 
       bloc = PillBoxSetBloc(
-        pillBoxSetGetter: mockGetPillBoxSet,
+        getPillBoxSet: mockGetPillBoxSet,
         inputConverter: inputConverter,
       );
       final expectedEmissions = [
