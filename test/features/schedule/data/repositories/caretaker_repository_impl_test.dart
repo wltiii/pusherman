@@ -1,44 +1,40 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/caretaker_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/caretaker_local_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/caretaker_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'package:pusherman/features/schedule/data/repositories/caretaker_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
+import 'caretaker_repository_impl_test.mocks.dart';
 
-class MockNetworkInfo extends Mock
-    implements NetworkInfo {}
-class MockLocalDataSource extends Mock
-    implements CaretakerDataSource {}
-class MockRemoteDataSource extends Mock
-    implements CaretakerDataSource {}
+@GenerateMocks([
+  NetworkInfo,
+  CaretakerLocalDataSourceImpl,
+  CaretakerRemoteDataSourceImpl,
+])
 
 void main() {
   group('CaretakerRepositoryImpl', () {
-    MockNetworkInfo mockNetworkInfo;
-    MockLocalDataSource mockLocalDataSource;
-    MockRemoteDataSource mockRemoteDataSource;
-    CaretakerRepositoryImpl repository;
+    var mockNetworkInfo = MockNetworkInfo();
+    var mockLocalDataSource = MockCaretakerLocalDataSourceImpl();
+    var mockRemoteDataSource = MockCaretakerRemoteDataSourceImpl();
+    CaretakerRepositoryImpl repository = CaretakerRepositoryImpl(
+      networkInfo: mockNetworkInfo,
+      localDataSource: mockLocalDataSource,
+      remoteDataSource: mockRemoteDataSource,
+    );
 
     final caretakerModel = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
     final name = caretakerModel.name;
     final Caretaker caretakerEntity = caretakerModel;
-
-    setUp(() {
-      mockNetworkInfo = MockNetworkInfo();
-      mockLocalDataSource = MockLocalDataSource();
-      mockRemoteDataSource = MockRemoteDataSource();
-      repository = CaretakerRepositoryImpl(
-        networkInfo: mockNetworkInfo,
-          localDataSource: mockLocalDataSource,
-          remoteDataSource: mockRemoteDataSource,
-      );
-    });
 
     group('device is online', () {
       setUp(() {
@@ -49,7 +45,7 @@ void main() {
         test('returns Caretaker from remote data source when found', () async {
           // given
           when(mockRemoteDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+              .thenAnswer((_) async => caretakerModel);
           // when
           final result = await repository.get(name);
           // then
@@ -67,11 +63,11 @@ void main() {
         test('stores remote result to local', () async {
           // given
           when(mockRemoteDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+              .thenAnswer((_) async => caretakerModel);
           // when
           await repository.get(name);
           // then
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockLocalDataSource.put(caretakerModel));
         });
 
         test('returns ServerFailure when remote and local calls fail', () async {
@@ -92,7 +88,7 @@ void main() {
           when(mockRemoteDataSource.get(name))
               .thenThrow(ServerException());
           when(mockLocalDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+              .thenAnswer((_) async => caretakerModel);
           // when
           final result = await repository.get(name);
           // then
@@ -106,8 +102,8 @@ void main() {
            // when
           await repository.put(caretakerEntity);
           // then
-          verify(mockRemoteDataSource.put(caretakerEntity));
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockRemoteDataSource.put(caretakerModel));
+          verify(mockLocalDataSource.put(caretakerModel));
         });
       });
     });
@@ -121,7 +117,7 @@ void main() {
         test('returns Caretaker from local data source', () async {
           // given
           when(mockLocalDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+              .thenAnswer((_) async => caretakerModel);
           // when
           final result = await repository.get(name);
           // then
@@ -152,13 +148,13 @@ void main() {
           // when
           await repository.put(caretakerEntity);
           // then
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockLocalDataSource.put(caretakerModel));
         });
         test('does not save to remote', () async {
           // when
           await repository.put(caretakerEntity);
           // then
-          verifyNever(mockRemoteDataSource.put(caretakerEntity));
+          verifyNever(mockRemoteDataSource.put(caretakerModel));
         });
       });
     });
