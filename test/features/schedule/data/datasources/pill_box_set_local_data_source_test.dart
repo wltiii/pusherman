@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
@@ -9,19 +10,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockSharedPreferences extends Mock implements SharedPreferences {}
+import 'pill_box_set_local_data_source_test.mocks.dart';
+
+@GenerateMocks([SharedPreferences])
 
 void main() {
   group('PillBoxSetLocalDataSource', () {
-    PillBoxSetDataSource dataSource;
-    MockSharedPreferences mockSharedPreferences;
-
-    setUp(() {
-      mockSharedPreferences = MockSharedPreferences();
-      dataSource = PillBoxSetLocalDataSourceImpl(
-        sharedPreferences: mockSharedPreferences,
-      );
-    });
+    var mockSharedPreferences = MockSharedPreferences();
+    PillBoxSetDataSource dataSource = PillBoxSetLocalDataSourceImpl(
+      sharedPreferences: mockSharedPreferences,
+    );
 
     group('getByDependent', () {
       test('returns a PillBoxSetModel', () async {
