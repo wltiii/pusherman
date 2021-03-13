@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
@@ -10,17 +11,14 @@ import 'package:test/test.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockHttpClient extends Mock implements http.Client {}
+import 'pill_box_set_remote_data_source_test.mocks.dart';
+
+@GenerateMocks([http.Client])
 
 void main() {
   group('PillBoxSetRemoteDataSource', () {
-    PillBoxSetDataSource dataSource;
-    MockHttpClient mockHttpClient;
-
-    setUp(() {
-      mockHttpClient = MockHttpClient();
-      dataSource = PillBoxSetRemoteDataSourceImpl(client: mockHttpClient);
-    });
+    var mockHttpClient = MockClient();
+    PillBoxSetDataSource dataSource = PillBoxSetRemoteDataSourceImpl(client: mockHttpClient);
 
     void mockHttpGetWithStatus(status) {
       final body =
@@ -42,7 +40,7 @@ void main() {
 
         // then
         verify(mockHttpClient.get(
-          'http://localhost:8000/dependent/Coda',
+          Uri(path: 'http://localhost:8000/caretaker/Coda'),
           headers: {'Content-Type': 'application/json'},
         ));
       });
@@ -78,7 +76,7 @@ void main() {
     group('PUT', () {
       test('puts with correct URI and headers', () async {
         // given
-        var expectedUrl = 'http://localhost:8000/dependent/Coda';
+        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
         var expectedHeaders = <String,String>{
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
@@ -102,7 +100,7 @@ void main() {
 
       test('creates a PillBoxSetModel', () async {
         // given
-        var expectedUrl = 'http://localhost:8000/dependent/Coda';
+        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
         var expectedHeaders = {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
