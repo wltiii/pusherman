@@ -1,13 +1,10 @@
-import 'package:pusherman/core/presentation/converter/input_converter.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
-  InputConverter inputConverter;
+import 'package:pusherman/core/presentation/converter/input_converter.dart';
 
-  setUp(() {
-    inputConverter = InputConverter();
-  });
+void main() {
+  InputConverter inputConverter = InputConverter();
 
   group('construction', () {
     test('factory', () {
