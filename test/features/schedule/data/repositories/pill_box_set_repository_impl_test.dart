@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
-import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_local_data_source.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
@@ -23,6 +24,14 @@ import 'pill_box_set_repository_impl_test.mocks.dart';
 ])
 
 void main() {
+  // TODO discuss with Richard
+  // TODO may want to use mockito reset() in a global setUp to clear mock
+  // TODO collected interactions rather than calling verify on uninteresting
+  // TODO interactions, like those added with this commit.
+  // TODO SEE: https://pub.dev/documentation/mockito/latest/mockito/reset.html
+  // TODO SEE: https://pub.dev/packages/mockito for other possible alternatives
+  // TODO such as verifyNoMoreInteractions()
+  // TODO this may have become necessary for the global setUp was removed (???)
   group('PillBoxSetRepositoryImpl', () {
     var mockNetworkInfo = MockNetworkInfo();
     var mockLocalDataSource = MockPillBoxSetLocalDataSourceImpl();
@@ -47,6 +56,8 @@ void main() {
           // given
           when(mockRemoteDataSource.getByDependent(dependent))
               .thenAnswer((_) async => pillBoxSetModel);
+          when(mockRemoteDataSource.put(pillBoxSetModel)).thenAnswer((_) async => Response('', 201));
+
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -69,6 +80,7 @@ void main() {
           await repository.getByDependent(dependent);
           // then
           verify(mockLocalDataSource.put(pillBoxSetModel));
+          verify(mockRemoteDataSource.getByDependent(dependent));
         });
 
         test('returns ServerFailure when remote and local calls fail', () async {
@@ -80,6 +92,7 @@ void main() {
           // when
           final result = await repository.getByDependent(dependent);
           // then
+          verify(mockRemoteDataSource.getByDependent(dependent));
           verifyNever(mockLocalDataSource.put(any));
           expect(result, equals(Left(ServerFailure())));
         });
@@ -93,6 +106,7 @@ void main() {
           // when
           final result = await repository.getByDependent(dependent);
           // then
+          verify(mockRemoteDataSource.getByDependent(dependent));
           verify(mockLocalDataSource.getByDependent(dependent));
           expect(result, equals(Right(pillBoxSet)));
         });
@@ -127,6 +141,9 @@ void main() {
         });
 
         test('does not retrieve from remote', () async {
+          // given
+          when(mockLocalDataSource.getByDependent(dependent))
+              .thenAnswer((_) async => pillBoxSetModel);
           // when
           await repository.getByDependent(dependent);
           // then

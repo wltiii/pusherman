@@ -56,9 +56,9 @@ class PillBoxSetRepositoryImpl implements PillBoxSetRepository {
   // TODO a gateway (?)
   @override
   Future<void> put(PillBoxSet pillBoxSet) async {
-    // TODO does it make map the domain entity to the persistence model here?
+    // TODO does it make sense to map the domain entity to the persistence model here?
     // TODO diagram this and think about it. but, this seems right.
-    // TODO NOTE: the following line appears to set they type to the model
+    // TODO NOTE: the following line appears to set the type to the model
     var model = pillBoxSet as PillBoxSetModel;
     await localDataSource.put(pillBoxSet);
     if (await networkInfo.isConnected) {
