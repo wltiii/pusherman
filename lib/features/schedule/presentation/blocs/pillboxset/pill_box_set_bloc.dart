@@ -37,7 +37,6 @@ class PillBoxSetBloc extends Bloc<PillBoxSetEvent, PillBoxSetState> {
     required this.getPillBoxSet,
     required this.inputConverter,
   }) : super(PillBoxSetInitialState()) {
-    getPillBoxSet = di.sl.get<GetPillBoxSet>();
   }
   // PillBoxSetBloc({
   //   @required GetPillBoxSet pillBoxSetGetter,
