@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
@@ -22,6 +23,18 @@ import 'caretaker_repository_impl_test.mocks.dart';
 ])
 
 void main() {
+  // TODO discuss with Richard
+  // TODO may want to use mockito reset() in a global setUp to clear mock
+  // TODO collected interactions rather than calling verify on uninteresting
+  // TODO interactions, like those added with this commit.
+  // TODO SEE: https://pub.dev/documentation/mockito/latest/mockito/reset.html
+  // TODO SEE: https://pub.dev/packages/mockito for other possible alternatives
+  // TODO such as verifyNoMoreInteractions()
+  // TODO this may have become necessary for the global setUp was removed (???)
+  // setUp(() {
+  //   reset(mockNetworkInfo);
+  // });
+
   group('CaretakerRepositoryImpl', () {
     var mockNetworkInfo = MockNetworkInfo();
     var mockLocalDataSource = MockCaretakerLocalDataSourceImpl();
@@ -46,6 +59,7 @@ void main() {
           // given
           when(mockRemoteDataSource.get(name))
               .thenAnswer((_) async => caretakerModel);
+          when(mockRemoteDataSource.put(caretakerModel)).thenAnswer((_) async => Response('', 201));
           // when
           final result = await repository.get(name);
           // then
@@ -68,6 +82,7 @@ void main() {
           await repository.get(name);
           // then
           verify(mockLocalDataSource.put(caretakerModel));
+          verify(mockRemoteDataSource.get(name));
         });
 
         test('returns ServerFailure when remote and local calls fail', () async {
@@ -79,6 +94,7 @@ void main() {
           // when
           final result = await repository.get(name);
           // then
+          verify(mockRemoteDataSource.get(name));
           verifyNever(mockLocalDataSource.put(any));
           expect(result, equals(Left(ServerFailure())));
         });
@@ -92,6 +108,7 @@ void main() {
           // when
           final result = await repository.get(name);
           // then
+          verify(mockRemoteDataSource.get(name));
           verify(mockLocalDataSource.get(name));
           expect(result, equals(Right(caretakerEntity)));
         });
@@ -126,6 +143,9 @@ void main() {
         });
 
         test('does not retrieve from remote', () async {
+          // given
+          when(mockRemoteDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
           // when
           await repository.get(name);
           // then
