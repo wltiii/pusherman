@@ -40,7 +40,7 @@ void main() {
 
         // then
         verify(mockHttpClient.get(
-          Uri(path: 'http://localhost:8000/caretaker/Coda'),
+          Uri(path: 'http://localhost:8000/dependent/Coda'),
           headers: {'Content-Type': 'application/json'},
         ));
       });
@@ -76,15 +76,23 @@ void main() {
     group('PUT', () {
       test('puts with correct URI and headers', () async {
         // given
-        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
+        var expectedUrl = Uri.http(
+            'localhost:8000',
+            '/dependent/Coda'
+        );
         var expectedHeaders = <String,String>{
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
         final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+        when(mockHttpClient.put(
+          any,
+          headers: anyNamed('headers'),
+          body: anyNamed('body'),
+          encoding: anyNamed('encoding'),
+        )).thenAnswer(
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
@@ -93,14 +101,15 @@ void main() {
         // then
         verify(mockHttpClient.put(
           expectedUrl,
-          body: expectedJsonString,
           headers: expectedHeaders,
+          body: expectedJsonString,
+          encoding: null,
         ));
       });
 
       test('creates a PillBoxSetModel', () async {
         // given
-        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
+        var expectedUrl = Uri(path: 'http://localhost:8000/dependent/Coda');
         var expectedHeaders = {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
@@ -119,6 +128,7 @@ void main() {
           expectedUrl,
           body: expectedJsonString,
           headers: expectedHeaders,
+          encoding: null
         ));
       });
 
