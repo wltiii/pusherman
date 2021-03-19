@@ -43,8 +43,9 @@ class CaretakerRemoteDataSourceImpl implements CaretakerDataSource {
 
     var response = await client.put(
       uri,
-      body: body,
       headers: headers,
+      body: body,
+      encoding: null,
     );
 
     return response;

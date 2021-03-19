@@ -18,18 +18,21 @@ import 'pill_box_set_remote_data_source_test.mocks.dart';
 void main() {
   group('PillBoxSetRemoteDataSource', () {
     var mockHttpClient = MockClient();
-    PillBoxSetDataSource dataSource = PillBoxSetRemoteDataSourceImpl(client: mockHttpClient);
+    PillBoxSetDataSource dataSource = PillBoxSetRemoteDataSourceImpl(
+        client: mockHttpClient
+    );
 
     void mockHttpGetWithStatus(status) {
-      final body =
-          status == 200 ? fixtureAsString('coda_pill_box_set.json') : 'Boom!';
+      final body = status == 200
+          ? fixtureAsString('coda_pill_box_set.json')
+          : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
       );
     }
 
-    group('getByDependent', () {
+    group('GET', () {
       test('gets a PillBoxSetModel with correct URI and headers', () async {
         // given
         mockHttpGetWithStatus(200);
@@ -80,7 +83,8 @@ void main() {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+        final givenPillBoxSet = PillBoxSetModel
+            .fromJson(fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
         when(mockHttpClient.put(
           any,

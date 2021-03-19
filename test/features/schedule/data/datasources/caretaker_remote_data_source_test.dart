@@ -17,45 +17,44 @@ import 'caretaker_remote_data_source_test.mocks.dart';
 void main() {
   group('CaretakerRemoteDataSource', () {
     var mockHttpClient = MockClient();
-    CaretakerDataSource dataSource =
-        CaretakerRemoteDataSourceImpl(client: mockHttpClient);
+    CaretakerDataSource dataSource = CaretakerRemoteDataSourceImpl(
+        client: mockHttpClient
+    );
 
     void mockHttpGetWithStatus(status) {
-      final body = status == 200 ? fixtureAsString('caretaker.json') : 'Boom!';
+      final body = status == 200
+          ? fixtureAsString('caretaker.json')
+          : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
       );
     }
 
-    group('getByDependent', () {
-      test('calls with correct URI and headers', () async {
-        // given
-        mockHttpGetWithStatus(200);
-        final name = 'Coda';
-
-        // when
-        await dataSource.get(name);
-
-        // then
-        verify(mockHttpClient.get(
-          Uri(path: 'http://localhost:8000/caretaker/Coda'),
-          headers: {'Content-Type': 'application/json'},
-        ));
-      });
-
-      test('returns a CaretakerModel', () async {
+    group('GET', () {
+      test('gets a CaretakerModel with correct URI and headers', () async {
         // given
         mockHttpGetWithStatus(200);
         final name = 'Coda';
         final expectedCaretaker =
             CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        var expectedUrl = Uri.http(
+            'localhost:8000',
+            '/caretaker/Coda'
+        );
+        var expectedHeaders = {
+          'Content-Type' : 'application/json',
+        };
 
         // when
         final result = await dataSource.get(name);
 
         // then
         expect(result, equals(expectedCaretaker));
+        verify(mockHttpClient.get(
+          expectedUrl,
+          headers: expectedHeaders,
+        ));
       });
 
       test('throws a ServerException when the response code is other than 200',
@@ -73,17 +72,25 @@ void main() {
     });
 
     group('PUT', () {
-      test('puts with correct URI and headers', () async {
+      test('creates a CaretakerModel with correct URI and headers', () async {
         // given
-        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
+        var expectedUrl = Uri.http(
+            'localhost:8000',
+            '/caretaker/Bill'
+        );
         var expectedHeaders = {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenCaretaker =
-            CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final givenCaretaker = CaretakerModel
+            .fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
+        when(mockHttpClient.put(
+          any,
+          headers: anyNamed('headers'),
+          body: anyNamed('body'),
+          encoding: anyNamed('encoding'),
+        )).thenAnswer(
           (_) async => http.Response(expectedJsonString, 201),
         );
 
@@ -93,36 +100,13 @@ void main() {
         // then
         verify(mockHttpClient.put(
           expectedUrl,
-          body: expectedJsonString,
           headers: expectedHeaders,
+          body: expectedJsonString,
+          encoding: null,
         ));
       });
 
-      test('creates a CaretakerModel', () async {
-        // given
-        var expectedUrl = Uri(path: 'http://localhost:8000/caretaker/Bill');
-        var expectedHeaders = <String, String>{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        };
-        final givenCaretaker =
-            CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
-        final expectedJsonString = json.encode(givenCaretaker);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-          (_) async => http.Response(expectedJsonString, 201),
-        );
-
-        // when
-        await dataSource.put(givenCaretaker);
-
-        // then
-        verify(mockHttpClient.put(
-          expectedUrl,
-          body: expectedJsonString,
-          headers: expectedHeaders,
-        ));
-      });
-
+      // TODO why are the following tests commented out?
       // test('updates a CaretakerModel', () async {
       //   // given
       //   final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
