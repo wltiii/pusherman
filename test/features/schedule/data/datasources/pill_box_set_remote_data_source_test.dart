@@ -30,33 +30,29 @@ void main() {
     }
 
     group('getByDependent', () {
-      test('calls with correct URI and headers', () async {
-        // given
-        mockHttpGetWithStatus(200);
-        final aDependent = 'Coda';
-
-        // when
-        await dataSource.getByDependent(aDependent);
-
-        // then
-        verify(mockHttpClient.get(
-          Uri(path: 'http://localhost:8000/dependent/Coda'),
-          headers: {'Content-Type': 'application/json'},
-        ));
-      });
-
-      test('returns a PillBoxSetModel', () async {
+      test('gets a PillBoxSetModel with correct URI and headers', () async {
         // given
         mockHttpGetWithStatus(200);
         final aDependent = 'Coda';
         final expectedPillBoxSet =
             PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+        var expectedUrl = Uri.http(
+            'localhost:8000',
+            '/dependent/Coda'
+        );
+        var expectedHeaders = {
+          'Content-Type' : 'application/json',
+        };
 
         // when
         final result = await dataSource.getByDependent(aDependent);
 
         // then
         expect(result, equals(expectedPillBoxSet));
+        verify(mockHttpClient.get(
+          expectedUrl,
+          headers: expectedHeaders,
+        ));
       });
 
       test('throws a ServerException when the response code is other than 200',
@@ -74,13 +70,13 @@ void main() {
     });
 
     group('PUT', () {
-      test('puts with correct URI and headers', () async {
+      test('creates a PillBoxSetModel with correct URI and headers', () async {
         // given
         var expectedUrl = Uri.http(
             'localhost:8000',
             '/dependent/Coda'
         );
-        var expectedHeaders = <String,String>{
+        var expectedHeaders = {
           'Content-Type' : 'application/json',
           'Accept': 'application/json',
         };
@@ -107,31 +103,7 @@ void main() {
         ));
       });
 
-      test('creates a PillBoxSetModel', () async {
-        // given
-        var expectedUrl = Uri(path: 'http://localhost:8000/dependent/Coda');
-        var expectedHeaders = {
-          'Content-Type' : 'application/json',
-          'Accept': 'application/json',
-        };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
-        final expectedJsonString = json.encode(givenPillBoxSet);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
-        );
-
-        // when
-        await dataSource.put(givenPillBoxSet);
-
-        // then
-        verify(mockHttpClient.put(
-          expectedUrl,
-          body: expectedJsonString,
-          headers: expectedHeaders,
-          encoding: null
-        ));
-      });
-
+      // TODO why are the following tests commented out?
       // test('updates a PillBoxSetModel', () async {
       //   // given
       //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
