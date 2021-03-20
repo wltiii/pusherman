@@ -21,12 +21,14 @@ void main() {
       sharedPreferences: mockSharedPreferences,
     );
 
-    group('getByDependent', () {
+    group('GET', () {
       test('returns a PillBoxSetModel', () async {
         // given
         final aDependent = 'Coda';
         final key = CACHED_PILL_BOX_SET + aDependent;
-        final expectedPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+        final expectedPillBoxSet = PillBoxSetModel.fromJson(
+            fixtureAsMap('coda_pill_box_set.json')
+        );
         when(mockSharedPreferences.getString(key))
             .thenReturn(fixtureAsString('coda_pill_box_set.json'));
         // when
@@ -39,7 +41,8 @@ void main() {
         // given
         when(mockSharedPreferences.getString(any)).thenReturn(null);
         // expect
-        expect(() => dataSource.getByDependent('unknown'), throwsA(TypeMatcher<CacheException>()));
+        expect(() => dataSource.getByDependent('unknown'),
+            throwsA(TypeMatcher<CacheException>()));
        });
 
     });
@@ -47,8 +50,13 @@ void main() {
     group('PUT', () {
       test('creates a PillBoxSetModel', () async {
         // given
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+        final givenPillBoxSet = PillBoxSetModel.fromJson(
+            fixtureAsMap('coda_pill_box_set.json'));
         final expectedJsonString = json.encode(givenPillBoxSet);
+        when(mockSharedPreferences.setString(any, any))
+            .thenAnswer(
+              (_) async => true,
+        );
         // when
         await dataSource.put(givenPillBoxSet);
         // then

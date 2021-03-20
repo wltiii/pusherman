@@ -26,7 +26,9 @@ void main() {
         // given
         final aDependent = 'Coda';
         final key = CACHED_CARETAKER + aDependent;
-        final expectedCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final expectedCaretaker = CaretakerModel.fromJson(
+            fixtureAsMap('caretaker.json')
+        );
         when(mockSharedPreferences.getString(key))
             .thenReturn(fixtureAsString('caretaker.json'));
         // when
@@ -39,7 +41,8 @@ void main() {
         // given
         when(mockSharedPreferences.getString(any)).thenReturn(null);
         // expect
-        expect(() => dataSource.get('unknown'), throwsA(TypeMatcher<CacheException>()));
+        expect(() => dataSource.get('unknown'),
+            throwsA(TypeMatcher<CacheException>()));
        });
 
     });
@@ -47,8 +50,13 @@ void main() {
     group('PUT', () {
       test('creates a CaretakerModel', () async {
         // given
-        final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final givenCaretaker = CaretakerModel.fromJson(
+            fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
+        when(mockSharedPreferences.setString(any, any))
+            .thenAnswer(
+              (_) async => true,
+        );
         // when
         await dataSource.put(givenCaretaker);
         // then
