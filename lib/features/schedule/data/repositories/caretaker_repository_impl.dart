@@ -27,6 +27,13 @@ class CaretakerRepositoryImpl implements CaretakerRepository {
 
   Future<Either<Failure, Caretaker>> _getFromRemote(String dependent) async {
     try {
+      // TODO retrieve both local and remote
+      // TODO if remote response is out of date:
+      // TODO 1) store local to remote
+      // TODO 2) return result
+      // TODO if local response is out of date:
+      // TODO 1) store remote to local
+      // TODO 2) return result
       var caretaker = await remoteDataSource.get(dependent);
       await put(caretaker);
       return Right(caretaker);

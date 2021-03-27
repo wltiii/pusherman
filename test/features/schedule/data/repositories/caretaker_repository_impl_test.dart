@@ -23,6 +23,14 @@ import 'caretaker_repository_impl_test.mocks.dart';
 ])
 
 void main() {
+  var mockNetworkInfo = MockNetworkInfo();
+  var mockLocalDataSource = MockCaretakerLocalDataSourceImpl();
+  var mockRemoteDataSource = MockCaretakerRemoteDataSourceImpl();
+  CaretakerRepositoryImpl repository = CaretakerRepositoryImpl(
+    networkInfo: mockNetworkInfo,
+    localDataSource: mockLocalDataSource,
+    remoteDataSource: mockRemoteDataSource,
+  );
   // TODO discuss with Richard
   // TODO may want to use mockito reset() in a global setUp to clear mock
   // TODO collected interactions rather than calling verify on uninteresting
@@ -31,24 +39,19 @@ void main() {
   // TODO SEE: https://pub.dev/packages/mockito for other possible alternatives
   // TODO such as verifyNoMoreInteractions()
   // TODO this may have become necessary for the global setUp was removed (???)
-  // setUp(() {
-  //   reset(mockNetworkInfo);
-  // });
+  setUp(() {
+    reset(mockRemoteDataSource);
+  });
 
   group('CaretakerRepositoryImpl', () {
-    var mockNetworkInfo = MockNetworkInfo();
-    var mockLocalDataSource = MockCaretakerLocalDataSourceImpl();
-    var mockRemoteDataSource = MockCaretakerRemoteDataSourceImpl();
-    CaretakerRepositoryImpl repository = CaretakerRepositoryImpl(
-      networkInfo: mockNetworkInfo,
-      localDataSource: mockLocalDataSource,
-      remoteDataSource: mockRemoteDataSource,
-    );
-
     final caretakerModel = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
     final name = caretakerModel.name;
     final Caretaker caretakerEntity = caretakerModel;
 
+    // setUp(() {
+    //   reset(mockRemoteDataSource);
+    // });
+    //
     group('device is online', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
@@ -68,20 +71,39 @@ void main() {
         });
 
         test('does not retrieve from local', () async {
+          // given
+          when(mockRemoteDataSource.get(name))
+              .thenAnswer((_) async => caretakerModel);
+          when(mockLocalDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
+          when(mockRemoteDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
           // when
           await repository.get(name);
           // then
           verifyNever(mockLocalDataSource.get(any));
         });
 
+        // TODO retrieve both local and remote
+        // TODO if remote response is out of date:
+        // TODO 1) store local to remote
+        // TODO 2) return result
+        // TODO if local response is out of date:
+        // TODO 1) store remote to local
+        // TODO 2) return result
         test('stores remote result to local', () async {
           // given
           when(mockRemoteDataSource.get(name))
               .thenAnswer((_) async => caretakerModel);
+          when(mockLocalDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
+          when(mockRemoteDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
           // when
           await repository.get(name);
           // then
           verify(mockLocalDataSource.put(caretakerModel));
+          verify(mockRemoteDataSource.put(caretakerModel));
           verify(mockRemoteDataSource.get(name));
         });
 
@@ -116,7 +138,11 @@ void main() {
 
       group('putCaretaker', () {
         test('saves a Caretaker to remote and local', () async {
-           // when
+          // given
+          when(mockRemoteDataSource.put(caretakerModel))
+              .thenAnswer((_) async => Response('', 201));
+
+          // when
           await repository.put(caretakerEntity);
           // then
           verify(mockRemoteDataSource.put(caretakerModel));
