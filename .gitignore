@@ -15,6 +15,9 @@
 *.iws
 .idea/
 
+# Flutter Version Manager - FVM
+.fvm/flutter_sdk
+
 # Visual Studio Code related
 .classpath
 .project
@@ -93,4 +96,3 @@ app.*.map.json
 
 # OTHER
 /test/fixtures/my_pill_box_set.json
-
