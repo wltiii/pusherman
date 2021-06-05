@@ -107,7 +107,8 @@ class DependentPillBoxesPage extends StatelessWidget {
         )
       )
       // child: ListView(
-      //   children: _pillSets.pillBoxes.map((set) => _buildSetItem( set, _pillSets.dependent)).toList(),
+      //   children: _pillSets.pillBoxes.map((set) => _
+      //   buildSetItem( set, _pillSets.dependent)).toList(),
       // ),
     );
   }
