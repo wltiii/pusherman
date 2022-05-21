@@ -1,10 +1,9 @@
-import 'package:dartz/dartz.dart';
+// import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:pusherman/domain/core/error/failures.dart';
+import 'package:pusherman/domain/core/types/auth/user.dart';
 
-import '../../../../core/error/failure.dart';
-import '../entities/caretaker.dart';
-
-
-abstract class CaretakerRepository {
-  Future<Either<Failure, Caretaker>> get(String name);
-  Future<void> put(Caretaker caretaker);
+abstract class CaregiverRepository {
+  Future<Either<NotFoundFailure, Caregiver>> get(String name);
+  Future<void> put(Caregiver caretaker);
 }

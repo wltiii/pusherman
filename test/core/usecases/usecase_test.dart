@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/core/usecases/usecase.dart';
+import 'package:pusherman/application/usecases/usecase.dart';
 
 void main() {
   final noParams = NoParams();
@@ -16,8 +16,9 @@ void main() {
       });
 
       // TODO this test could be named better
-      test('props contains no properties for equality determination when constructed', ()
-      {
+      test(
+          'props contains no properties for equality determination when constructed',
+          () {
         expect(noParams.props, equals([]));
       });
     });

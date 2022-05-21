@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_model.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/data/models/pill_model.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
 
 import '../../../../fixtures/fixture_reader.dart' show fixtureAsString;
 
@@ -12,7 +12,8 @@ void main() {
   final nexGard = PillModel(name: "NexGard");
   final heartgard = PillModel(name: "Heartgard");
 
-  final pillBox = PillBoxModel(name: "On 15th", frequency: "Monthly", pills: [nexGard, heartgard]);
+  final pillBox = PillBoxModel(
+      name: "On 15th", frequency: "Monthly", pills: [nexGard, heartgard]);
   final caretakers = ["Bill", "Pooh"];
   final pillBoxes = [pillBox];
 
@@ -26,10 +27,7 @@ void main() {
 
   final expectedPillBoxSetMap = {
     "dependent": "Coda",
-    "caretakers": [
-      "Bill",
-      "Pooh"
-    ],
+    "caretakers": ["Bill", "Pooh"],
     "pillBoxes": [
       {
         "name": "On 15th",

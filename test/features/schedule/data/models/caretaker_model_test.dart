@@ -9,8 +9,7 @@ import '../../../../fixtures/fixture_reader.dart';
 void main() {
   final dependents = ['Bill', 'Coda'];
 
-  final caretakerModel =
-    CaretakerModel(name: 'Bill', dependents: dependents);
+  final caretakerModel = CaretakerModel(name: 'Bill', dependents: dependents);
 
   final caretakerJson = fixtureAsString('caretaker.json');
 
@@ -29,7 +28,7 @@ void main() {
     });
 
     test('should be a subclass of Caretaker entity', () async {
-      expect(caretakerModel, isA<Caretaker>());
+      expect(caretakerModel, isA<Caregiver>());
     });
 
     test("instantiates from JSON", () async {

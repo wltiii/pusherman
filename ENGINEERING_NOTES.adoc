@@ -1,0 +1,145 @@
+= Engineering Notes
+:toc: auto
+
+== Project Structure
+
+The organization of the folders are based upon my understanding of a how a Domain Driven Design (DDD) architecture should be defined.
+This does not mean that other concepts, such as Clean Architecture, are ignored.
+They are endemic.
+My understanding comes from many sources, the principles sources being:
+
+. https://wkrzywiec.medium.com/ports-adapters-architecture-on-example-19cab9e93be7
+. https://resocoder.com/2020/03/09/flutter-firebase-ddd-course-1-domain-driven-design-principles/
+
+The project top level structure is as follows:
+
+....
+lib
+  |
+  +- application
+  |
+  +- domain
+  |
+  +- infrastructure
+  |
+  +- presentation
+....
+
+=== The Application Layer
+The application layer implements usecases (see https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html#use-cases).
+
+These decide "what to do next" with the data.
+
+It doesn't perform any complex business logic, instead, it mostly just makes sure that the user input is validated (by calling things in the domain layer) or it manages subscriptions to infrastructure data Streams (not directly, but by utilizing the dependency inversion principle, more on that later). *_is this true?_*
+
+Defines how the outside world interact with an application, it is a gateway to an application core.
+
+=== The Domain Layer
+The domain layer is the heart of an application.
+It contains the business logic of your application.
+This is where your business logic lives.
+
+Domain is fully self contained.
+It doesn't depend on any other layers.
+Nor does the domain depend on anything external, changes to such implementation details don't affect it.
+*_All the other layers depend on the domain._*
+Domain is not concerned with anything but doing its own job well.
+
+It should be written as closely as possible in domain specific language, i.e. in a language that non-technical business people can readily understand.
+
+The domain:
+
+* Performs complex business logic.
+* Transforms data.
+* Validates data, often through the use of Value Objects (see https://medium.com/the-sixt-india-blog/primitive-obsession-code-smell-that-hurt-people-the-most-5cbdd70496e9).
+* Groups and uniquely identifies data that belongs together through `Entity` classes.
+* Contains the definition for all `Failure` types.
+
+=== The Infrastructure Layer
+
+Infrastructure and Presentation are the two external facing pieces of the application, though at opposite ends.
+
+This layer provides access to external systems, such as cloud services, ReST services, databases, file systems and so on.
+This implements the "how" of communication with these external systems.
+
+The "what" of what is needed is implemented in core. _???_
+
+The layer contains:
+* DTOs - a data holder that converts data between store/entity/json objects.
+* Repositories - Defines the methods available for the particular "source", such as get, add, update, etc. It also translates exceptions thrown from the store to appropriate Failure objects.
+* Sources - interacts with the "sinks", returns the raw result or an exception.
+
+=== The Presentation Layer
+
+This layer is all Widgets and _the state of the Widgets (to be determined yet as I am not using BLoC)_.
+Presentation is _dumbest (better term)_ part of the app.
+Its logic is limited to creating the UI, and that alone.
+It's at the boundary of our code, just as is the Infrastructure layer.
+It's totally dependent on the Flutter framework.
+So while animation code does belong in this layer, *_even things like form validation are NOT done inside the presentation layer (what does this mean for input into value objects? since value objects are defined in the domain layer, I presume that is still correct)._*
+
+=== Sub Layers
+....
+<top level layer>
+  |
+  +- core
+  |
+  +- features
+....
+
+Each of the above layers are further into `core` and `features`.
+
+*Core* contains the cross-cutting concerns used by multiple features.
+By definition, this should remain fairly small as concerns form discrete separation of concerns.
+Think twice before adding implementation here.
+Is it truly cross-cutting?
+If so, is an interface or some other abstraction more appropriate so that implementations are segregated in the feature branch?
+
+*Features* itself is just a directory containing further directories named for the given features.
+Others may disagree with this layer, feeling it is unnecessary and that the features should be at the same level as core.
+The thinking here, however, is that it better communicates to developers that core is a _special case_.
+Core, then, will not appear as just another feature.
+Segregating core and features, it is believed, helps reduce the cognitive burden upon the developer.
+
+
+=== Features Layer
+
+....
+features
+  |
+  +- <feature name>
+     |
+     +- application
+     |
+     +- domain
+     |  |
+     |  +- models
+     |  |
+     |  +- ports
+     |    |
+     |    +- incoming
+     |    |
+     |    +- outgoing
+     |
+     |
+     +- infrastructure
+....
+
+The `features` directory contains one directory for each feature of the application.
+A given feature directory itself contains three more directories: `application`, `domain` and `infrastructure`.
+These three directories are fractal-like in that they have similar purposes as the higher like-named directories, but only on the more limited feature scope.
+*_No feature should have a dependency upon any other feature._*
+As mentioned elsewhere, it is acceptable for a feature to have a dependency on `<top level layer>/core`.
+
+
+
+== Type Driven Development
+
+Type Driven Development has come out of the functional programming community.
+One goal of which is to reduce errors in the code, in fact, to make invalid states unrepresentable.
+This is achieved by defining types so that the syntax checker prevents mistakes.
+Another goal I feel is quite laudable is that it improves the expressiveness of the code.
+This makes it easier to understand by future code readers.
+
+These types can be both function types and class types.
+

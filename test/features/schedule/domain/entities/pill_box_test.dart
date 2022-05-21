@@ -1,44 +1,45 @@
 import 'package:equatable/equatable.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_set.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final vitaminC = Pill(name: "C");
-  final probiotic = Pill(name: "Probiotic");
+  final List<String> caretakers = ["Bill", "Pooh"];
+  final pillBox = PillBox(name: 'Morning', frequency: 'Daily', pills: [
+    Pill(name: "Extra Virgin Olive Oil"),
+  ]);
 
-  final pillbox = PillBox(
-      name: 'Morning',
-      frequency: 'Daily',
-      pills: [
-        vitaminC,
-        probiotic,
-      ]
-  );
+  final pillBoxSet = PillBoxSet(
+      dependent: 'Coda', caretakers: caretakers, pillBoxes: [pillBox]);
 
   group("construction", () {
     test('should be a subclass of Equatable entity', () async {
-      expect(pillbox, isA<Equatable>());
+      expect(pillBoxSet, isA<Equatable>());
     });
 
-    test('instantiates a PillBox from named argument constructor', ()
-    {
-      expect(pillbox.name, equals('Morning'));
-      expect(pillbox.frequency, equals('Daily'));
-      expect(pillbox.pills.length, equals(2));
+    test('instantiates a PillBoxSet from named argument constructor', () {
+      expect(pillBoxSet.dependent, equals('Coda'));
+      expect(pillBoxSet.caretakers.length, equals(2));
+      expect(pillBoxSet.pillBoxes.length, equals(1));
     });
-
   });
 
   group("Equatable", () {
-    test('props contains list of all properties that determine equality when constructed', ()
-    {
-      expect(pillbox.props, equals([pillbox.name, pillbox.frequency, pillbox.pills]));
+    test(
+        'props contains list of all properties that determine equality when constructed',
+        () {
+      expect(
+          pillBoxSet.props,
+          equals([
+            pillBoxSet.dependent,
+            pillBoxSet.caretakers,
+            pillBoxSet.pillBoxes
+          ]));
     });
 
-    test('stringify is turned on when constructed', ()
-    {
-      expect(pillbox.stringify, isTrue);
+    test('stringify is turned on when constructed', () {
+      expect(pillBoxSet.stringify, isTrue);
     });
   });
 }

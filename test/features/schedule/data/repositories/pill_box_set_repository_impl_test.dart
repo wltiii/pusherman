@@ -7,16 +7,15 @@ import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:pusherman/features/schedule/data/repositories/pill_box_set_repository_impl.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockNetworkInfo extends Mock
-    implements NetworkInfo {}
-class MockLocalDataSource extends Mock
-    implements PillBoxSetDataSource {}
-class MockRemoteDataSource extends Mock
-    implements PillBoxSetDataSource {}
+class MockNetworkInfo extends Mock implements NetworkInfo {}
+
+class MockLocalDataSource extends Mock implements PillBoxSetDataSource {}
+
+class MockRemoteDataSource extends Mock implements PillBoxSetDataSource {}
 
 void main() {
   group('PillBoxSetRepositoryImpl', () {
@@ -25,7 +24,8 @@ void main() {
     MockRemoteDataSource mockRemoteDataSource;
     PillBoxSetRepositoryImpl repository;
 
-    final pillBoxSetModel = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+    final pillBoxSetModel =
+        PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
     final dependent = pillBoxSetModel.dependent;
     final PillBoxSet pillBoxSet = pillBoxSetModel;
 
@@ -35,8 +35,8 @@ void main() {
       mockRemoteDataSource = MockRemoteDataSource();
       repository = PillBoxSetRepositoryImpl(
         networkInfo: mockNetworkInfo,
-          localDataSource: mockLocalDataSource,
-          remoteDataSource: mockRemoteDataSource,
+        localDataSource: mockLocalDataSource,
+        remoteDataSource: mockRemoteDataSource,
       );
     });
 
@@ -74,7 +74,8 @@ void main() {
           verify(mockLocalDataSource.put(pillBoxSet));
         });
 
-        test('returns ServerFailure when remote and local calls fail', () async {
+        test('returns ServerFailure when remote and local calls fail',
+            () async {
           // given
           when(mockRemoteDataSource.getByDependent(dependent))
               .thenThrow(ServerException());
@@ -103,7 +104,7 @@ void main() {
 
       group('cachePillBoxSet', () {
         test('saves a PillBoxSet to remote and local', () async {
-           // when
+          // when
           await repository.put(pillBoxSet);
           // then
           verify(mockRemoteDataSource.put(pillBoxSet));
@@ -163,5 +164,4 @@ void main() {
       });
     });
   });
-
 }

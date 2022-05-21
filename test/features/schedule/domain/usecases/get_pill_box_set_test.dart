@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_set.dart';
 import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
 import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
 
@@ -13,19 +13,13 @@ void main() {
   GetPillBoxSet useCase;
   MockPillBoxSetRepository mockPillBoxSetRepository;
 
-  final pillBoxSet = PillBoxSet(
-      dependent: 'Zorba',
-      caretakers: ['Bill'],
-      pillBoxes: [
-        PillBox(
-            name: 'Morning',
-            frequency: 'Daily',
-            pills: [
-              Pill(name: "Extra Virgin Olive Oil"),
-            ]
-        )
-      ]
-  );
+  final pillBoxSet = PillBoxSet(dependent: 'Zorba', caretakers: [
+    'Bill'
+  ], pillBoxes: [
+    PillBox(name: 'Morning', frequency: 'Daily', pills: [
+      Pill(name: "Extra Virgin Olive Oil"),
+    ])
+  ]);
 
   setUp(() {
     mockPillBoxSetRepository = MockPillBoxSetRepository();

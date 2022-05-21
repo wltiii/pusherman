@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_model.dart';
 import 'package:pusherman/features/schedule/data/models/pill_model.dart';
-import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill_set.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
@@ -14,7 +14,7 @@ void main() {
   final pills = [vitaminC, evoo];
 
   final pillBoxModel =
-    PillBoxModel(name: 'Morning', frequency: "Daily", pills: pills);
+      PillBoxModel(name: 'Morning', frequency: "Daily", pills: pills);
 
   final pillBoxJson = fixtureAsString('pill_box.json');
 
