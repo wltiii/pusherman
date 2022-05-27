@@ -1,60 +1,58 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/presentation/converter/input_converter.dart';
-import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/usecases/get_organizer.dart';
 import 'package:pusherman/features/schedule/presentation/bloc/bloc.dart';
 
-class MockGetPillBoxSet extends Mock implements GetPillBoxSet {}
+class MockGetOrganizer extends Mock implements GetOrganizer {}
 
 class MockInputConverter extends Mock implements InputConverter {}
 
 void main() {
-  PillBoxSetBloc bloc;
-  MockGetPillBoxSet mockGetPillBoxSet;
+  OrganizerBloc bloc;
+  MockGetOrganizer mockGetOrganizer;
   InputConverter inputConverter;
 
   setUp(() {
-    mockGetPillBoxSet = MockGetPillBoxSet();
+    mockGetOrganizer = MockGetOrganizer();
     inputConverter = InputConverter();
 
-    bloc = PillBoxSetBloc(
-      pillBoxSetGetter: mockGetPillBoxSet,
+    bloc = OrganizerBloc(
+      OrganizerGetter: mockGetOrganizer,
       inputConverter: inputConverter,
     );
   });
 
   test('initialState returns empty state', () {
     // assert
-    expect(bloc.initialState, equals(PillBoxSetEmpty()));
+    expect(bloc.initialState, equals(OrganizerEmpty()));
   });
 
-  group('GET PillBoxSet', () {
+  group('GET Organizer', () {
     final givenDependent = 'bill';
     final expectedDependent = 'bill';
-    final pillBoxSet = PillBoxSet(
-        dependent: 'Coda',
-        caretakers: caretakers,
-        pillBoxes: [pillBox]
-    );
-
+    final Organizer = Organizer(
+        dependent: 'Coda', caretakers: caretakers, pillBoxes: [pillBox]);
 
     // TODO this test should be only necessary initially and
     // TODO removed once other logic/tests can do this as course of action
-    test('calls InputConverter to validate and convert the dependent', () async {
+    test(
+      'calls InputConverter to validate and convert the dependent',
+      () async {
         // given
         final mockInputConverter = MockInputConverter();
 
         when(mockInputConverter.toWordString(any))
             .thenReturn(Right(expectedDependent));
 
-        bloc = PillBoxSetBloc(
-          pillBoxSetGetter: mockGetPillBoxSet,
+        bloc = OrganizerBloc(
+          OrganizerGetter: mockGetOrganizer,
           inputConverter: mockInputConverter,
         );
 
         // when
-        bloc.add(GetPillBoxSetForDependent(givenDependent));
+        bloc.add(GetOrganizerForDependent(givenDependent));
         await untilCalled(mockInputConverter.toWordString(any));
 
         // then
@@ -65,21 +63,20 @@ void main() {
     test('emits [error] states when dependent is invalid', () async {
       // given
       final expectedEmissions = [
-        PillBoxSetEmpty(),
-        PillBoxSetError(message: DEPENDENT_NOT_ENTERED)
+        OrganizerEmpty(),
+        OrganizerError(message: DEPENDENT_NOT_ENTERED)
       ];
 
       // expect
       expectLater(bloc, emitsInOrder(expectedEmissions));
 
       // when
-      bloc.add(GetPillBoxSetForDependent(null));
+      bloc.add(GetOrganizerForDependent(null));
     });
 
     test('gets a pill box set', () async {
       // given
-      when(mockGetPillBoxSet(givenDependent))
-          .thenAnswer((_) async => Right());
+      when(mockGetOrganizer(givenDependent)).thenAnswer((_) async => Right());
 
       // when
 

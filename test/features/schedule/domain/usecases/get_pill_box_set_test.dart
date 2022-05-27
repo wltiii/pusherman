@@ -1,19 +1,19 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_box.dart';
 import 'package:pusherman/features/schedule/domain/entities/pill_set.dart';
-import 'package:pusherman/features/schedule/domain/repositories/pill_box_set_repository.dart';
-import 'package:pusherman/features/schedule/domain/usecases/get_pill_box_set.dart';
+import 'package:pusherman/features/schedule/domain/repositories/treatment_repository.dart';
+import 'package:pusherman/features/schedule/domain/usecases/get_organizer.dart';
 
-class MockPillBoxSetRepository extends Mock implements PillBoxSetRepository {}
+class MockOrganizerRepository extends Mock implements TreatmentRepository {}
 
 void main() {
-  GetPillBoxSet useCase;
-  MockPillBoxSetRepository mockPillBoxSetRepository;
+  GetOrganizer useCase;
+  MockOrganizerRepository mockOrganizerRepository;
 
-  final pillBoxSet = PillBoxSet(dependent: 'Zorba', caretakers: [
+  final Organizer = Organizer(dependent: 'Zorba', caretakers: [
     'Bill'
   ], pillBoxes: [
     PillBox(name: 'Morning', frequency: 'Daily', pills: [
@@ -22,20 +22,20 @@ void main() {
   ]);
 
   setUp(() {
-    mockPillBoxSetRepository = MockPillBoxSetRepository();
-    useCase = GetPillBoxSet(mockPillBoxSetRepository);
+    mockOrganizerRepository = MockOrganizerRepository();
+    useCase = GetOrganizer(mockOrganizerRepository);
   });
 
   test('gets pill box set from the repository', () async {
     // given
     String givenDependent = 'Zorba';
-    when(mockPillBoxSetRepository.getByDependent(any))
-        .thenAnswer((_) async => Right(pillBoxSet));
+    when(mockOrganizerRepository.getByDependent(any))
+        .thenAnswer((_) async => Right(Organizer));
     // when
     final result = await useCase(Params(dependent: givenDependent));
     // then
-    expect(result, Right(pillBoxSet));
-    verify(mockPillBoxSetRepository.getByDependent(givenDependent));
-    verifyNoMoreInteractions(mockPillBoxSetRepository);
+    expect(result, Right(Organizer));
+    verify(mockOrganizerRepository.getByDependent(givenDependent));
+    verifyNoMoreInteractions(mockOrganizerRepository);
   });
 }

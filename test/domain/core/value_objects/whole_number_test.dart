@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/value_objects/whole_number.dart';
+import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
 
 void main() {
   group('construction', () {

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
 
 class AbstractUserTester extends User {
   const AbstractUserTester(

@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/types/auth/password.dart';
-import 'package:pusherman/domain/core/value_objects/non_empty_string.dart';
+import 'package:pusherman/domain/core/models/types/auth/password.dart';
+import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 
 void main() {
   group('construction', () {

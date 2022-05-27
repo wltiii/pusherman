@@ -16,7 +16,7 @@ void main() {
   final pillBoxModel =
       PillBoxModel(name: 'Morning', frequency: "Daily", pills: pills);
 
-  final pillBoxJson = fixtureAsString('pill_box.json');
+  final pillBoxJson = fixtureAsString('compartment.json');
 
   final pillBoxMap = {
     "name": "Morning",

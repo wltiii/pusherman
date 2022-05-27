@@ -10,18 +10,18 @@ void main() {
     Pill(name: "Extra Virgin Olive Oil"),
   ]);
 
-  final pillBoxSet = PillBoxSet(
+  final Organizer = Organizer(
       dependent: 'Coda', caretakers: caretakers, pillBoxes: [pillBox]);
 
   group("construction", () {
     test('should be a subclass of Equatable entity', () async {
-      expect(pillBoxSet, isA<Equatable>());
+      expect(Organizer, isA<Equatable>());
     });
 
-    test('instantiates a PillBoxSet from named argument constructor', () {
-      expect(pillBoxSet.dependent, equals('Coda'));
-      expect(pillBoxSet.caretakers.length, equals(2));
-      expect(pillBoxSet.pillBoxes.length, equals(1));
+    test('instantiates a Organizer from named argument constructor', () {
+      expect(Organizer.dependent, equals('Coda'));
+      expect(Organizer.caretakers.length, equals(2));
+      expect(Organizer.pillBoxes.length, equals(1));
     });
   });
 
@@ -30,16 +30,16 @@ void main() {
         'props contains list of all properties that determine equality when constructed',
         () {
       expect(
-          pillBoxSet.props,
+          Organizer.props,
           equals([
-            pillBoxSet.dependent,
-            pillBoxSet.caretakers,
-            pillBoxSet.pillBoxes
+            Organizer.dependent,
+            Organizer.caretakers,
+            Organizer.pillBoxes
           ]));
     });
 
     test('stringify is turned on when constructed', () {
-      expect(pillBoxSet.stringify, isTrue);
+      expect(Organizer.stringify, isTrue);
     });
   });
 }

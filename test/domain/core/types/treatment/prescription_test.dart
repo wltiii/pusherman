@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/types/auth/user.dart';
-import 'package:pusherman/domain/core/types/treatment/prescription.dart';
-import 'package:pusherman/domain/core/types/treatment/treatment.dart';
-import 'package:pusherman/domain/core/value_objects/natural_number.dart';
-import 'package:pusherman/domain/core/value_objects/whole_number.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/treatment/prescription.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
+import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
 
 void main() {
   const givenDependentIdValue = 'abc123';
@@ -15,6 +15,9 @@ void main() {
   const givenTherapyDirectionsValue = 'aPrescriptionDirections';
   const givenRefillQuantityValue = 42;
   const givenOnHandQuantityValue = 23;
+
+  // TODO consider defining givenDependent as late final... then initialize in
+  // TODo setup block. This applies to other tests as well.
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),

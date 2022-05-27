@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
-import 'package:pusherman/features/schedule/data/datasources/caretaker_data_source.dart';
-import 'package:pusherman/features/schedule/data/datasources/caretaker_remote_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/user_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/user_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'package:test/test.dart';
 

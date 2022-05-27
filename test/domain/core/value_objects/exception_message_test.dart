@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/value_objects/exception_message.dart';
+import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 
 void main() {
   group('construction', () {

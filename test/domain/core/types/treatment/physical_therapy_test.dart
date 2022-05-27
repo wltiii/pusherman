@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/types/auth/user.dart';
-import 'package:pusherman/domain/core/types/treatment/physical_therapy.dart';
-import 'package:pusherman/domain/core/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/treatment/physical_therapy.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 
 void main() {
   const givenDependentIdValue = 'abc123';

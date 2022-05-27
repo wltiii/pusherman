@@ -1,14 +1,14 @@
 import 'dart:convert';
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pusherman/features/schedule/domain/entities/pill.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/features/schedule/data/models/pill_model.dart';
+import 'package:pusherman/features/schedule/domain/entities/pill.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final pillModel = PillModel(name: 'Extra Virgin Olive Oil');
-  final pillJson = fixtureAsString('pill.json');
+  final pillJson = fixtureAsString('treatment.json');
   final pillMap = {
     "name": "Extra Virgin Olive Oil",
   };

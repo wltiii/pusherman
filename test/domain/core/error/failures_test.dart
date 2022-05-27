@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/failures.dart';
-import 'package:pusherman/domain/core/value_objects/additional_info.dart';
-import 'package:pusherman/domain/core/value_objects/exception_message.dart';
+import 'package:pusherman/domain/core/models/value_objects/additional_info.dart';
+import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 
 class AbstractFailureTester extends Failure {
   AbstractFailureTester(String defaultMessage, [AdditionalInfo? additionalInfo])

@@ -1,12 +1,12 @@
-import 'package:dartz/dartz.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
-import 'package:pusherman/features/schedule/data/datasources/caretaker_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/user_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
-import 'package:pusherman/features/schedule/data/repositories/caretaker_repository_impl.dart';
+import 'package:pusherman/features/schedule/data/repositories/user_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 
 import '../../../../fixtures/fixture_reader.dart';

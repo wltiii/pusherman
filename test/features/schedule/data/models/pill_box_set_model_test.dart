@@ -17,15 +17,15 @@ void main() {
   final caretakers = ["Bill", "Pooh"];
   final pillBoxes = [pillBox];
 
-  final pillBoxSetModel = PillBoxSetModel(
+  final OrganizerModel = OrganizerModel(
     dependent: "Coda",
     caretakers: caretakers,
     pillBoxes: pillBoxes,
   );
 
-  final pillBoxSetJson = fixtureAsString('coda_pill_box_set.json');
+  final OrganizerJson = fixtureAsString('coda_organizer.json');
 
-  final expectedPillBoxSetMap = {
+  final expectedOrganizerMap = {
     "dependent": "Coda",
     "caretakers": ["Bill", "Pooh"],
     "pillBoxes": [
@@ -45,32 +45,32 @@ void main() {
   };
 
   group("construction", () {
-    test('instantiates a PillBoxSetModel from named constructor', () async {
-      expect(pillBoxSetModel.dependent, equals('Coda'));
-      expect(pillBoxSetModel.caretakers, equals(caretakers));
-      expect(pillBoxSetModel.pillBoxes, pillBoxes);
+    test('instantiates a OrganizerModel from named constructor', () async {
+      expect(OrganizerModel.dependent, equals('Coda'));
+      expect(OrganizerModel.caretakers, equals(caretakers));
+      expect(OrganizerModel.pillBoxes, pillBoxes);
     });
 
-    test('should be a subclass of PillBoxSet entity', () async {
-      expect(pillBoxSetModel, isA<PillBoxSet>());
+    test('should be a subclass of Organizer entity', () async {
+      expect(OrganizerModel, isA<Organizer>());
     });
 
     test("instantiates object from JSON", () async {
       // given
-      final Map<String, dynamic> jsonMap = json.decode(pillBoxSetJson);
+      final Map<String, dynamic> jsonMap = json.decode(OrganizerJson);
       // when
-      final result = PillBoxSetModel.fromJson(jsonMap);
+      final result = OrganizerModel.fromJson(jsonMap);
       // then
-      expect(result, pillBoxSetModel);
+      expect(result, OrganizerModel);
     });
   });
 
   group("to JSON", () {
     test("instantiates JSON from object", () async {
       // when
-      final result = pillBoxSetModel.toJson();
+      final result = OrganizerModel.toJson();
       // then
-      expect(result, expectedPillBoxSetMap);
+      expect(result, expectedOrganizerMap);
     });
   });
 }

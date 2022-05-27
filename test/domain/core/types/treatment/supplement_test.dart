@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/types/auth/user.dart';
-import 'package:pusherman/domain/core/types/treatment/supplement.dart';
-import 'package:pusherman/domain/core/types/treatment/treatment.dart';
-import 'package:pusherman/domain/core/value_objects/natural_number.dart';
-import 'package:pusherman/domain/core/value_objects/whole_number.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/treatment/supplement.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
+import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
 
 void main() {
   const givenDependentIdValue = 'abc123';

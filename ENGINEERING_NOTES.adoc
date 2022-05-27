@@ -65,7 +65,7 @@ This implements the "how" of communication with these external systems.
 The "what" of what is needed is implemented in core. _???_
 
 The layer contains:
-* DTOs - a data holder that converts data between store/entity/json objects.
+* DTOs - a data holder that converts data between storage (entity, json) objects.
 * Repositories - Defines the methods available for the particular "source", such as get, add, update, etc. It also translates exceptions thrown from the store to appropriate Failure objects.
 * Sources - interacts with the "sinks", returns the raw result or an exception.
 

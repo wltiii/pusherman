@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
-import 'package:pusherman/features/schedule/data/datasources/pill_box_set_data_source.dart';
-import 'package:pusherman/features/schedule/data/datasources/pill_box_set_remote_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/organizer_data_source.dart';
+import 'package:pusherman/features/schedule/data/datasources/organizer_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/pill_box_set_model.dart';
 import 'package:test/test.dart';
 
@@ -13,18 +13,18 @@ import '../../../../fixtures/fixture_reader.dart';
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
-  group('PillBoxSetRemoteDataSource', () {
-    PillBoxSetDataSource dataSource;
+  group('OrganizerRemoteDataSource', () {
+    OrganizerDataSource dataSource;
     MockHttpClient mockHttpClient;
 
     setUp(() {
       mockHttpClient = MockHttpClient();
-      dataSource = PillBoxSetRemoteDataSourceImpl(client: mockHttpClient);
+      dataSource = OrganizerRemoteDataSourceImpl(client: mockHttpClient);
     });
 
     void mockHttpGetWithStatus(status) {
       final body =
-          status == 200 ? fixtureAsString('coda_pill_box_set.json') : 'Boom!';
+          status == 200 ? fixtureAsString('coda_organizer.json') : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
@@ -47,18 +47,18 @@ void main() {
         ));
       });
 
-      test('returns a PillBoxSetModel', () async {
+      test('returns a OrganizerModel', () async {
         // given
         mockHttpGetWithStatus(200);
         final aDependent = 'Coda';
-        final expectedPillBoxSet =
-            PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
+        final expectedOrganizer =
+            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
 
         // when
         final result = await dataSource.getByDependent(aDependent);
 
         // then
-        expect(result, equals(expectedPillBoxSet));
+        expect(result, equals(expectedOrganizer));
       });
 
       test('throws a ServerException when the response code is other than 200',
@@ -79,18 +79,19 @@ void main() {
       test('puts with correct URI and headers', () async {
         // given
         var expectedUrl = 'http://localhost:8000/dependent/Coda';
-        Map<String,String> expectedHeaders = {
-          'Content-Type' : 'application/json',
+        Map<String, String> expectedHeaders = {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
-        final expectedJsonString = json.encode(givenPillBoxSet);
+        final givenOrganizer =
+            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+        final expectedJsonString = json.encode(givenOrganizer);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenPillBoxSet);
+        await dataSource.put(givenOrganizer);
 
         // then
         verify(mockHttpClient.put(
@@ -100,21 +101,22 @@ void main() {
         ));
       });
 
-      test('creates a PillBoxSetModel', () async {
+      test('creates a OrganizerModel', () async {
         // given
         var expectedUrl = 'http://localhost:8000/dependent/Coda';
-        Map<String,String> expectedHeaders = {
-          'Content-Type' : 'application/json',
+        Map<String, String> expectedHeaders = {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
-        final expectedJsonString = json.encode(givenPillBoxSet);
+        final givenOrganizer =
+            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+        final expectedJsonString = json.encode(givenOrganizer);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenPillBoxSet);
+        await dataSource.put(givenOrganizer);
 
         // then
         verify(mockHttpClient.put(
@@ -124,36 +126,35 @@ void main() {
         ));
       });
 
-      // test('updates a PillBoxSetModel', () async {
+      // test('updates a OrganizerModel', () async {
       //   // given
-      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
-      //   final expectedJsonString = json.encode(givenPillBoxSet);
+      //   final givenOrganizer = OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+      //   final expectedJsonString = json.encode(givenOrganizer);
       //
       //   // when
-      //   await dataSource.put(givenPillBoxSet);
+      //   await dataSource.put(givenOrganizer);
       //
       //   // then
       //   verify(mockSharedPreferences.setString(
-      //     CACHED_PILL_BOX_SET + givenPillBoxSet.dependent,
+      //     CACHED_PILL_BOX_SET + givenOrganizer.dependent,
       //     expectedJsonString,
       //   ));
       // });
 
       // test('fails to create/update', () async {
       //   // given
-      //   final givenPillBoxSet = PillBoxSetModel.fromJson(fixtureAsMap('coda_pill_box_set.json'));
-      //   final expectedJsonString = json.encode(givenPillBoxSet);
+      //   final givenOrganizer = OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+      //   final expectedJsonString = json.encode(givenOrganizer);
       //
       //   // when
-      //   await dataSource.put(givenPillBoxSet);
+      //   await dataSource.put(givenOrganizer);
       //
       //   // then
       //   verify(mockSharedPreferences.setString(
-      //     CACHED_PILL_BOX_SET + givenPillBoxSet.dependent,
+      //     CACHED_PILL_BOX_SET + givenOrganizer.dependent,
       //     expectedJsonString,
       //   ));
       // });
-
     });
   });
 }

@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/types/auth/user.dart';
-import 'package:pusherman/domain/core/types/treatment/over_the_counter.dart';
-import 'package:pusherman/domain/core/types/treatment/supplement.dart';
-import 'package:pusherman/domain/core/types/treatment/treatment.dart';
-import 'package:pusherman/domain/core/types/treatment_containers/compartment.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/treatment/over_the_counter.dart';
+import 'package:pusherman/domain/core/models/types/treatment/supplement.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 
 void main() {
   const givenDependentIdValue = 'abc123';

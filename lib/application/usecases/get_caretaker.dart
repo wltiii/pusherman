@@ -1,28 +1,26 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:pusherman/application/usecases/usecase.dart';
+import 'package:pusherman/domain/core/error/failures.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/features/schedule/domain/repositories/user_repository.dart';
 
-import '../../../../core/error/failure.dart';
-import '../entities/caretaker.dart';
-import '../repositories/caretaker_repository.dart';
-import 'usecase.dart';
+class GetCaregiver implements UseCase<Caregiver, Params> {
+  GetCaregiver(this.repository);
 
-class GetCaretaker implements UseCase<Caretaker, Params> {
-  final CaretakerRepository repository;
-
-  GetCaretaker(this.repository);
+  final UserRepository repository;
 
   @override
-  Future<Either<Failure, Caretaker>> call(Params params) async {
-    return await repository.get(params.name);
+  Future<Either<Failure, Caregiver>> call(Params params) async {
+    return await repository.getByCaregiver(params.caregiver);
   }
 }
 
 class Params extends Equatable {
-  final String name;
+  final Caregiver caregiver;
 
-  Params({@required this.name});
+  Params(this.caregiver);
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [caregiver];
 }

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/value_objects/maybe_empty_string.dart';
+import 'package:pusherman/domain/core/models/value_objects/maybe_empty_string.dart';
 
 class AbstractMaybeEmptyStringTester extends MaybeEmptyString {
   AbstractMaybeEmptyStringTester(String value) : super(value);
