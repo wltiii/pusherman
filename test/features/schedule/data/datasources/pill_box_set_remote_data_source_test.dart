@@ -47,12 +47,12 @@ void main() {
         ));
       });
 
-      test('returns a OrganizerModel', () async {
+      test('returns a Organizer', () async {
         // given
         mockHttpGetWithStatus(200);
         final aDependent = 'Coda';
         final expectedOrganizer =
-            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
 
         // when
         final result = await dataSource.getByDependent(aDependent);
@@ -84,7 +84,7 @@ void main() {
           'Accept': 'application/json',
         };
         final givenOrganizer =
-            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
           (_) async => http.Response(expectedJsonString, 201),
@@ -101,7 +101,7 @@ void main() {
         ));
       });
 
-      test('creates a OrganizerModel', () async {
+      test('creates a Organizer', () async {
         // given
         var expectedUrl = 'http://localhost:8000/dependent/Coda';
         Map<String, String> expectedHeaders = {
@@ -109,7 +109,7 @@ void main() {
           'Accept': 'application/json',
         };
         final givenOrganizer =
-            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
         when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
           (_) async => http.Response(expectedJsonString, 201),
@@ -126,9 +126,9 @@ void main() {
         ));
       });
 
-      // test('updates a OrganizerModel', () async {
+      // test('updates a Organizer', () async {
       //   // given
-      //   final givenOrganizer = OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+      //   final givenOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
       //   final expectedJsonString = json.encode(givenOrganizer);
       //
       //   // when
@@ -143,7 +143,7 @@ void main() {
 
       // test('fails to create/update', () async {
       //   // given
-      //   final givenOrganizer = OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+      //   final givenOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
       //   final expectedJsonString = json.encode(givenOrganizer);
       //
       //   // when

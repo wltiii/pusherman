@@ -15,12 +15,12 @@ class Organizer extends Equatable {
   // TODO(wltiii): the following really feels like two fields...
   // TODO(wltiii): not really frequency - each organizer would be for a given
   // TODO(wltiii): time of day, day of week, etc. so this gets complicated.
-  // TODO(wltiii): organizer for first day of month? daily organizer? hourly
+  // TODO(wltiii): E.g. organizer for first day of month? daily organizer? hourly
   // TODO(wltiii): organizer? something more enum like? If times, the organizer
   // TODO(wltiii): is named for the time? i.e. Morning? Noon? Mid-afternoon? 6p?
   // TODO(wltiii): therefore, time-of-day for notification and
   // TODO(wltiii): frequency (daily, etc.), or?
-  // TODO(wltiii): and, what about termination? say something you take 7 days?
+  // TODO(wltiii): and, what about duration? say something you take 7 days?
   final OrganizerFrequency _frequency;
   final Compartment _compartment;
   final NumberOfCompartments _numberOfCompartments;

@@ -5,8 +5,8 @@ import 'package:pusherman/features/schedule/domain/repositories/user_repository.
 
 class UserRepositoryImpl implements UserRepository {
   final NetworkInfo networkInfo;
-  final CaretakerDataSource localDataSource;
-  final CaretakerDataSource remoteDataSource;
+  final CaregiverDataSource localDataSource;
+  final CaregiverDataSource remoteDataSource;
 
   UserRepositoryImpl({
     @required this.networkInfo,
@@ -22,7 +22,7 @@ class UserRepositoryImpl implements UserRepository {
 
   Future<Either<Failure, Caregiver>> _getFromRemote(String dependent) async {
     try {
-      CaretakerModel caretaker = await remoteDataSource.get(dependent);
+      CaregiverModel caretaker = await remoteDataSource.get(dependent);
       await put(caretaker);
       return Right(caretaker);
     } on ServerException {
@@ -36,7 +36,7 @@ class UserRepositoryImpl implements UserRepository {
 
   Future<Either<Failure, Caregiver>> _getFromLocal(String dependent) async {
     try {
-      CaretakerModel caretaker = await localDataSource.get(dependent);
+      CaregiverModel caretaker = await localDataSource.get(dependent);
       return Right(caretaker);
     } on CacheException {
       return Left(CacheFailure());

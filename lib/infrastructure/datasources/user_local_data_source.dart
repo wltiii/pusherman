@@ -8,25 +8,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const CACHED_CARETAKER = 'CACHED_CARETAKER_';
 
-class CaretakerLocalDataSourceImpl implements CaretakerDataSource {
+class CaregiverLocalDataSourceImpl implements CaregiverDataSource {
   final SharedPreferences sharedPreferences;
 
-  CaretakerLocalDataSourceImpl({
+  CaregiverLocalDataSourceImpl({
     @required this.sharedPreferences,
   });
 
   @override
-  Future<CaretakerModel> get(String name) {
-    final cachedCaretaker = sharedPreferences.getString(CACHED_CARETAKER + name);
-    if (cachedCaretaker != null) {
-      return Future.value(CaretakerModel.fromJson(json.decode(cachedCaretaker)));
+  Future<CaregiverModel> get(String name) {
+    final cachedCaregiver = sharedPreferences.getString(CACHED_CARETAKER + name);
+    if (cachedCaregiver != null) {
+      return Future.value(CaregiverModel.fromJson(json.decode(cachedCaregiver)));
     }
 
     throw CacheException();
   }
 
   @override
-  Future<void> put(CaretakerModel model) {
+  Future<void> put(CaregiverModel model) {
     final key = CACHED_CARETAKER + model.name;
     final modelAsString = json.encode(model.toJson());
     return sharedPreferences.setString(key, modelAsString);

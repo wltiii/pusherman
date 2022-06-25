@@ -143,3 +143,18 @@ This makes it easier to understand by future code readers.
 
 These types can be both function types and class types.
 
+
+
+== Terms and Definitions
+
+|===
+|Term |Definition
+
+|Entity
+|An entity represents a single instance of your domain object saved into the database (or other external source) as a record. It has some attributes that we represent as columns in our tables. This typically contains an id defined by and used by the external source. Properties and or methods that exist on the entity are those required for storage only.
+
+|Domain Model
+|A model typically represents a real world object that is related to the problem or domain space. In programming, we create classes to represent objects. Attributes and behavior of the real world object being represented by the model are defined properties and methods of the model class.
+|Model
+|A layer that contains all the domain business logic and associated attributes. These are commonly implemented in _Domain Models_ and _Functions (Services)_.
+|===

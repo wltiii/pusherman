@@ -25,12 +25,12 @@ void main() {
     });
 
     group('getByDependent', () {
-      test('returns a OrganizerModel', () async {
+      test('returns a Organizer', () async {
         // given
         final aDependent = 'Coda';
         final key = CACHED_PILL_BOX_SET + aDependent;
         final expectedOrganizer =
-            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         when(mockSharedPreferences.getString(key))
             .thenReturn(fixtureAsString('coda_organizer.json'));
         // when
@@ -49,10 +49,10 @@ void main() {
     });
 
     group('PUT', () {
-      test('creates a OrganizerModel', () async {
+      test('creates a Organizer', () async {
         // given
         final givenOrganizer =
-            OrganizerModel.fromJson(fixtureAsMap('coda_organizer.json'));
+            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
         // when
         await dataSource.put(givenOrganizer);

@@ -11,15 +11,15 @@ import 'user_data_source.dart';
 const BASE_HOST_URI = 'localhost:8000';
 const CARETAKER_PATH = 'caretaker';
 
-class CaretakerRemoteDataSourceImpl implements UserDataSource {
+class CaregiverRemoteDataSourceImpl implements UserDataSource {
   final http.Client client;
 
-  CaretakerRemoteDataSourceImpl({
+  CaregiverRemoteDataSourceImpl({
     @required this.client,
   });
 
   @override
-  Future<CaretakerModel> get(String caretaker) async {
+  Future<CaregiverModel> get(String caretaker) async {
     final uri = new Uri.http(BASE_HOST_URI, '/$CARETAKER_PATH/$caretaker');
     final headers = {'Content-Type': 'application/json'};
     final response = await client.get(
@@ -28,14 +28,14 @@ class CaretakerRemoteDataSourceImpl implements UserDataSource {
     );
 
     if (response.statusCode == 200) {
-      return CaretakerModel.fromJson(json.decode(response.body));
+      return CaregiverModel.fromJson(json.decode(response.body));
     }
 
     throw ServerException();
   }
 
   @override
-  Future<void> put(CaretakerModel caretaker) async {
+  Future<void> put(CaregiverModel caretaker) async {
     final uri =
         new Uri.http(BASE_HOST_URI, '/$CARETAKER_PATH/${caretaker.name}');
     final headers = {

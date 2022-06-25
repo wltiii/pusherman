@@ -17,7 +17,7 @@ void main() {
   final caretakers = ["Bill", "Pooh"];
   final pillBoxes = [pillBox];
 
-  final OrganizerModel = OrganizerModel(
+  final Organizer = Organizer(
     dependent: "Coda",
     caretakers: caretakers,
     pillBoxes: pillBoxes,
@@ -45,30 +45,30 @@ void main() {
   };
 
   group("construction", () {
-    test('instantiates a OrganizerModel from named constructor', () async {
-      expect(OrganizerModel.dependent, equals('Coda'));
-      expect(OrganizerModel.caretakers, equals(caretakers));
-      expect(OrganizerModel.pillBoxes, pillBoxes);
+    test('instantiates a Organizer from named constructor', () async {
+      expect(Organizer.dependent, equals('Coda'));
+      expect(Organizer.caretakers, equals(caretakers));
+      expect(Organizer.pillBoxes, pillBoxes);
     });
 
     test('should be a subclass of Organizer entity', () async {
-      expect(OrganizerModel, isA<Organizer>());
+      expect(Organizer, isA<Organizer>());
     });
 
     test("instantiates object from JSON", () async {
       // given
       final Map<String, dynamic> jsonMap = json.decode(OrganizerJson);
       // when
-      final result = OrganizerModel.fromJson(jsonMap);
+      final result = Organizer.fromJson(jsonMap);
       // then
-      expect(result, OrganizerModel);
+      expect(result, Organizer);
     });
   });
 
   group("to JSON", () {
     test("instantiates JSON from object", () async {
       // when
-      final result = OrganizerModel.toJson();
+      final result = Organizer.toJson();
       // then
       expect(result, expectedOrganizerMap);
     });

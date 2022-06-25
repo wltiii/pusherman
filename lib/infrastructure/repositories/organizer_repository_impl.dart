@@ -19,6 +19,7 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
 
   @override
   Future<Either<Failure, Organizer>> getByDependent(Dependent dependent) async {
+    // TODO(wltiii) Maybe get from local if web (for now) as ObjectBox does not work with Web
     return (await networkInfo.isConnected)
         ? await _getFromRemote(dependent)
         : await _getFromLocal(dependent);
@@ -26,10 +27,10 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
 
   Future<Either<Failure, Organizer>> _getFromRemote(String dependent) async {
     try {
-      OrganizerModel Organizer =
+      Organizer organizer =
           await remoteDataSource.getByDependent(dependent);
-      await put(Organizer);
-      return Right(Organizer);
+      await put(organizer);
+      return Right(organizer);
     } on ServerException {
       final Either<Failure, Organizer> result = await _getFromLocal(dependent);
       if (result.isLeft()) {
@@ -41,16 +42,16 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
 
   Future<Either<Failure, Organizer>> _getFromLocal(String dependent) async {
     try {
-      OrganizerModel Organizer =
+      Organizer organizer =
           await localDataSource.getByDependent(dependent);
-      return Right(Organizer);
+      return Right(organizer);
     } on CacheException {
       return Left(CacheFailure());
     }
   }
 
   @override
-  Future<void> put(Organizer Organizer) async {
+  Future<void> put(Organizer organizer) async {
     await localDataSource.put(Organizer);
     if (await networkInfo.isConnected) {
       await remoteDataSource.put(Organizer);
