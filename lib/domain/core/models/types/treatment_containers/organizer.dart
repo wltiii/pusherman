@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 
+@JsonSerializable(explicitToJson: true)
 class Organizer extends Equatable {
   const Organizer(
     this._name,
