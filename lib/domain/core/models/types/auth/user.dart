@@ -10,6 +10,7 @@ abstract class User extends Equatable {
   final UserName _userName;
 
   String get id => _id.value;
+
   String get name => _userName.value;
 
   @override
@@ -33,6 +34,7 @@ class Caregiver extends User {
 /// empty String will throw a [ValueException].
 ///
 // TODO(wltiii): allow empty and generate a unique id???
+// TODO(wltiii): or use StoreMetaData???
 class UserId extends NonEmptyString {
   UserId(String value)
       : super(

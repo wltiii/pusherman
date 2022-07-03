@@ -24,8 +24,7 @@ void main() {
     MockRemoteDataSource mockRemoteDataSource;
     OrganizerRepositoryImpl repository;
 
-    final Organizer =
-        Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+    final Organizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
     final dependent = Organizer.dependent;
     final Organizer organizer = Organizer;
 
@@ -35,7 +34,7 @@ void main() {
       mockRemoteDataSource = MockRemoteDataSource();
       repository = OrganizerRepositoryImpl(
         networkInfo: mockNetworkInfo,
-        localDataSource: mockLocalDataSource,
+        organizerStore: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
       );
     });

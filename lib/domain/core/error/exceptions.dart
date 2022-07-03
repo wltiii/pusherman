@@ -29,11 +29,11 @@ abstract class AppException implements Exception {
 
 // Define specific exceptions below. And keep the classes sorted by name.
 
-// /// [NotFoundException]
-// class NotFoundException extends AppException {
-//   NotFoundException(ExceptionMessage message)
-//       : super(ExceptionMessage('Invalid value. ${message.value}'));
-// }
+/// [NotFoundException]
+class NotFoundException extends AppException {
+  NotFoundException(ExceptionMessage message)
+      : super(ExceptionMessage('Invalid value. ${message.value}'));
+}
 
 /// [NumberValueException]
 class NumberValueException extends AppException {

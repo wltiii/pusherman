@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:pusherman/domain/core/models/value_objects/store_meta_data.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Organizer extends Equatable {
@@ -13,7 +14,14 @@ class Organizer extends Equatable {
     this._numberOfCompartments,
   );
 
+  // TODO(wltiii): these three should be in an object. All models
+  // TODO(wltiii): should include the object.
+  // TODO(wltiii): Make it abstract for this is Firestore specific.
+  // TODO(wltiii): These would not be serializable.
+
+  final StoreMetaData? _storeMetaData;
   final OrganizerName _name;
+
   // TODO(wltiii): the following really feels like two fields...
   // TODO(wltiii): not really frequency - each organizer would be for a given
   // TODO(wltiii): time of day, day of week, etc. so this gets complicated.
@@ -28,9 +36,13 @@ class Organizer extends Equatable {
   final NumberOfCompartments _numberOfCompartments;
 
   String get dependentName => _compartment.dependentName;
+
   String get caregiverName => _compartment.caregiverName;
+
   String get name => _name.value;
+
   String get frequency => _frequency.value;
+
   int get numberOfCompartments => _numberOfCompartments.value;
 
   // factory TreatmentOrganizer.fromJson(Map<String, dynamic> json) {

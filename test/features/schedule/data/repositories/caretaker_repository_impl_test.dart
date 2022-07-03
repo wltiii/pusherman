@@ -1,5 +1,5 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
 import 'package:pusherman/core/error/failure.dart';
@@ -35,7 +35,7 @@ void main() {
       mockRemoteDataSource = MockRemoteDataSource();
       repository = CaretakerRepositoryImpl(
         networkInfo: mockNetworkInfo,
-        localDataSource: mockLocalDataSource,
+        organizerStore: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
       );
     });
