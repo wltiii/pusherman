@@ -8,7 +8,7 @@ import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart
 class AbstractTreatmentTester extends Treatment {
   AbstractTreatmentTester(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     TreatmentDescription description,
     TreatmentDirections directions,
   ) : super(
@@ -32,7 +32,7 @@ void main() {
     UserName(givenDependentNameValue),
   );
 
-  final givenCaregiver = Caregiver(
+  final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
     UserName(givenCaregiverNameValue),
   );
@@ -120,7 +120,7 @@ void main() {
         expect(
           treatment.caregiver,
           equals(
-            Caregiver(
+            CareGiver(
               UserId(givenDependent.id),
               UserName(givenDependent.name),
             ),
@@ -193,7 +193,7 @@ void main() {
       });
 
       test('when caregiver ids differ they are not equal', () {
-        final otherCaregiver = Caregiver(
+        final otherCaregiver = CareGiver(
           UserId('otherCaregiverId'),
           UserName(givenCaregiverNameValue),
         );
@@ -209,7 +209,7 @@ void main() {
       });
 
       test('when caregiver names differ they are not equal', () {
-        final otherCaregiver = Caregiver(
+        final otherCaregiver = CareGiver(
           UserId(givenCaregiverIdValue),
           UserName('otherCaregiverName'),
         );

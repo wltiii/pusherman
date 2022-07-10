@@ -10,24 +10,24 @@ import '../../value_objects/non_empty_string.dart';
 /// psychological or brain exercises, etc.
 ///
 /// A [Treatment] is used/performed by the [Dependent]. An optional
-/// [Caregiver] can be added to monitor [Treatment] activity. If
-/// [Caregiver] is not specified, the [Caregiver] is set to the
+/// [CareGiver] can be added to monitor [Treatment] activity. If
+/// [CareGiver] is not specified, the [CareGiver] is set to the
 /// [Dependent].
 ///
 /// See also:
-/// [User], [Dependent], [Caregiver], [TreatmentDescription]
+/// [User], [Dependent], [CareGiver], [TreatmentDescription]
 /// and [TreatmentDirections]
 ///
 abstract class Treatment extends Equatable {
   Treatment(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     TreatmentDescription treatmentDescription,
     TreatmentDirections treatmentDirections,
   ) {
     _dependent = dependent;
     _caregiver = caregiver ??
-        Caregiver(
+        CareGiver(
           UserId(dependent.id),
           UserName(dependent.name),
         );
@@ -36,17 +36,21 @@ abstract class Treatment extends Equatable {
   }
 
   late final Dependent _dependent;
-  late final Caregiver _caregiver;
+  late final CareGiver _caregiver;
   late final TreatmentDescription _treatmentDescription;
   late final TreatmentDirections _treatmentDirections;
 
   Dependent get dependent => _dependent;
-  Caregiver get caregiver => _caregiver;
+
+  CareGiver get caregiver => _caregiver;
+
   String get description => _treatmentDescription.value;
+
   String get directions => _treatmentDirections.value;
+
   bool get caregiverIsDependent =>
       _caregiver ==
-      Caregiver(
+      CareGiver(
         UserId(dependent.id),
         UserName(dependent.name),
       );

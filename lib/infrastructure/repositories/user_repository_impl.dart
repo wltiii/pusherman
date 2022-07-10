@@ -15,18 +15,18 @@ class UserRepositoryImpl implements UserRepository {
   });
 
   @override
-  Future<Either<Failure, Caregiver>> get(String dependent) async =>
+  Future<Either<Failure, CareGiver>> get(String dependent) async =>
       (await networkInfo.isConnected)
           ? await _getFromRemote(dependent)
           : await _getFromLocal(dependent);
 
-  Future<Either<Failure, Caregiver>> _getFromRemote(String dependent) async {
+  Future<Either<Failure, CareGiver>> _getFromRemote(String dependent) async {
     try {
       CaregiverModel caretaker = await remoteDataSource.get(dependent);
       await put(caretaker);
       return Right(caretaker);
     } on ServerException {
-      final Either<Failure, Caregiver> result = await _getFromLocal(dependent);
+      final Either<Failure, CareGiver> result = await _getFromLocal(dependent);
       if (result.isLeft()) {
         return Left(ServerFailure());
       }
@@ -34,7 +34,7 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  Future<Either<Failure, Caregiver>> _getFromLocal(String dependent) async {
+  Future<Either<Failure, CareGiver>> _getFromLocal(String dependent) async {
     try {
       CaregiverModel caretaker = await localDataSource.get(dependent);
       return Right(caretaker);
@@ -44,7 +44,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> put(Caregiver caretaker) async {
+  Future<void> put(CareGiver caretaker) async {
     await localDataSource.put(caretaker);
     if (await networkInfo.isConnected) {
       await remoteDataSource.put(caretaker);

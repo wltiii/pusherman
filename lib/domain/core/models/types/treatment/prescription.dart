@@ -1,7 +1,7 @@
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
-import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 
 /// A [Prescription] is a medication used to treat an ailment. It
 /// requires a prescription.
@@ -18,7 +18,7 @@ import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 class Prescription extends Treatment {
   Prescription(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     PrescriptionDescription description,
     PrescriptionDirections directions,
     this._prescriptionRefillQuantityQuantity,
@@ -34,6 +34,7 @@ class Prescription extends Treatment {
   final PrescriptionOnHandQuantity _prescriptionOnHandQuantity;
 
   int get refillQuantity => _prescriptionRefillQuantityQuantity.value;
+
   int get onHandQuantity => _prescriptionOnHandQuantity.value;
 
   @override

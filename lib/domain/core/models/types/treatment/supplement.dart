@@ -18,7 +18,7 @@ import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
 class Supplement extends Treatment {
   Supplement(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     SupplementDescription description,
     SupplementDirections directions,
     this._supplementRefillQuantity,
@@ -34,6 +34,7 @@ class Supplement extends Treatment {
   final SupplementOnHandQuantity _supplementOnHandQuantity;
 
   int get refillQuantity => _supplementRefillQuantity.value;
+
   int get onHandQuantity => _supplementOnHandQuantity.value;
 
   @override

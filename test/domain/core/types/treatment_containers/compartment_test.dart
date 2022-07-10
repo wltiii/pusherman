@@ -30,7 +30,7 @@ void main() {
     UserName(givenOtherDependentNameValue),
   );
 
-  final givenCaregiver = Caregiver(
+  final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
     UserName(givenCaregiverNameValue),
   );

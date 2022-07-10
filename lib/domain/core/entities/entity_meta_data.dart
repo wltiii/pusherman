@@ -1,55 +1,55 @@
-import '../../error/exceptions.dart';
-import 'exception_message.dart';
-import 'non_empty_string.dart';
+import 'package:pusherman/domain/core/error/exceptions.dart';
+import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
+import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 
 /// This class represents some of the metadata contained within a
 /// Firestore DocumentReference related to a given Firestore Document.
-class StoreMetaData {
-  const StoreMetaData({
+abstract class EntityMetaData {
+  const EntityMetaData({
     required this.id,
     required this.path,
   });
 
-  final StoreId id;
-  final StorePath path;
-// final StoreParent _parent;
+  final EntityId id;
+  final EntityPath path;
+// final EntityParent _parent;
 }
 
-/// [StoreId] is a unique identifier of a document.
+/// [EntityId] is a unique identifier of a document.
 ///
 /// It is a [NonEmptyString], thus  must not be empty. Instantiating with an
 /// empty String will throw a [ValueException].
 ///
-class StoreId extends NonEmptyString {
-  StoreId(String value)
+class EntityId extends NonEmptyString {
+  EntityId(String value)
       : super(
           value,
           validators: [
             (String value) => {
                   if (value.trimRight().isEmpty)
                     throw ValueException(
-                      ExceptionMessage('Store id must not be empty.'),
+                      ExceptionMessage('Entity id must not be empty.'),
                     ),
                 },
           ],
         );
 }
 
-/// [StorePath] identifies the path of this document (relative to
+/// [EntityPath] identifies the path of this document (relative to
 /// the root of the database) as a slash-separated string.
 ///
 /// It is a [NonEmptyString], thus  must not be empty. Instantiating with an
 /// empty String will throw a [ValueException].
 ///
-class StorePath extends NonEmptyString {
-  StorePath(String value)
+class EntityPath extends NonEmptyString {
+  EntityPath(String value)
       : super(
           value,
           validators: [
             (String value) => {
                   if (value.trimRight().isEmpty)
                     throw ValueException(
-                      ExceptionMessage('Store path must not be empty.'),
+                      ExceptionMessage('Entity path must not be empty.'),
                     ),
                 },
           ],
@@ -57,15 +57,16 @@ class StorePath extends NonEmptyString {
 }
 
 // TODO(wltiii:) this may not be necessary. As such, it is unimplemented
-// CollectionReference and needs to be thought through further.
-/// [StoreParent] identifies CollectionReference to the collection that contains
+// CollectionReference and needs to be thought through further. For now,
+// _make it work, make it better_.
+/// [EntityParent] identifies CollectionReference to the collection that contains
 /// this document.
 ///
 /// It is a [NonEmptyString], thus  must not be empty. Instantiating with an
 /// empty String will throw a [ValueException].
 ///
-// class StoreParent extends CollectionReference {
-//   StoreParent(String value)
+// class EntityParent extends CollectionReference {
+//   EntityParent(String value)
 //       : super(
 //     value,
 //     validators: [

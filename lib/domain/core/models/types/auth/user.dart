@@ -24,8 +24,12 @@ class Dependent extends User {
   const Dependent(UserId id, UserName userName) : super(id, userName);
 }
 
-class Caregiver extends User {
-  const Caregiver(UserId id, UserName userName) : super(id, userName);
+class CareGiver extends User {
+  const CareGiver(UserId id, UserName userName) : super(id, userName);
+}
+
+class CareProvider extends User {
+  const CareProvider(UserId id, UserName userName) : super(id, userName);
 }
 
 /// [UserId] is a unique identifier of a user.

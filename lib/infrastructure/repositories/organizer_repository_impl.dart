@@ -60,7 +60,7 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   }
 
   @override
-  Future<Either<Failure, Organizer>> getByCaregiver(Caregiver caregiver) {
+  Future<Either<Failure, Organizer>> getByCaregiver(CareGiver caregiver) {
     // TODO: implement getByCaregiver
     throw UnimplementedError();
   }

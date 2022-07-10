@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
+import 'package:pusherman/domain/core/models/model.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
-import 'package:pusherman/domain/core/models/value_objects/store_meta_data.dart';
+
+import 'compartment.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Organizer extends Equatable {
+class Organizer extends Equatable implements Model {
   const Organizer(
     this._name,
     this._frequency,
@@ -19,7 +20,6 @@ class Organizer extends Equatable {
   // TODO(wltiii): Make it abstract for this is Firestore specific.
   // TODO(wltiii): These would not be serializable.
 
-  final StoreMetaData? _storeMetaData;
   final OrganizerName _name;
 
   // TODO(wltiii): the following really feels like two fields...

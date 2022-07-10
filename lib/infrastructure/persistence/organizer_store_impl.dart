@@ -77,7 +77,7 @@ class OrganizerStoreImpl implements OrganizerStore {
   }
 
   @override
-  Future<Organizer> getByCaregiver(Caregiver caregiver) {
+  Future<Organizer> getByCaregiver(CareGiver caregiver) {
     // TODO: implement getByCaregiver
     throw UnimplementedError();
   }

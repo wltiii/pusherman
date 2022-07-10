@@ -5,19 +5,19 @@ import 'package:pusherman/domain/core/error/failures.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/features/schedule/domain/repositories/user_repository.dart';
 
-class GetCaregiver implements UseCase<Caregiver, Params> {
+class GetCaregiver implements UseCase<CareGiver, Params> {
   GetCaregiver(this.repository);
 
   final UserRepository repository;
 
   @override
-  Future<Either<Failure, Caregiver>> call(Params params) async {
+  Future<Either<Failure, CareGiver>> call(Params params) async {
     return await repository.getByCaregiver(params.caregiver);
   }
 }
 
 class Params extends Equatable {
-  final Caregiver caregiver;
+  final CareGiver caregiver;
 
   Params(this.caregiver);
 

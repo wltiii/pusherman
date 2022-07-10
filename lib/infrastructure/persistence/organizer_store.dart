@@ -8,7 +8,7 @@ abstract class OrganizerStore {
 
   Future<Organizer> getByDependent(Dependent dependent);
 
-  Future<Organizer> getByCaregiver(Caregiver caregiver);
+  Future<Organizer> getByCaregiver(CareGiver caregiver);
 
   Future<Organizer> add(Organizer organizer);
 

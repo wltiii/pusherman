@@ -13,7 +13,7 @@ import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 class PhysicalTherapy extends Treatment {
   PhysicalTherapy(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     PhysicalTherapyDescription description,
     PhysicalTherapyDirections directions,
     this._physicalTherapyRepititions,
@@ -25,6 +25,7 @@ class PhysicalTherapy extends Treatment {
         );
 
   final PhysicalTherapyRepetitions _physicalTherapyRepititions;
+
   int get repetitions => _physicalTherapyRepititions.value;
 
   @override

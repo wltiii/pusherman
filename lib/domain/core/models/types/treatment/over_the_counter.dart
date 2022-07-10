@@ -13,7 +13,7 @@ import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 class OverTheCounter extends Treatment {
   OverTheCounter(
     Dependent dependent,
-    Caregiver? caregiver,
+    CareGiver? caregiver,
     OverTheCounterDescription description,
     OverTheCounterDirections directions,
   ) : super(
