@@ -1,16 +1,17 @@
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/organizer.dart';
+import 'package:pusherman/domain/core/entities/organizer_entity.dart';
 
 abstract class OrganizerStore {
   static String get collection => 'organizer';
 
-  Future<Organizer> get(Organizer organizer);
+  Future<OrganizerEntity> get(OrganizerEntity organizer);
 
-  Future<Organizer> getByDependent(Dependent dependent);
+  Future<OrganizerEntity> getByDependent(Dependent dependent);
 
-  Future<Organizer> getByCaregiver(CareGiver caregiver);
+  Future<OrganizerEntity> getByCaregiver(CareGiver caregiver);
 
-  Future<Organizer> add(Organizer organizer);
+  Future<OrganizerEntity> add(Organizer organizer);
 
-  Future<void> update(Organizer organizer);
+  Future<void> update(OrganizerEntity organizer);
 }
