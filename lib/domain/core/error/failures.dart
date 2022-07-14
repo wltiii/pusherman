@@ -87,3 +87,8 @@ class NotFoundFailure extends Failure {
   NotFoundFailure([AdditionalInfo? additionalInfo])
       : super(ExceptionMessage('Not found.'), additionalInfo);
 }
+
+class ServerFailure extends Failure {
+  ServerFailure([AdditionalInfo? additionalInfo])
+      : super(ExceptionMessage('Failure.'), additionalInfo);
+}

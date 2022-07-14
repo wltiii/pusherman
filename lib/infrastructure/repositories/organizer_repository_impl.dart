@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:pusherman/domain/core/entities/organizer_entity.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/error/failures.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
@@ -14,17 +15,15 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   final OrganizerStore organizerStore;
 
   @override
-  Future<Either<Failure, Organizer>> getByDependent(Dependent dependent) async {
+  Future<Either<Failure, OrganizerEntity>> getByDependent(
+      Dependent dependent) async {
     try {
-      Organizer organizer = await organizerStore.getByDependent(dependent);
-      await put(organizer);
-      return Right(organizer);
+      OrganizerEntity result = await organizerStore.getByDependent(dependent);
+      return Right(result);
+    } on NotFoundException {
+      return Left(NotFoundFailure());
     } on ServerException {
-      final Either<Failure, Organizer> result = await _getFromLocal(dependent);
-      if (result.isLeft()) {
-        return Left(ServerFailure());
-      }
-      return result;
+      return Left(ServerFailure());
     }
   }
 
