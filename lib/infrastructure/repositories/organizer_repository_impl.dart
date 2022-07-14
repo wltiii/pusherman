@@ -15,8 +15,25 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   final OrganizerStore organizerStore;
 
   @override
+  Future<Either<Failure, OrganizerEntity>> get(
+    OrganizerEntity organizerEntity,
+  ) {
+    // TODO: implement getByCaregiver
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerEntity>> getByCaregiver(
+    CareGiver caregiver,
+  ) {
+    // TODO: implement getByCaregiver
+    throw UnimplementedError();
+  }
+
+  @override
   Future<Either<Failure, OrganizerEntity>> getByDependent(
-      Dependent dependent) async {
+    Dependent dependent,
+  ) async {
     try {
       OrganizerEntity result = await organizerStore.getByDependent(dependent);
       return Right(result);
@@ -27,31 +44,10 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
     }
   }
 
-  Future<Either<Failure, Organizer>> _getFromRemote(String dependent) async {
-    try {
-      Organizer organizer = await remoteDataSource.getByDependent(dependent);
-      await put(organizer);
-      return Right(organizer);
-    } on ServerException {
-      final Either<Failure, Organizer> result = await _getFromLocal(dependent);
-      if (result.isLeft()) {
-        return Left(ServerFailure());
-      }
-      return result;
-    }
-  }
-
-  Future<Either<Failure, Organizer>> _getFromLocal(String dependent) async {
-    try {
-      Organizer organizer = await organizerStore.getByDependent(dependent);
-      return Right(organizer);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
   @override
-  Future<void> put(Organizer organizer) async {
+  Future<Either<Failure, OrganizerEntity>> add(
+    Organizer organizer,
+  ) async {
     await organizerStore.put(Organizer);
     if (await networkInfo.isConnected) {
       await remoteDataSource.put(Organizer);
@@ -59,8 +55,12 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   }
 
   @override
-  Future<Either<Failure, Organizer>> getByCaregiver(CareGiver caregiver) {
-    // TODO: implement getByCaregiver
-    throw UnimplementedError();
+  Future<Either<Failure, OrganizerEntity>> update(
+    OrganizerEntity organizerEntity,
+  ) async {
+    await organizerStore.put(Organizer);
+    if (await networkInfo.isConnected) {
+      await remoteDataSource.put(Organizer);
+    }
   }
 }
