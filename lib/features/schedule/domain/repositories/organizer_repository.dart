@@ -9,7 +9,7 @@ abstract class OrganizerRepository {
 
   Future<Either<Failure, OrganizerEntity>> getByDependent(Dependent dependent);
 
-  Future<Either<Failure, OrganizerEntity>> getByCaregiver(CareGiver caregiver);
+  // Future<Either<Failure, OrganizerEntity>> getByCaregiver(CareGiver caregiver);
 
   Future<Either<Failure, OrganizerEntity>> add(Organizer organizer);
 

@@ -22,13 +22,13 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
     throw UnimplementedError();
   }
 
-  @override
-  Future<Either<Failure, OrganizerEntity>> getByCaregiver(
-    CareGiver caregiver,
-  ) {
-    // TODO: implement getByCaregiver
-    throw UnimplementedError();
-  }
+  // @override
+  // Future<Either<Failure, OrganizerEntity>> getByCaregiver(
+  //   CareGiver caregiver,
+  // ) {
+  //   // TODO: implement getByCaregiver
+  //   throw UnimplementedError();
+  // }
 
   @override
   Future<Either<Failure, OrganizerEntity>> getByDependent(
@@ -48,19 +48,13 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   Future<Either<Failure, OrganizerEntity>> add(
     Organizer organizer,
   ) async {
-    await organizerStore.put(Organizer);
-    if (await networkInfo.isConnected) {
-      await remoteDataSource.put(Organizer);
-    }
+    await organizerStore.add(organizer);
   }
 
   @override
   Future<Either<Failure, OrganizerEntity>> update(
     OrganizerEntity organizerEntity,
   ) async {
-    await organizerStore.put(Organizer);
-    if (await networkInfo.isConnected) {
-      await remoteDataSource.put(Organizer);
-    }
+    await organizerStore.update(organizerEntity);
   }
 }
