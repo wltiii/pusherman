@@ -22,7 +22,7 @@ class OrganizerEntity extends Entity {
         path: OrganizerEntityPath(docRef.reference.path),
         // path: OrganizerEntityParent(docRef.reference.parent),
       ),
-      model: Organizer.fromJson(data),
+      model: Organizer.fromJson(data.data()!),
     );
 
     return entity;

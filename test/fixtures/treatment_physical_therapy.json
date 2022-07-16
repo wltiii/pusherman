@@ -1,0 +1,9 @@
+{
+  "physicalTherapy": {
+    "dependent": "Coda",
+    "caregiver": "Bill",
+    "description" : "A Test PhysicalTherapy",
+    "directions" : "Do daily, but in practice, do three times then never again",
+    "physicalTherapyRepititions" : 15
+  }
+}

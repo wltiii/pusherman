@@ -1,0 +1,10 @@
+{
+  "prescription": {
+    "dependent": "Coda",
+    "caregiver": "Bill",
+    "description" : "A Test Prescription",
+    "directions" : "Take often",
+    "prescriptionRefillQuantity" : 1,
+    "prescriptionOnHandQuantity" : 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Organizer Name",
+  "frequency": "Organizer Frequency",
+  "compartment": [
+    {
+      "treatment": {
+        "caregiver": "Bill",
+        "dependent": "Coda",
+        "description" : "A Test Supplement",
+        "directions" : "Take frequently",
+        "supplementRefillQuantity" : 1,
+        "supplementOnHandQuantity" : 0
+      },
+      "treatment": {
+        "caregiver": "Bill",
+        "dependent": "Coda",
+        "description" : "A Test Supplement",
+        "directions" : "Take frequently",
+        "prescriptionRefillQuantity" : 30,
+        "prescriptionOnHandQuantity" : 17
+      }
+    }
+  ],
+  "numberOfCompartments" : 7
+}

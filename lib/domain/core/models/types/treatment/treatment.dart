@@ -19,30 +19,25 @@ import '../../value_objects/non_empty_string.dart';
 /// [User], [Dependent], [CareGiver], [TreatmentDescription]
 /// and [TreatmentDirections]
 ///
-part 'treatment.g.dart';
 
-@JsonSerializable(explicitToJson: true)
 abstract class Treatment extends Equatable {
   Treatment(
-    Dependent dependent,
+    this._dependent,
     CareGiver? caregiver,
-    TreatmentDescription treatmentDescription,
-    TreatmentDirections treatmentDirections,
+    this._treatmentDescription,
+    this._treatmentDirections,
   ) {
-    _dependent = dependent;
     _caregiver = caregiver ??
         CareGiver(
           UserId(dependent.id),
           UserName(dependent.name),
         );
-    _treatmentDescription = treatmentDescription;
-    _treatmentDirections = treatmentDirections;
   }
 
-  late final Dependent _dependent;
+  final Dependent _dependent;
   late final CareGiver _caregiver;
-  late final TreatmentDescription _treatmentDescription;
-  late final TreatmentDirections _treatmentDirections;
+  final TreatmentDescription _treatmentDescription;
+  final TreatmentDirections _treatmentDirections;
 
   Dependent get dependent => _dependent;
 
@@ -86,6 +81,8 @@ class TreatmentDescription extends NonEmptyString {
                 },
           ],
         );
+
+  factory TreatmentDescription.fromJson<Json json>
 }
 
 class TreatmentDirections extends NonEmptyString {

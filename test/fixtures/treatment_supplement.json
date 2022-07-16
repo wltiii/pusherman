@@ -1,0 +1,10 @@
+{
+  "supplement": {
+    "dependent": "Coda",
+    "caregiver": "Bill",
+    "description" : "A Test Supplement",
+    "directions" : "Take frequently",
+    "supplementRefillQuantity" : 1,
+    "supplementOnHandQuantity" : 0
+  }
+}

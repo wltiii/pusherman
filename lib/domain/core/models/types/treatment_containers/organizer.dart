@@ -23,7 +23,6 @@ class Organizer extends Equatable implements Model {
   }
 
   late final OrganizerName _name;
-
   // TODO(wltiii): the following really feels like two fields...
   // TODO(wltiii): not really frequency - each organizer would be for a given
   // TODO(wltiii): time of day, day of week, etc. so this gets complicated.

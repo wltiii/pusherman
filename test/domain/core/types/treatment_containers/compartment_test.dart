@@ -80,7 +80,7 @@ void main() {
         );
 
         // expect(compartment, isA<Equatable>());
-        expect(compartment.treatments.isEmpty, isTrue);
+        expect(compartment.list.isEmpty, isTrue);
         expect(compartment.dependentName.isEmpty, isTrue);
         expect(compartment.caregiverName.isEmpty, isTrue);
       });
@@ -93,7 +93,7 @@ void main() {
         );
 
         // expect(compartment, isA<Equatable>());
-        expect(compartment.treatments, equals([givenTreatment]));
+        expect(compartment.list, equals([givenTreatment]));
         expect(compartment.dependentName, equals(givenDependentNameValue));
         expect(compartment.caregiverName, equals(givenCaregiverNameValue));
       });
@@ -107,15 +107,15 @@ void main() {
 
         // expect(compartment, isA<Equatable>());
         expect(
-          compartment.treatments.length,
+          compartment.list.length,
           equals(2),
         );
         expect(
-          compartment.treatments.contains(givenTreatment),
+          compartment.list.contains(givenTreatment),
           isTrue,
         );
         expect(
-          compartment.treatments.contains(givenAnotherTreatment),
+          compartment.list.contains(givenAnotherTreatment),
           isTrue,
         );
         expect(compartment.dependentName, equals(givenDependentNameValue));
@@ -186,7 +186,7 @@ void main() {
       );
 
       expect(
-        compartment.treatments,
+        compartment.list,
         equals(
           [givenTreatment1, givenTreatment2],
         ),
@@ -201,7 +201,7 @@ void main() {
       );
 
       expect(
-        compartment.treatments,
+        compartment.list,
         equals(
           [givenTreatment1, givenTreatment2],
         ),

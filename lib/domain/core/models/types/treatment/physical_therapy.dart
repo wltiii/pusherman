@@ -8,8 +8,8 @@ import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 ///
 ///
 /// See also:
-/// [Treatment], [User], [PhysicalTherapyDescription] and
-/// [PhysicalTherapyDirections]
+/// [Treatment], [User], [PhysicalTherapyDescription],
+/// [PhysicalTherapyDirections] and [PhysicalTherapyRepetitions]
 ///
 part 'physical_therapy.g.dart';
 
@@ -20,15 +20,17 @@ class PhysicalTherapy extends Treatment {
     CareGiver? caregiver,
     PhysicalTherapyDescription description,
     PhysicalTherapyDirections directions,
-    this._physicalTherapyRepititions,
+      PhysicalTherapyRepetitions physicalTherapyRepititions,
   ) : super(
           dependent,
           caregiver,
           description,
           directions,
-        );
+        ) {
+    _physicalTherapyRepititions = physicalTherapyRepititions;
+  }
 
-  final PhysicalTherapyRepetitions _physicalTherapyRepititions;
+  late final PhysicalTherapyRepetitions _physicalTherapyRepititions;
 
   int get repetitions => _physicalTherapyRepititions.value;
 

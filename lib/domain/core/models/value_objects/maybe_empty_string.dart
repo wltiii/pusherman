@@ -1,14 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'maybe_empty_string.g.dart';
-
 /// A [MaybeEmptyString] represents a possibly zero length [String] after
 /// trimming trailing spaces.
 ///
 /// All string type value objects having these requirements should implement
 /// this class.
-@JsonSerializable(explicitToJson: true)
 abstract class MaybeEmptyString extends Equatable {
   MaybeEmptyString(
     String value, {

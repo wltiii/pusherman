@@ -3,7 +3,7 @@ import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 
-part 'compartment.g.dart';
+// part 'compartment.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Compartment {
@@ -49,13 +49,13 @@ class Compartment {
 
   late final Set<Treatment> _treatments;
 
-  List<Treatment> get treatments => _treatments.toList();
+  List<Treatment> get list => _treatments.toList();
 
   String get dependentName =>
-      treatments.isNotEmpty ? treatments[0].dependent.name : '';
+      list.isNotEmpty ? list[0].dependent.name : '';
 
   String get caregiverName =>
-      treatments.isNotEmpty ? treatments[0].caregiver.name : '';
+      list.isNotEmpty ? list[0].caregiver.name : '';
 
 // @override
 // List<Object> get props => [_treatments];
