@@ -1,3 +1,4 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
@@ -10,6 +11,9 @@ import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
 /// [Treatment], [User], [PhysicalTherapyDescription] and
 /// [PhysicalTherapyDirections]
 ///
+part 'physical_therapy.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class PhysicalTherapy extends Treatment {
   PhysicalTherapy(
     Dependent dependent,

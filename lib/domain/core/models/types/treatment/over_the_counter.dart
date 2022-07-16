@@ -10,6 +10,9 @@ import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 /// [Treatment], [User], [OverTheCounterDescription] and
 /// [OverTheCounterDirections].
 ///
+part 'over_the_counter.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class OverTheCounter extends Treatment {
   OverTheCounter(
     Dependent dependent,

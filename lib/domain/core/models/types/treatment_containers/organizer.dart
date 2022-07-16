@@ -6,21 +6,23 @@ import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart
 
 import 'compartment.dart';
 
+part 'organizer.g.dart';
+
 @JsonSerializable(explicitToJson: true)
 class Organizer extends Equatable implements Model {
-  const Organizer(
-    this._name,
-    this._frequency,
-    this._compartment,
-    this._numberOfCompartments,
-  );
+  Organizer(
+    OrganizerName name,
+    OrganizerFrequency frequency,
+    Compartment compartment,
+    NumberOfCompartments numberOfCompartments,
+  ) {
+    _name = name;
+    _frequency = frequency;
+    _compartment = compartment;
+    _numberOfCompartments = numberOfCompartments;
+  }
 
-  // TODO(wltiii): these three should be in an object. All models
-  // TODO(wltiii): should include the object.
-  // TODO(wltiii): Make it abstract for this is Firestore specific.
-  // TODO(wltiii): These would not be serializable.
-
-  final OrganizerName _name;
+  late final OrganizerName _name;
 
   // TODO(wltiii): the following really feels like two fields...
   // TODO(wltiii): not really frequency - each organizer would be for a given
@@ -31,9 +33,9 @@ class Organizer extends Equatable implements Model {
   // TODO(wltiii): therefore, time-of-day for notification and
   // TODO(wltiii): frequency (daily, etc.), or?
   // TODO(wltiii): and, what about duration? say something you take 7 days?
-  final OrganizerFrequency _frequency;
-  final Compartment _compartment;
-  final NumberOfCompartments _numberOfCompartments;
+  late final OrganizerFrequency _frequency;
+  late final Compartment _compartment;
+  late final NumberOfCompartments _numberOfCompartments;
 
   String get dependentName => _compartment.dependentName;
 
@@ -54,6 +56,15 @@ class Organizer extends Equatable implements Model {
   //           .cast<TreatmentBox>());
   // }
 
+  /// Connect the generated [_$OrganizerFromJson] function to the `fromJson`
+  /// factory.
+  factory Organizer.fromJson(Map<String, dynamic> json) =>
+      _$OrganizerFromJson(json);
+
+  /// Connect the generated [_$OrganizerToJson] function to the `toJson` method.
+  Map<String, dynamic> toJson() => _$OrganizerToJson(this);
+
+  //TODO(wltiii): get props seems to beg to be generated
   @override
   List<Object> get props => [
         _name,
@@ -62,12 +73,14 @@ class Organizer extends Equatable implements Model {
         _numberOfCompartments,
       ];
 
+  //TODO(wltiii): most definitely this should be generated
   @override
   bool get stringify => true;
 }
 
 // TODO(wltiii): add logic such as TreatmentDescription for meaningful message
 // TODO(wltiii): also remove tests of other types with no logic
+@JsonSerializable(explicitToJson: true)
 class OrganizerName extends NonEmptyString {
   OrganizerName(String value) : super(value);
 }

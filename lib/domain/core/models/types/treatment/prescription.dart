@@ -1,3 +1,4 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
@@ -11,15 +12,7 @@ import 'package:pusherman/domain/core/models/value_objects/whole_number.dart';
 /// See also:
 /// [Treatment], [User], [PrescriptionDescription], [PrescriptionDirections],
 /// [PrescriptionRefillQuantity] and [PrescriptionOnHandQuantity].
-///
-// TODO(wltiii): Prescription and Supplement are currently exactly the same.
-// TODO(wltiii): Perhaps extend from a common abstraction. NOTE:
-// TODO(wltiii): I expect them to diverge in the future.
-class Prescription extends Treatment {
-  Prescription(
-    Dependent dependent,
-    CareGiver? caregiver,
-    PrescriptionDescription description,
+///tion description,
     PrescriptionDirections directions,
     this._prescriptionRefillQuantityQuantity,
     this._prescriptionOnHandQuantity,

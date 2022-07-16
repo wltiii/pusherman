@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
@@ -18,6 +19,9 @@ import '../../value_objects/non_empty_string.dart';
 /// [User], [Dependent], [CareGiver], [TreatmentDescription]
 /// and [TreatmentDirections]
 ///
+part 'treatment.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 abstract class Treatment extends Equatable {
   Treatment(
     Dependent dependent,

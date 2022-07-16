@@ -1,5 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/value_objects/maybe_empty_string.dart';
+
+part 'non_empty_string.g.dart';
 
 /// A [NonEmptyString] represents a non-zero length [String] after trimming
 /// trailing spaces.
@@ -26,6 +29,7 @@ import 'package:pusherman/domain/core/models/value_objects/maybe_empty_string.da
 /// of validators with which the extended class was called. See the call
 /// to super in [NonEmptyString] for an example of implementing a chainable
 /// stack of validators.
+@JsonSerializable(explicitToJson: true)
 abstract class NonEmptyString extends MaybeEmptyString {
   NonEmptyString(
     String value, {

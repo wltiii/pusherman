@@ -42,7 +42,7 @@ dependencies:
   #  hive: ^2.2.2
   # isar platforms: Android|iOS|Linux|macOS|web|Windows
   #  isar: ^2.5.0
-  json_annotation: ^4.5.0
+  json_annotation: ^4.6.0
   # objectbox platforms: Android|iOS|Linux|macOS|Windows
   # big plus over other solutions is syncing
   # big negative is lack of web support

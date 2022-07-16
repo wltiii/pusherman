@@ -1,8 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 
-// class Compartment extends Equatable {
+part 'compartment.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Compartment {
   Compartment(
     List<Treatment> treatments,
@@ -47,35 +50,37 @@ class Compartment {
   late final Set<Treatment> _treatments;
 
   List<Treatment> get treatments => _treatments.toList();
+
   String get dependentName =>
       treatments.isNotEmpty ? treatments[0].dependent.name : '';
+
   String get caregiverName =>
       treatments.isNotEmpty ? treatments[0].caregiver.name : '';
 
-  // @override
-  // List<Object> get props => [_treatments];
+// @override
+// List<Object> get props => [_treatments];
 
-  // @override
-  // bool get stringify => true;
+// @override
+// bool get stringify => true;
 
-  // factory TreatmentBox.fromJson(Map<String, dynamic> json) {
-  //   var somePills = json['pills'].map((pill) => Pill.fromJson(pill))
-  //       .toList()
-  //       .cast<Pill>();
-  //
-  //   var pillSet = TreatmentBox(
-  //     _name: json['name'],
-  //     _frequency: json['frequency'] ?? '',
-  //     _treatments: somePills,
-  //   );
-  //
-  //   return pillSet;
-  //
-  // }
+// factory TreatmentBox.fromJson(Map<String, dynamic> json) {
+//   var somePills = json['pills'].map((pill) => Pill.fromJson(pill))
+//       .toList()
+//       .cast<Pill>();
+//
+//   var pillSet = TreatmentBox(
+//     _name: json['name'],
+//     _frequency: json['frequency'] ?? '',
+//     _treatments: somePills,
+//   );
+//
+//   return pillSet;
+//
+// }
 
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     "name": _name,
-  //   };
-  // }
+// Map<String, dynamic> toJson() {
+//   return {
+//     "name": _name,
+//   };
+// }
 }
