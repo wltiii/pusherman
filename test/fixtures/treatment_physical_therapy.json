@@ -1,9 +1,8 @@
 {
-  "physicalTherapy": {
-    "dependent": "Coda",
-    "caregiver": "Bill",
-    "description" : "A Test PhysicalTherapy",
-    "directions" : "Do daily, but in practice, do three times then never again",
-    "physicalTherapyRepititions" : 15
-  }
+  "runtimeType": "PhysicalTherapy",
+  "caregiver": "Bill",
+  "dependent": "Coda",
+  "description": "A Test PhysicalTherapyRepetitions",
+  "directions": "Take frequently",
+  "physicalTherapyRepititions": 20
 }

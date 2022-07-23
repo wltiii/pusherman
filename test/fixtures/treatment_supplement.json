@@ -1,10 +1,9 @@
 {
-  "supplement": {
-    "dependent": "Coda",
-    "caregiver": "Bill",
-    "description" : "A Test Supplement",
-    "directions" : "Take frequently",
-    "supplementRefillQuantity" : 1,
-    "supplementOnHandQuantity" : 0
-  }
+  "runtimeType": "Supplement",
+  "caregiver": "Bill",
+  "dependent": "Coda",
+  "description": "A Test Supplement",
+  "directions": "Take frequently",
+  "supplementRefillQuantity": 30,
+  "supplementOnHandQuantity": 17
 }

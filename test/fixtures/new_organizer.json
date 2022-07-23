@@ -1,25 +1,51 @@
 {
   "name": "Organizer Name",
   "frequency": "Organizer Frequency",
-  "compartment": [
-    {
-      "treatment": {
+  "compartment": {
+    "treatments": [
+      {
+        "runtimeType": "OverTheCounter",
         "caregiver": "Bill",
         "dependent": "Coda",
-        "description" : "A Test Supplement",
-        "directions" : "Take frequently",
-        "supplementRefillQuantity" : 1,
-        "supplementOnHandQuantity" : 0
+        "description": "A Test OverTheCounter",
+        "directions": "Take as needed"
       },
-      "treatment": {
+      {
+        "runtimeType": "PhysicalTherapy",
         "caregiver": "Bill",
         "dependent": "Coda",
-        "description" : "A Test Supplement",
-        "directions" : "Take frequently",
-        "prescriptionRefillQuantity" : 30,
-        "prescriptionOnHandQuantity" : 17
+        "description": "A Test PhysicalTherapyRepetitions",
+        "directions": "Take frequently",
+        "physicalTherapyRepititions": 20
+      },
+      {
+        "runtimeType": "Prescription",
+        "caregiver": "Bill",
+        "dependent": "Coda",
+        "description": "A Test Prescription",
+        "directions": "Take frequently",
+        "prescriptionRefillQuantity": 30,
+        "prescriptionOnHandQuantity": 17
+      },
+      {
+        "runtimeType": "Supplement",
+        "caregiver": "Bill",
+        "dependent": "Coda",
+        "description": "A Test Supplement",
+        "directions": "Take frequently",
+        "supplementRefillQuantity": 30,
+        "supplementOnHandQuantity": 17
+      },
+      {
+        "runtimeType": "Supplement Two",
+        "caregiver": "Bill",
+        "dependent": "Coda",
+        "description": "A second Test Supplement",
+        "directions": "Take rarely",
+        "supplementRefillQuantity": 150,
+        "supplementOnHandQuantity": 96
       }
-    }
-  ],
-  "numberOfCompartments" : 7
+    ]
+  },
+  "numberOfCompartments": 7
 }

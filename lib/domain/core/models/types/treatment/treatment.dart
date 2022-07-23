@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
@@ -53,17 +52,17 @@ abstract class Treatment extends Equatable {
         UserId(dependent.id),
         UserName(dependent.name),
       );
-
-  @override
-  List get props => <dynamic>[
-        _dependent,
-        _caregiver,
-        _treatmentDescription,
-        _treatmentDirections,
-      ];
-
-  @override
-  bool get stringify => true;
+  //
+  // @override
+  // List get props => <dynamic>[
+  //       _dependent,
+  //       _caregiver,
+  //       _treatmentDescription,
+  //       _treatmentDirections,
+  //     ];
+  //
+  // @override
+  // bool get stringify => true;
 }
 
 class TreatmentDescription extends NonEmptyString {
@@ -82,7 +81,7 @@ class TreatmentDescription extends NonEmptyString {
           ],
         );
 
-  factory TreatmentDescription.fromJson<Json json>
+  // factory TreatmentDescription.fromJson<Json json>
 }
 
 class TreatmentDirections extends NonEmptyString {

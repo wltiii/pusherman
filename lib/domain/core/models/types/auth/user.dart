@@ -1,10 +1,40 @@
+import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:pusherman/domain/core/models/types/type_defs.dart';
 
+// part 'user.g.dart';
+//
+// @JsonSerializable(explicitToJson: true)
 abstract class User extends Equatable {
   const User(this._id, this._userName);
+
+  // User fromJson(String source) {
+  //   final map = json.decode(source) as Map<String, Object?>;
+  //
+  //   return User(
+  //     minimumPrice: map['id'] as String,
+  //     maximumPrice: map['userName'] as String,
+  //   );
+  // }
+
+  Json toJson() {
+    // TODO(wltiii) return type should be Json
+    return <String, Object?> {
+      'id': id,
+      'userName': name
+    };
+  }
+
+
+  // /// Connect the generated [_$PersonFromJson] function to the `fromJson`
+  // /// factory.
+  // factory User.fromJson(Json json) => _$UserFromJson(json);
+  //
+  // /// Connect the generated [_$PersonToJson] function to the `toJson` method.
+  // Json toJson() => _$UserToJson(this);
 
   final UserId _id;
   final UserName _userName;
@@ -22,6 +52,23 @@ abstract class User extends Equatable {
 
 class Dependent extends User {
   const Dependent(UserId id, UserName userName) : super(id, userName);
+
+  // factory Dependent.fromJson(id, userName) {
+  //   return super.fromJson(id, userName);
+  // }
+  factory Dependent.fromJson(String source) {
+    final map = json.decode(source) as Map<String, Object?>;
+
+    return Dependent(
+      UserId(map['id'] as String),
+      UserName(map['userName'] as String),
+    );
+  }
+
+
+  Json toJson() {
+    return super.toJson();
+  }
 }
 
 class CareGiver extends User {

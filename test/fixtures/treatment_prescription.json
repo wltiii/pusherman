@@ -1,10 +1,9 @@
 {
-  "prescription": {
-    "dependent": "Coda",
-    "caregiver": "Bill",
-    "description" : "A Test Prescription",
-    "directions" : "Take often",
-    "prescriptionRefillQuantity" : 1,
-    "prescriptionOnHandQuantity" : 0
-  }
+  "runtimeType": "Prescription",
+  "caregiver": "Bill",
+  "dependent": "Coda",
+  "description": "A Test Prescription",
+  "directions": "Take frequently",
+  "prescriptionRefillQuantity": 30,
+  "prescriptionOnHandQuantity": 17
 }

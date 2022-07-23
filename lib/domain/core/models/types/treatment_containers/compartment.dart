@@ -1,16 +1,23 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/domain/core/models/types/type_defs.dart';
 import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
 
-// part 'compartment.g.dart';
+part 'compartment.freezed.dart';
+part 'compartment.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Compartment {
-  Compartment(
+@freezed
+class Compartment with _$Compartment {
+  const Compartment._();
+
+  factory Compartment(
     List<Treatment> treatments,
   ) {
-    _treatments = validate(treatments);
+    // _treatments = validate(treatments);
+    treatments = validate(treatments);
   }
 
   static Set<Treatment> validate(
@@ -47,9 +54,10 @@ class Compartment {
     return treatments.toSet();
   }
 
-  late final Set<Treatment> _treatments;
+  // late final Set<Treatment> _treatments;
 
-  List<Treatment> get list => _treatments.toList();
+  // List<Treatment> get list => _treatments.toList();
+  List<Treatment> get list => treatments.toList();
 
   String get dependentName =>
       list.isNotEmpty ? list[0].dependent.name : '';
@@ -62,6 +70,11 @@ class Compartment {
 
 // @override
 // bool get stringify => true;
+
+  /// Connect the generated [_$CompartmentFromJson] function to the `fromJson`
+  /// factory.
+  factory Compartment.fromJson(Json json) =>
+      _$CompartmentFromJson(json);
 
 // factory TreatmentBox.fromJson(Map<String, dynamic> json) {
 //   var somePills = json['pills'].map((pill) => Pill.fromJson(pill))
