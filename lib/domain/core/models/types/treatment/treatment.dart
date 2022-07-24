@@ -52,17 +52,17 @@ abstract class Treatment extends Equatable {
         UserId(dependent.id),
         UserName(dependent.name),
       );
-  //
-  // @override
-  // List get props => <dynamic>[
-  //       _dependent,
-  //       _caregiver,
-  //       _treatmentDescription,
-  //       _treatmentDirections,
-  //     ];
-  //
-  // @override
-  // bool get stringify => true;
+
+  @override
+  List get props => <dynamic>[
+        _dependent,
+        _caregiver,
+        _treatmentDescription,
+        _treatmentDirections,
+      ];
+
+  @override
+  bool get stringify => true;
 }
 
 class TreatmentDescription extends NonEmptyString {

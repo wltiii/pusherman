@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,32 +20,29 @@ class UserTester extends User {
   Json toJson() {
     return super.toJson();
   }
-
 }
-
-/*
-class Dependent extends User {
-  const Dependent(UserId id, UserName userName) : super(id, userName);
-
-  factory Dependent.fromJson(id, userName) {
-    return super.fromJson(id, userName)
-  }
-
-  Json super.toJson();
-}
-
-
- */
 
 void main() {
   group('construction', () {
     test('all User types constructed', () {
-// Not Yet Implemented: user types defined by roles: Caregiver | Dependent | ???
-      final user = UserTester(UserId('uid'), UserName('jack'));
-      expect(user, isA<User>());
-      expect(user, isA<Equatable>());
-      expect(user.id, equals('uid'));
-      expect(user.name, equals('jack'));
+
+      final tester = UserTester(UserId('uid'), UserName('jack'));
+      expect(tester, isA<User>());
+      expect(tester, isA<Equatable>());
+      expect(tester.id, equals('uid'));
+      expect(tester.name, equals('jack'));
+
+      final dependent = Dependent(UserId('uid'), UserName('jack'));
+      expect(dependent.id, equals(tester.id));
+      expect(dependent.name, equals(tester.name));
+
+      final careGiver = CareGiver(UserId('uid'), UserName('jack'));
+      expect(careGiver.id, equals(tester.id));
+      expect(careGiver.name, equals(tester.name));
+
+      final careProvider = CareProvider(UserId('uid'), UserName('jack'));
+      expect(careProvider.id, equals(tester.id));
+      expect(careProvider.name, equals(tester.name));
     });
 
     test('when id is empty string exception is thrown', () {
@@ -86,23 +82,70 @@ void main() {
   });
 
   group('json', () {
-    test('Dependent from json', () {
-      final givenJson = '''{
+    test('all types from json', () {
+      final givenDependentJson = '''{
+        "runtimeType": "Dependent",
         "id": "uid",
         "userName": "jack"
       }''';
 
-      final result = Dependent.fromJson(givenJson);
+      final dependent = Dependent.fromJson(givenDependentJson);
 
-      expect(result, isA<Dependent>());
-      expect(result.id, equals('uid'));
-      expect(result.name, equals('jack'));
+      expect(dependent, isA<Dependent>());
+      expect(dependent.id, equals('uid'));
+      expect(dependent.name, equals('jack'));
+
+      final givenCareGiverJson = '''{
+        "runtimeType": "CareGiver",
+        "id": "uid",
+        "userName": "jack"
+      }''';
+      final careGiver = CareGiver.fromJson(givenCareGiverJson);
+
+      expect(careGiver, isA<CareGiver>());
+      expect(careGiver.id, equals('uid'));
+      expect(careGiver.name, equals('jack'));
+
+      final givenCareProviderJson = '''{
+        "runtimeType": "CareProvider",
+        "id": "uid",
+        "userName": "jack"
+      }''';
+      final careProvider = CareProvider.fromJson(givenCareProviderJson);
+
+      expect(careProvider, isA<CareProvider>());
+      expect(careProvider.id, equals('uid'));
+      expect(careProvider.name, equals('jack'));
     });
 
-    test('Dependent to json', () {
+    test('all types to json', () {
+      final Json expectedDependentJson = {
+        "runtimeType": "Dependent",
+        "id": "uid",
+        "userName": "jack"
+      };
+      final Json expectedCareGiverJson = {
+        "runtimeType": "CareGiver",
+        "id": "uid",
+        "userName": "jack"
+      };
+      final Json expectedCareProviderJson = {
+        "runtimeType": "CareProvider",
+        "id": "uid",
+        "userName": "jack"
+      };
+
       expect(
-        Dependent(UserId('uid'), UserName('jack')).toString(),
-        equals('Dependent(UserId(uid), UserName(jack))'),
+        Dependent(UserId('uid'), UserName('jack')).toJson(),
+        equals(expectedDependentJson),
+      );
+      expect(
+        CareGiver(UserId('uid'), UserName('jack')).toJson(),
+        equals(expectedCareGiverJson),
+      );
+      expect(
+        CareProvider(UserId('uid'), UserName('jack')).toJson(),
+        equals(expectedCareProviderJson),
       );
     });
   });

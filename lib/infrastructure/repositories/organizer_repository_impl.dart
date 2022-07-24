@@ -44,17 +44,23 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, OrganizerEntity>> add(
-    Organizer organizer,
-  ) async {
-    await organizerStore.add(organizer);
-  }
+  // @override
+  // Future<Either<Failure, OrganizerEntity>> add(
+  //   Organizer organizer,
+  // ) async {
+  //   await organizerStore.add(organizer);
+  // }
 
   @override
-  Future<Either<Failure, OrganizerEntity>> update(
-    OrganizerEntity organizerEntity,
-  ) async {
-    await organizerStore.update(organizerEntity);
+  Future<Either<Failure, OrganizerEntity>> update(OrganizerEntity organizer) async {
+    // await organizerStore.update(organizer);
+    // return Right(organizer);
+    try {
+      await organizerStore.update(organizer);
+      return Right(organizer);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+
   }
 }

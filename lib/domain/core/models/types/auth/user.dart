@@ -5,46 +5,57 @@ import 'package:pusherman/domain/core/models/value_objects/exception_message.dar
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 import 'package:pusherman/domain/core/models/types/type_defs.dart';
 
-// part 'user.g.dart';
-//
-// @JsonSerializable(explicitToJson: true)
+//TODO(wltiii): is it possible to use generics to clean up fromJson casts in subtypes?
 abstract class User extends Equatable {
-  const User(this._id, this._userName);
+  const User(this._id, this._name);
 
-  // User fromJson(String source) {
-  //   final map = json.decode(source) as Map<String, Object?>;
-  //
-  //   return User(
-  //     minimumPrice: map['id'] as String,
-  //     maximumPrice: map['userName'] as String,
-  //   );
-  // }
+  static User fromJson(String source) {
+    final map = json.decode(source) as Map<String, Object?>;
+
+    final type = map['runtimeType'] as String;
+
+    switch (type) {
+      case 'Dependent':
+        return Dependent(
+          UserId(map['id'] as String),
+          UserName(map['userName'] as String),
+        );
+      case 'CareGiver':
+        return CareGiver(
+          UserId(map['id'] as String),
+          UserName(map['userName'] as String),
+        );
+      case 'CareProvider':
+        return CareProvider(
+          UserId(map['id'] as String),
+          UserName(map['userName'] as String),
+        );
+    }
+
+    throw ValueException(
+        ExceptionMessage('Unrecognized value $type.')
+    );
+  }
+
 
   Json toJson() {
-    // TODO(wltiii) return type should be Json
-    return <String, Object?> {
+    return {
+      'runtimeType': this.runtimeType.toString(),
       'id': id,
       'userName': name
     };
   }
 
 
-  // /// Connect the generated [_$PersonFromJson] function to the `fromJson`
-  // /// factory.
-  // factory User.fromJson(Json json) => _$UserFromJson(json);
-  //
-  // /// Connect the generated [_$PersonToJson] function to the `toJson` method.
-  // Json toJson() => _$UserToJson(this);
-
   final UserId _id;
-  final UserName _userName;
+  final UserName _name;
 
   String get id => _id.value;
 
-  String get name => _userName.value;
+  String get name => _name.value;
 
   @override
-  List<Object?> get props => [_id, _userName];
+  List<Object?> get props => [_id, _name];
 
   @override
   bool get stringify => true;
@@ -53,30 +64,27 @@ abstract class User extends Equatable {
 class Dependent extends User {
   const Dependent(UserId id, UserName userName) : super(id, userName);
 
-  // factory Dependent.fromJson(id, userName) {
-  //   return super.fromJson(id, userName);
-  // }
   factory Dependent.fromJson(String source) {
-    final map = json.decode(source) as Map<String, Object?>;
-
-    return Dependent(
-      UserId(map['id'] as String),
-      UserName(map['userName'] as String),
-    );
+    return User.fromJson(source) as Dependent;
   }
 
 
-  Json toJson() {
-    return super.toJson();
-  }
 }
 
 class CareGiver extends User {
   const CareGiver(UserId id, UserName userName) : super(id, userName);
+
+  factory CareGiver.fromJson(String source) {
+    return User.fromJson(source) as CareGiver;
+  }
 }
 
 class CareProvider extends User {
   const CareProvider(UserId id, UserName userName) : super(id, userName);
+
+  factory CareProvider.fromJson(String source) {
+    return User.fromJson(source) as CareProvider;
+  }
 }
 
 /// [UserId] is a unique identifier of a user.
@@ -89,16 +97,19 @@ class CareProvider extends User {
 class UserId extends NonEmptyString {
   UserId(String value)
       : super(
-          value,
-          validators: [
-            (String value) => {
-                  if (value.trimRight().isEmpty)
-                    throw ValueException(
-                      ExceptionMessage('User id must not be empty.'),
-                    ),
-                },
-          ],
-        );
+    value,
+    validators: [
+          (String value) =>
+      {
+        if (value
+            .trimRight()
+            .isEmpty)
+          throw ValueException(
+            ExceptionMessage('User id must not be empty.'),
+          ),
+      },
+    ],
+  );
 }
 
 /// [UserName] is a user friendly name associated with the given user.
@@ -106,17 +117,21 @@ class UserId extends NonEmptyString {
 /// It is a [NonEmptyString], thus  must not be empty. Instantiating with an
 /// empty String will throw a [ValueException].
 ///
+// TODO(wltiii): this should extend Person, which would have First, Middle, Last, Suffix, possibly nickname. FullName convenience method should return 'William Lodge Turner III', and reversed as `Turner, William Lodge, Jr`
 class UserName extends NonEmptyString {
   UserName(String value)
       : super(
-          value,
-          validators: [
-            (String value) => {
-                  if (value.trimRight().isEmpty)
-                    throw ValueException(
-                      ExceptionMessage('User name must not be empty.'),
-                    ),
-                },
-          ],
-        );
+    value,
+    validators: [
+          (String value) =>
+      {
+        if (value
+            .trimRight()
+            .isEmpty)
+          throw ValueException(
+            ExceptionMessage('User name must not be empty.'),
+          ),
+      },
+    ],
+  );
 }

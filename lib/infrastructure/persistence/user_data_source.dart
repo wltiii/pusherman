@@ -1,4 +1,4 @@
-import '../../domain/core/models/types/auth/user.dart';
+import 'package:pusherman/domain/core/models/types/auth/user.dart';
 
 abstract class UserDataSource {
   Future<CareGiver> getCaregiver(String name);

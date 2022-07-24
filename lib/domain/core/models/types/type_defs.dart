@@ -3,11 +3,15 @@
 /// Example usage:
 /// class User {
 ///   final String name;
-///   final int age;  User.fromJson(Json json) :
+///   final int age;
+///
+///   User.fromJson(Json json) :
 ///         name = json['name'],
-///         age = json['age'];Json get json => {
+///         age = json['age'];
+///
+///   Json get toJson => {
 ///     'name': name,
 ///     'age': age,
 ///   };
 /// }
-typedef Json = Map<String, dynamic>;
+typedef Json = Map<String, Object?>;
