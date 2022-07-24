@@ -12,7 +12,8 @@ abstract class User extends Equatable {
   static User fromJson(String source) {
     final map = json.decode(source) as Map<String, Object?>;
 
-    final type = map['runtimeType'] as String;
+    final type =
+        map['runtimeType'] is String ? map['runtimeType'] as String : '';
 
     switch (type) {
       case 'Dependent':
