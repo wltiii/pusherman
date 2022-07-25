@@ -149,4 +149,64 @@ void main() {
       );
     });
   });
+
+  group('user domain types', () {
+    test('when UserId instantiated with empty string exception thrown', () {
+      const givenEmptyString = '';
+      const givenStringOfSpacesOnly = ' ';
+
+      expect(
+            () => UserId(givenEmptyString),
+        throwsA(
+          predicate(
+                (e) =>
+            e is ValueException &&
+                e.message == 'Invalid value. User id must not be empty.',
+          ),
+        ),
+      );
+
+
+      expect(
+            () => UserId(givenStringOfSpacesOnly),
+        throwsA(
+          predicate(
+                (e) =>
+            e is ValueException &&
+                e.message ==
+                    'Invalid value. User id must not be empty.',
+          ),
+        ),
+      );
+    });
+
+    test('when UserName instantiated with empty string exception thrown', () {
+      const givenEmptyString = '';
+      const givenStringOfSpacesOnly = ' ';
+
+      expect(
+            () => UserName(givenEmptyString),
+        throwsA(
+          predicate(
+                (e) =>
+            e is ValueException &&
+                e.message == 'Invalid value. User name must not be empty.',
+          ),
+        ),
+      );
+
+
+      expect(
+            () => UserName(givenStringOfSpacesOnly),
+        throwsA(
+          predicate(
+                (e) =>
+            e is ValueException &&
+                e.message ==
+                    'Invalid value. User name must not be empty.',
+          ),
+        ),
+      );
+    });
+  });
 }

@@ -4,15 +4,15 @@ import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/value_objects/maybe_empty_string.dart';
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 
-class AbstractNonEmptyStringTester extends NonEmptyString {
-  AbstractNonEmptyStringTester(String value) : super(value);
+class NonEmptyStringTester extends NonEmptyString {
+  NonEmptyStringTester(String value) : super(value);
 }
 
 void main() {
   group('construction', () {
     test('constructs', () {
       const value = 'My what a pretty face you have!';
-      final aString = AbstractNonEmptyStringTester(value);
+      final aString = NonEmptyStringTester(value);
       expect(aString, isA<MaybeEmptyString>());
       expect(aString, isA<NonEmptyString>());
       expect(aString, isA<Equatable>());
@@ -21,7 +21,7 @@ void main() {
 
     test('throws when string has zero length', () {
       expect(
-        () => AbstractNonEmptyStringTester(''),
+        () => NonEmptyStringTester(''),
         throwsA(
           predicate(
             (e) => e is StringInvalidException && e.message == 'Invalid value.',
@@ -32,7 +32,7 @@ void main() {
 
     test('throws when string of spaces only', () {
       expect(
-        () => AbstractNonEmptyStringTester(' '),
+        () => NonEmptyStringTester(' '),
         throwsA(
           predicate(
             (e) => e is StringInvalidException && e.message == 'Invalid value.',
