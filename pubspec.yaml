@@ -37,7 +37,7 @@ dependencies:
   equatable: ^2.0.3
   flutter:
     sdk: flutter
-  fpdart: ^0.1.0
+  fpdart: ^0.2.0
   # hive platforms: Android|iOS|Linux|macOS|web|Windows
   #  hive: ^2.2.2
   # isar platforms: Android|iOS|Linux|macOS|web|Windows
