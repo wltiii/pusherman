@@ -5,9 +5,8 @@ import 'package:pusherman/domain/core/models/value_objects/exception_message.dar
 import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
 import 'package:pusherman/domain/core/models/types/type_defs.dart';
 
-//TODO(wltiii): is it possible to use generics to clean up fromJson casts in subtypes?
 abstract class User extends Equatable {
-  const User(this._id, this._name);
+  const User(this._id, this._name,);
 
   static User fromJson(String source) {
     final map = json.decode(source) as Map<String, Object?>;
@@ -32,12 +31,11 @@ abstract class User extends Equatable {
           UserName(map['userName'] as String),
         );
     }
-
+    //TODO is there a test for this?
     throw ValueException(
         ExceptionMessage('Unrecognized value $type.')
     );
   }
-
 
   Json toJson() {
     return {
@@ -46,7 +44,6 @@ abstract class User extends Equatable {
       'userName': name
     };
   }
-
 
   final UserId _id;
   final UserName _name;
@@ -68,8 +65,6 @@ class Dependent extends User {
   factory Dependent.fromJson(String source) {
     return User.fromJson(source) as Dependent;
   }
-
-
 }
 
 class CareGiver extends User {
@@ -100,11 +95,8 @@ class UserId extends NonEmptyString {
       : super(
     value,
     validators: [
-          (String value) =>
-      {
-        if (value
-            .trimRight()
-            .isEmpty)
+          (String value) => {
+        if (value.trimRight().isEmpty)
           throw ValueException(
             ExceptionMessage('User id must not be empty.'),
           ),
@@ -124,11 +116,8 @@ class UserName extends NonEmptyString {
       : super(
     value,
     validators: [
-          (String value) =>
-      {
-        if (value
-            .trimRight()
-            .isEmpty)
+            (String value) => {
+                  if (value.trimRight().isEmpty)
           throw ValueException(
             ExceptionMessage('User name must not be empty.'),
           ),
