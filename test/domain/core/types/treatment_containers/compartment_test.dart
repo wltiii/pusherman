@@ -6,6 +6,20 @@ import 'package:pusherman/domain/core/models/types/treatment/supplement.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 
+class AbstractTreatmentTester extends Treatment {
+  AbstractTreatmentTester(
+    Dependent dependent,
+    CareGiver? caregiver,
+    TreatmentDescription description,
+    TreatmentDirections directions,
+  ) : super(
+          dependent,
+          caregiver,
+          description,
+          directions,
+        );
+}
+
 void main() {
   const givenDependentIdValue = 'abc123';
   const givenDependentNameValue = 'aUserName';
@@ -47,28 +61,46 @@ void main() {
   final givenTreatmentOnHandQuantity =
       SupplementOnHandQuantity(givenOnHandQuantityValue);
 
-  final givenTreatment = Supplement(
+  final givenTreatment = AbstractTreatmentTester(
     givenDependent,
     givenCaregiver,
     givenSupplementDescription,
     givenSupplementDirections,
-    givenTreatmentRefillQuantity,
-    givenTreatmentOnHandQuantity,
   );
+  // final givenTreatment = Supplement(
+  //   givenDependent,
+  //   givenCaregiver,
+  //   givenSupplementDescription,
+  //   givenSupplementDirections,
+  //   givenTreatmentRefillQuantity,
+  //   givenTreatmentOnHandQuantity,
+  // );
 
-  final givenAnotherTreatment = OverTheCounter(
+  final givenAnotherTreatment = AbstractTreatmentTester(
     givenDependent,
     givenCaregiver,
-    givenOtcDescription,
-    givenOtcDirections,
+    givenSupplementDescription,
+    givenSupplementDirections,
   );
+  // final givenAnotherTreatment = OverTheCounter(
+  //   givenDependent,
+  //   givenCaregiver,
+  //   givenOtcDescription,
+  //   givenOtcDirections,
+  // );
 
-  final givenTreatmentForOtherDependent = OverTheCounter(
+  final givenTreatmentForOtherDependent = AbstractTreatmentTester(
     givenOtherDependent,
     givenCaregiver,
-    givenOtcDescription,
-    givenOtcDirections,
+    givenSupplementDescription,
+    givenSupplementDirections,
   );
+  // final givenTreatmentForOtherDependent = OverTheCounter(
+  //   givenOtherDependent,
+  //   givenCaregiver,
+  //   givenOtcDescription,
+  //   givenOtcDirections,
+  // );
 
   group('construction', () {
     group('success cases', () {
