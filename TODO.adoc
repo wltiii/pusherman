@@ -1,0 +1,7 @@
+. Create library containing:
+.. Objects that help users of the library to *Make Illegal State Unrepresentable*
+.. Guard to library. See for example:
+... https://www.codinghelmet.com/articles/why-do-we-need-guard-clauses
+... https://github.com/ardalis/GuardClauses
+... https://github.com/Heleonix/Heleonix.Guard/blob/master/README.md
+... https://pub.dev/packages/guard
