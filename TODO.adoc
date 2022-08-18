@@ -1,7 +1,14 @@
 . Create library containing:
 .. Objects that help users of the library to *Make Illegal State Unrepresentable*
-.. Guard to library. See for example:
+.. Add Guard to library. See:
+... https://fsharpforfunandprofit.com/posts/designing-with-types-intro/ - this series only may touch upon the subject of guards, though it is largely about Making Illegal State Unrepresentable.
+... https://wiki.c2.com/?BouncerPattern
 ... https://www.codinghelmet.com/articles/why-do-we-need-guard-clauses
+... https://en.wikipedia.org/wiki/Guard_%28computer_science%29
 ... https://github.com/ardalis/GuardClauses
 ... https://github.com/Heleonix/Heleonix.Guard/blob/master/README.md
 ... https://pub.dev/packages/guard
+... https://betterprogramming.pub/are-early-returns-any-good-eed4b4d03866
+... https://dev.to/jpswade/return-early-12o5
+... https://medium.com/swlh/return-early-pattern-3d18a41bba8
+... https://softwareengineering.stackexchange.com/questions/18454/should-i-return-from-a-function-early-or-use-an-if-statement
