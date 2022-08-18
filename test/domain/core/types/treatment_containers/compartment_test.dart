@@ -1,10 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
-import 'package:pusherman/domain/core/models/types/treatment/over_the_counter.dart';
-import 'package:pusherman/domain/core/models/types/treatment/supplement.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
+
+class AbstractTreatmentTester extends Treatment {
+  AbstractTreatmentTester(
+    Dependent dependent,
+    CareGiver? caregiver,
+    TreatmentDescription description,
+    TreatmentDirections directions,
+  ) : super(
+          dependent,
+          caregiver,
+          description,
+          directions,
+        );
+}
+
+class AbstractTreatmentDescriptionTester extends TreatmentDescription {
+  AbstractTreatmentDescriptionTester(String value) : super(value);
+}
+
+class AbstractTreatmentDirectionsTester extends TreatmentDirections {
+  AbstractTreatmentDirectionsTester(String value) : super(value);
+}
+
+class AnotherAbstractTreatmentDescriptionTester extends TreatmentDescription {
+  AnotherAbstractTreatmentDescriptionTester(String value) : super(value);
+}
+
+class AnotherAbstractTreatmentDirectionsTester extends TreatmentDirections {
+  AnotherAbstractTreatmentDirectionsTester(String value) : super(value);
+}
 
 void main() {
   const givenDependentIdValue = 'abc123';
@@ -17,8 +45,8 @@ void main() {
   const givenOtherDependentNameValue = 'otherDependName';
   const givenSupplementDescriptionValue = 'aSupplementDescription';
   const givenSupplementDirectionsValue = 'aSupplementDirections';
-  const givenRefillQuantityValue = 42;
-  const givenOnHandQuantityValue = 23;
+  // const givenRefillQuantityValue = 42;
+  // const givenOnHandQuantityValue = 23;
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
@@ -36,38 +64,33 @@ void main() {
   );
 
   final givenOtcDescription =
-      OverTheCounterDescription(givenOtcDescriptionValue);
-  final givenOtcDirections = OverTheCounterDirections(givenOtcDirectionsValue);
+      AnotherAbstractTreatmentDescriptionTester(givenOtcDescriptionValue);
+  final givenOtcDirections =
+      AnotherAbstractTreatmentDirectionsTester(givenOtcDirectionsValue);
   final givenSupplementDescription =
-      SupplementDescription(givenSupplementDescriptionValue);
+      AbstractTreatmentDescriptionTester(givenSupplementDescriptionValue);
   final givenSupplementDirections =
-      SupplementDirections(givenSupplementDirectionsValue);
-  final givenTreatmentRefillQuantity =
-      SupplementRefillQuantity(givenRefillQuantityValue);
-  final givenTreatmentOnHandQuantity =
-      SupplementOnHandQuantity(givenOnHandQuantityValue);
+      AbstractTreatmentDirectionsTester(givenSupplementDirectionsValue);
 
-  final givenTreatment = Supplement(
+  final givenTreatment = AbstractTreatmentTester(
     givenDependent,
     givenCaregiver,
     givenSupplementDescription,
     givenSupplementDirections,
-    givenTreatmentRefillQuantity,
-    givenTreatmentOnHandQuantity,
   );
 
-  final givenAnotherTreatment = OverTheCounter(
+  final givenAnotherTreatment = AbstractTreatmentTester(
     givenDependent,
     givenCaregiver,
     givenOtcDescription,
     givenOtcDirections,
   );
 
-  final givenTreatmentForOtherDependent = OverTheCounter(
+  final givenTreatmentForOtherDependent = AbstractTreatmentTester(
     givenOtherDependent,
     givenCaregiver,
-    givenOtcDescription,
-    givenOtcDirections,
+    givenSupplementDescription,
+    givenSupplementDirections,
   );
 
   group('construction', () {
@@ -122,6 +145,7 @@ void main() {
         expect(compartment.caregiverName, equals(givenCaregiverNameValue));
       });
     });
+
     group('exception cases', () {
       test('exception thrown when treatments duplicated', () {
         expect(
@@ -166,18 +190,18 @@ void main() {
   });
 
   group('treatment list order', () {
-    final givenTreatment1 = OverTheCounter(
+    final givenTreatment1 = AbstractTreatmentTester(
       givenOtherDependent,
       givenCaregiver,
-      OverTheCounterDescription('treatment-1'),
-      OverTheCounterDirections('adDirection'),
+      AbstractTreatmentDescriptionTester('treatment-1'),
+      AbstractTreatmentDirectionsTester('adDirection'),
     );
 
-    final givenTreatment2 = OverTheCounter(
+    final givenTreatment2 = AbstractTreatmentTester(
       givenOtherDependent,
       givenCaregiver,
-      OverTheCounterDescription('treatment-2'),
-      OverTheCounterDirections('adDirection'),
+      AbstractTreatmentDescriptionTester('treatment-2'),
+      AbstractTreatmentDirectionsTester('adDirection'),
     );
 
     test('compartments with same values in same order are equal', () {
@@ -209,6 +233,7 @@ void main() {
     });
   });
 
+  // TODO implement toString tests if not already in place above
   /*
   group('toString', () {
     test('returns string', () {
