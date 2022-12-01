@@ -1,6 +1,4 @@
-import 'package:pusherman/domain/core/error/exceptions.dart';
-import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
-import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 /// This class represents some of the metadata contained within a
 /// Firestore DocumentReference related to a given Firestore Document.
