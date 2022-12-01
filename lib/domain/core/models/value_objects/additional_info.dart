@@ -1,4 +1,4 @@
-import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 class AdditionalInfo extends NonEmptyString {
   AdditionalInfo(
