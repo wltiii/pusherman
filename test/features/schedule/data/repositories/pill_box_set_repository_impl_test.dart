@@ -47,8 +47,7 @@ void main() {
       group('getByDependent', () {
         test('returns Organizer from remote data source when found', () async {
           // given
-          when(mockRemoteDataSource.getByDependent(dependent))
-              .thenAnswer((_) async => Organizer);
+          when(mockRemoteDataSource.getByDependent(dependent)).thenAnswer((_) async => Organizer);
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -65,34 +64,28 @@ void main() {
 
         test('stores remote result to local', () async {
           // given
-          when(mockRemoteDataSource.getByDependent(dependent))
-              .thenAnswer((_) async => Organizer);
+          when(mockRemoteDataSource.getByDependent(dependent)).thenAnswer((_) async => Organizer);
           // when
           await repository.getByDependent(dependent);
           // then
-          verify(mockLocalDataSource.put(Organizer));
+          verify(mockLocalDataSource.update(Organizer));
         });
 
-        test('returns ServerFailure when remote and local calls fail',
-            () async {
+        test('returns ServerFailure when remote and local calls fail', () async {
           // given
-          when(mockRemoteDataSource.getByDependent(dependent))
-              .thenThrow(ServerException());
-          when(mockLocalDataSource.getByDependent(dependent))
-              .thenThrow(CacheException());
+          when(mockRemoteDataSource.getByDependent(dependent)).thenThrow(ServerException());
+          when(mockLocalDataSource.getByDependent(dependent)).thenThrow(CacheException());
           // when
           final result = await repository.getByDependent(dependent);
           // then
-          verifyNever(mockLocalDataSource.put(any));
+          verifyNever(mockLocalDataSource.update(any));
           expect(result, equals(Left(ServerFailure())));
         });
 
         test('returns cached data when remote call fails', () async {
           // given
-          when(mockRemoteDataSource.getByDependent(dependent))
-              .thenThrow(ServerException());
-          when(mockLocalDataSource.getByDependent(dependent))
-              .thenAnswer((_) async => Organizer);
+          when(mockRemoteDataSource.getByDependent(dependent)).thenThrow(ServerException());
+          when(mockLocalDataSource.getByDependent(dependent)).thenAnswer((_) async => Organizer);
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -104,10 +97,10 @@ void main() {
       group('cacheOrganizer', () {
         test('saves a Organizer to remote and local', () async {
           // when
-          await repository.put(Organizer);
+          await repository.update(Organizer);
           // then
-          verify(mockRemoteDataSource.put(Organizer));
-          verify(mockLocalDataSource.put(Organizer));
+          verify(mockRemoteDataSource.update(Organizer));
+          verify(mockLocalDataSource.update(Organizer));
         });
       });
     });
@@ -120,8 +113,7 @@ void main() {
       group('getByDependent', () {
         test('returns Organizer from local data source', () async {
           // given
-          when(mockLocalDataSource.getByDependent(dependent))
-              .thenAnswer((_) async => Organizer);
+          when(mockLocalDataSource.getByDependent(dependent)).thenAnswer((_) async => Organizer);
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -138,8 +130,7 @@ void main() {
 
         test('returns CacheFailure when there is no cached data', () async {
           // given
-          when(mockLocalDataSource.getByDependent(dependent))
-              .thenThrow(CacheException());
+          when(mockLocalDataSource.getByDependent(dependent)).thenThrow(CacheException());
           // when
           final result = await repository.getByDependent(dependent);
           // then
@@ -150,15 +141,15 @@ void main() {
       group('PUT', () {
         test('saves a Organizer to local', () async {
           // when
-          await repository.put(Organizer);
+          await repository.update(Organizer);
           // then
-          verify(mockLocalDataSource.put(Organizer));
+          verify(mockLocalDataSource.update(Organizer));
         });
         test('does not save to remote', () async {
           // when
-          await repository.put(Organizer);
+          await repository.update(Organizer);
           // then
-          verifyNever(mockRemoteDataSource.put(Organizer));
+          verifyNever(mockRemoteDataSource.update(Organizer));
         });
       });
     });

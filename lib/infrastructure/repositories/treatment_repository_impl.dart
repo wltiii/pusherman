@@ -1,10 +1,8 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/error/failures.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
-
-import '../../domain/core/models/types/treatment/treatment.dart';
-import '../../features/schedule/domain/repositories/treatment_repository.dart';
+import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
+import 'package:pusherman/features/schedule/domain/repositories/treatment_repository.dart';
 
 class TreatmentRepositoryImpl implements TreatmentRepository {
   TreatmentRepositoryImpl(
@@ -26,9 +24,8 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
 
   Future<Either<Failure, Treatment>> _getFromRemote(String dependent) async {
     try {
-      TreatmentModel Treatment =
-          await remoteDataSource.getByDependent(dependent);
-      await put(Treatment);
+      TreatmentModel Treatment = await remoteDataSource.getByDependent(dependent);
+      await update(Treatment);
       return Right(Treatment);
     } on ServerException {
       final Either<Failure, Treatment> result = await _getFromLocal(dependent);
@@ -41,8 +38,7 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
 
   Future<Either<Failure, Treatment>> _getFromLocal(String dependent) async {
     try {
-      TreatmentModel Treatment =
-          await localDataSource.getByDependent(dependent);
+      TreatmentModel Treatment = await localDataSource.getByDependent(dependent);
       return Right(Treatment);
     } on CacheException {
       return Left(CacheFailure());
@@ -50,10 +46,10 @@ class TreatmentRepositoryImpl implements TreatmentRepository {
   }
 
   @override
-  Future<void> put(Treatment Treatment) async {
-    await localDataSource.put(Treatment);
+  Future<void> update(Treatment Treatment) async {
+    await localDataSource.update(Treatment);
     if (await networkInfo.isConnected) {
-      await remoteDataSource.put(Treatment);
+      await remoteDataSource.update(Treatment);
     }
   }
 }

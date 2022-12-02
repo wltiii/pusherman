@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
+import 'package:pusherman/domain/core/models/model.dart';
 import 'package:pusherman/domain/core/models/types/type_defs.dart';
 import 'package:unrepresentable_state/unrepresentable_state.dart';
 
@@ -10,26 +9,25 @@ abstract class User extends Equatable {
     this._name,
   );
 
-  static User fromJson(String source) {
-    final map = json.decode(source) as Map<String, Object?>;
-
-    final type = map['runtimeType'] is String ? map['runtimeType'] as String : '';
+  // TODO: should not handcoded...
+  static User fromJson(Json json) {
+    final type = json['runtimeType'] is String ? json['runtimeType'] as String : '';
 
     switch (type) {
       case 'Dependent':
         return Dependent(
-          LoginId(map['id'] as String),
-          UserName(map['userName'] as String),
+          LoginId(json['id'] as String),
+          UserName(json['userName'] as String),
         );
       case 'CareGiver':
         return CareGiver(
-          LoginId(map['id'] as String),
-          UserName(map['userName'] as String),
+          LoginId(json['id'] as String),
+          UserName(json['userName'] as String),
         );
       case 'CareProvider':
         return CareProvider(
-          LoginId(map['id'] as String),
-          UserName(map['userName'] as String),
+          LoginId(json['id'] as String),
+          UserName(json['userName'] as String),
         );
     }
     throw ValueException(ExceptionMessage('Unrecognized value $type.'));
@@ -56,24 +54,24 @@ abstract class User extends Equatable {
 class Dependent extends User {
   const Dependent(LoginId id, UserName userName) : super(id, userName);
 
-  factory Dependent.fromJson(String source) {
-    return User.fromJson(source) as Dependent;
+  factory Dependent.fromJson(Json json) {
+    return User.fromJson(json) as Dependent;
   }
 }
 
-class CareGiver extends User {
+class CareGiver extends User implements Model {
   const CareGiver(LoginId id, UserName userName) : super(id, userName);
 
-  factory CareGiver.fromJson(String source) {
-    return User.fromJson(source) as CareGiver;
+  factory CareGiver.fromJson(Json json) {
+    return User.fromJson(json) as CareGiver;
   }
 }
 
 class CareProvider extends User {
   const CareProvider(LoginId id, UserName userName) : super(id, userName);
 
-  factory CareProvider.fromJson(String source) {
-    return User.fromJson(source) as CareProvider;
+  factory CareProvider.fromJson(Json json) {
+    return User.fromJson(json) as CareProvider;
   }
 }
 

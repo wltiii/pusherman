@@ -1,8 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:pusherman/domain/core/models/model.dart';
-import 'package:pusherman/domain/core/models/value_objects/natural_number.dart';
-import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 import '../type_defs.dart';
 import 'compartment.dart';
@@ -12,20 +10,20 @@ part 'organizer.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 @freezed
-// class Organizer extends Equatable implements Model {
 class Organizer with _$Organizer implements Model {
   const Organizer._();
 
-  const factory Organizer(
+  const factory Organizer({
     final OrganizerName name,
     final OrganizerFrequency frequency,
     final Compartment compartment,
     final NumberOfCompartments numberOfCompartments,
-  ) = _Organizer;
+  }) = _Organizer;
 
   factory Organizer.fromJson(Json json) => _$OrganizerFromJson(json);
 
-  // final OrganizerName name;
+  final OrganizerName name;
+
   // TODO(wltiii): the following really feels like two fields...
   // TODO(wltiii): not really frequency - each organizer would be for a given
   // TODO(wltiii): time of day, day of week, etc. so this gets complicated.
@@ -35,9 +33,9 @@ class Organizer with _$Organizer implements Model {
   // TODO(wltiii): therefore, time-of-day for notification and
   // TODO(wltiii): frequency (daily, etc.), or?
   // TODO(wltiii): and, what about duration? say something you take 7 days?
-  // final OrganizerFrequency frequency;
-  // final Compartment compartment;
-  // final NumberOfCompartments numberOfCompartments;
+  final OrganizerFrequency frequency;
+  final Compartment compartment;
+  final NumberOfCompartments numberOfCompartments;
 
   String get dependentName => compartment.dependentName;
 

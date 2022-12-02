@@ -6,7 +6,7 @@ import 'package:pusherman/core/error/failure.dart';
 import 'package:pusherman/core/network/network_info.dart';
 import 'package:pusherman/features/schedule/data/datasources/user_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
-import 'package:pusherman/features/schedule/data/repositories/user_repository_impl.dart';
+import 'package:pusherman/features/schedule/data/repositories/caregiver_repository_impl.dart';
 import 'package:pusherman/features/schedule/domain/entities/caretaker.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -24,8 +24,7 @@ void main() {
     MockRemoteDataSource mockRemoteDataSource;
     CaretakerRepositoryImpl repository;
 
-    final caretakerModel =
-        CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+    final caretakerModel = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
     final name = caretakerModel.name;
     final Caregiver caretakerEntity = caretakerModel;
 
@@ -48,8 +47,7 @@ void main() {
       group('get', () {
         test('returns Caretaker from remote data source when found', () async {
           // given
-          when(mockRemoteDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+          when(mockRemoteDataSource.get(name)).thenAnswer((_) async => caretakerEntity);
           // when
           final result = await repository.get(name);
           // then
@@ -66,31 +64,28 @@ void main() {
 
         test('stores remote result to local', () async {
           // given
-          when(mockRemoteDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+          when(mockRemoteDataSource.get(name)).thenAnswer((_) async => caretakerEntity);
           // when
           await repository.get(name);
           // then
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockLocalDataSource.update(caretakerEntity));
         });
 
-        test('returns ServerFailure when remote and local calls fail',
-            () async {
+        test('returns ServerFailure when remote and local calls fail', () async {
           // given
           when(mockRemoteDataSource.get(name)).thenThrow(ServerException());
           when(mockLocalDataSource.get(name)).thenThrow(CacheException());
           // when
           final result = await repository.get(name);
           // then
-          verifyNever(mockLocalDataSource.put(any));
+          verifyNever(mockLocalDataSource.update(any));
           expect(result, equals(Left(ServerFailure())));
         });
 
         test('returns cached data when remote call fails', () async {
           // given
           when(mockRemoteDataSource.get(name)).thenThrow(ServerException());
-          when(mockLocalDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+          when(mockLocalDataSource.get(name)).thenAnswer((_) async => caretakerEntity);
           // when
           final result = await repository.get(name);
           // then
@@ -102,10 +97,10 @@ void main() {
       group('putCaretaker', () {
         test('saves a Caretaker to remote and local', () async {
           // when
-          await repository.put(caretakerEntity);
+          await repository.update(caretakerEntity);
           // then
-          verify(mockRemoteDataSource.put(caretakerEntity));
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockRemoteDataSource.update(caretakerEntity));
+          verify(mockLocalDataSource.update(caretakerEntity));
         });
       });
     });
@@ -118,8 +113,7 @@ void main() {
       group('get', () {
         test('returns Caretaker from local data source', () async {
           // given
-          when(mockLocalDataSource.get(name))
-              .thenAnswer((_) async => caretakerEntity);
+          when(mockLocalDataSource.get(name)).thenAnswer((_) async => caretakerEntity);
           // when
           final result = await repository.get(name);
           // then
@@ -147,15 +141,15 @@ void main() {
       group('PUT', () {
         test('saves a Caretaker to local', () async {
           // when
-          await repository.put(caretakerEntity);
+          await repository.update(caretakerEntity);
           // then
-          verify(mockLocalDataSource.put(caretakerEntity));
+          verify(mockLocalDataSource.update(caretakerEntity));
         });
         test('does not save to remote', () async {
           // when
-          await repository.put(caretakerEntity);
+          await repository.update(caretakerEntity);
           // then
-          verifyNever(mockRemoteDataSource.put(caretakerEntity));
+          verifyNever(mockRemoteDataSource.update(caretakerEntity));
         });
       });
     });

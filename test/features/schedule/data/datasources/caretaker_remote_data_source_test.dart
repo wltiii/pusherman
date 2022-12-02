@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:pusherman/core/error/exception.dart';
+import 'package:pusherman/features/schedule/data/datasources/care_giver_store_impl.dart';
 import 'package:pusherman/features/schedule/data/datasources/user_data_source.dart';
-import 'package:pusherman/features/schedule/data/datasources/user_remote_data_source.dart';
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'package:test/test.dart';
 
@@ -23,8 +23,7 @@ void main() {
     });
 
     void mockHttpGetWithStatus(status) {
-      final body =
-          status == 200 ? fixtureAsString('caretaker.json') : 'Boom!';
+      final body = status == 200 ? fixtureAsString('caretaker.json') : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
@@ -51,8 +50,7 @@ void main() {
         // given
         mockHttpGetWithStatus(200);
         final name = 'Coda';
-        final expectedCaretaker =
-            CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
+        final expectedCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
 
         // when
         final result = await dataSource.get(name);
@@ -61,8 +59,7 @@ void main() {
         expect(result, equals(expectedCaretaker));
       });
 
-      test('throws a ServerException when the response code is other than 200',
-          () async {
+      test('throws a ServerException when the response code is other than 200', () async {
         // given
         mockHttpGetWithStatus(404);
         final aDependent = 'Coda';
@@ -79,21 +76,21 @@ void main() {
       test('puts with correct URI and headers', () async {
         // given
         var expectedUrl = 'http://localhost:8000/caretaker/Bill';
-        Map<String,String> expectedHeaders = {
-          'Content-Type' : 'application/json',
+        Map<String, String> expectedHeaders = {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
         final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+        when(mockHttpClient.update(any, headers: anyNamed('headers'))).thenAnswer(
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenCaretaker);
+        await dataSource.update(givenCaretaker);
 
         // then
-        verify(mockHttpClient.put(
+        verify(mockHttpClient.update(
           expectedUrl,
           body: expectedJsonString,
           headers: expectedHeaders,
@@ -103,21 +100,21 @@ void main() {
       test('creates a CaretakerModel', () async {
         // given
         var expectedUrl = 'http://localhost:8000/caretaker/Bill';
-        Map<String,String> expectedHeaders = {
-          'Content-Type' : 'application/json',
+        Map<String, String> expectedHeaders = {
+          'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
         final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
-              (_) async => http.Response(expectedJsonString, 201),
+        when(mockHttpClient.update(any, headers: anyNamed('headers'))).thenAnswer(
+          (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenCaretaker);
+        await dataSource.update(givenCaretaker);
 
         // then
-        verify(mockHttpClient.put(
+        verify(mockHttpClient.update(
           expectedUrl,
           body: expectedJsonString,
           headers: expectedHeaders,
@@ -153,7 +150,6 @@ void main() {
       //     expectedJsonString,
       //   ));
       // });
-
     });
   });
 }

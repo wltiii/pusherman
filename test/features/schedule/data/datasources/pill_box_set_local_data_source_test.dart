@@ -29,8 +29,7 @@ void main() {
         // given
         final aDependent = 'Coda';
         final key = CACHED_PILL_BOX_SET + aDependent;
-        final expectedOrganizer =
-            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+        final expectedOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         when(mockSharedPreferences.getString(key))
             .thenReturn(fixtureAsString('coda_organizer.json'));
         // when
@@ -43,19 +42,17 @@ void main() {
         // given
         when(mockSharedPreferences.getString(any)).thenReturn(null);
         // expect
-        expect(() => dataSource.getByDependent('unknown'),
-            throwsA(TypeMatcher<CacheException>()));
+        expect(() => dataSource.getByDependent('unknown'), throwsA(TypeMatcher<CacheException>()));
       });
     });
 
     group('PUT', () {
       test('creates a Organizer', () async {
         // given
-        final givenOrganizer =
-            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+        final givenOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
         // when
-        await dataSource.put(givenOrganizer);
+        await dataSource.update(givenOrganizer);
         // then
         verify(mockSharedPreferences.setString(
           CACHED_PILL_BOX_SET + givenOrganizer.dependent,

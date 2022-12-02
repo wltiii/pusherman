@@ -23,8 +23,7 @@ void main() {
     });
 
     void mockHttpGetWithStatus(status) {
-      final body =
-          status == 200 ? fixtureAsString('coda_organizer.json') : 'Boom!';
+      final body = status == 200 ? fixtureAsString('coda_organizer.json') : 'Boom!';
 
       when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
         (_) async => http.Response(body, status),
@@ -51,8 +50,7 @@ void main() {
         // given
         mockHttpGetWithStatus(200);
         final aDependent = 'Coda';
-        final expectedOrganizer =
-            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+        final expectedOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
 
         // when
         final result = await dataSource.getByDependent(aDependent);
@@ -61,8 +59,7 @@ void main() {
         expect(result, equals(expectedOrganizer));
       });
 
-      test('throws a ServerException when the response code is other than 200',
-          () async {
+      test('throws a ServerException when the response code is other than 200', () async {
         // given
         mockHttpGetWithStatus(404);
         final aDependent = 'Coda';
@@ -83,18 +80,17 @@ void main() {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenOrganizer =
-            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+        final givenOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
+        when(mockHttpClient.update(any, headers: anyNamed('headers'))).thenAnswer(
           (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenOrganizer);
+        await dataSource.update(givenOrganizer);
 
         // then
-        verify(mockHttpClient.put(
+        verify(mockHttpClient.update(
           expectedUrl,
           body: expectedJsonString,
           headers: expectedHeaders,
@@ -108,18 +104,17 @@ void main() {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         };
-        final givenOrganizer =
-            Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
+        final givenOrganizer = Organizer.fromJson(fixtureAsMap('coda_organizer.json'));
         final expectedJsonString = json.encode(givenOrganizer);
-        when(mockHttpClient.put(any, headers: anyNamed('headers'))).thenAnswer(
+        when(mockHttpClient.update(any, headers: anyNamed('headers'))).thenAnswer(
           (_) async => http.Response(expectedJsonString, 201),
         );
 
         // when
-        await dataSource.put(givenOrganizer);
+        await dataSource.update(givenOrganizer);
 
         // then
-        verify(mockHttpClient.put(
+        verify(mockHttpClient.update(
           expectedUrl,
           body: expectedJsonString,
           headers: expectedHeaders,

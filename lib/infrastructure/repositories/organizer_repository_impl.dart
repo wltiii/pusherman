@@ -1,11 +1,11 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:pusherman/domain/core/entities/organizer_entity.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/error/failures.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/organizer.dart';
 import 'package:pusherman/features/schedule/domain/repositories/organizer_repository.dart';
 import 'package:pusherman/infrastructure/persistence/organizer_store.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 class OrganizerRepositoryImpl implements OrganizerRepository {
   OrganizerRepositoryImpl(
@@ -18,25 +18,16 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
   Future<Either<Failure, OrganizerEntity>> get(
     OrganizerEntity organizerEntity,
   ) {
-    // TODO: implement getByCaregiver
     throw UnimplementedError();
   }
 
-  // @override
-  // Future<Either<Failure, OrganizerEntity>> getByCaregiver(
-  //   CareGiver caregiver,
-  // ) {
-  //   // TODO: implement getByCaregiver
-  //   throw UnimplementedError();
-  // }
-
   @override
-  Future<Either<Failure, OrganizerEntity>> getByDependent(
+  Future<Either<Failure, Organizer>> getByDependent(
     Dependent dependent,
   ) async {
     try {
       OrganizerEntity result = await organizerStore.getByDependent(dependent);
-      return Right(result);
+      return Right(result.model);
     } on NotFoundException {
       return Left(NotFoundFailure());
     } on ServerException {
@@ -44,23 +35,25 @@ class OrganizerRepositoryImpl implements OrganizerRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, OrganizerEntity>> add(
-  //   Organizer organizer,
-  // ) async {
-  //   await organizerStore.add(organizer);
-  // }
+  @override
+  Future<Either<Failure, OrganizerEntity>> add(
+    Organizer organizer,
+  ) async {
+    try {
+      OrganizerEntity result = await organizerStore.add(organizer);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 
   @override
   Future<Either<Failure, OrganizerEntity>> update(OrganizerEntity organizer) async {
-    // await organizerStore.update(organizer);
-    // return Right(organizer);
     try {
       await organizerStore.update(organizer);
       return Right(organizer);
     } on ServerException {
       return Left(ServerFailure());
     }
-
   }
 }

@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
-import 'package:pusherman/domain/core/entities/organizer_entity.dart';
+import 'package:pusherman/domain/core/entities/care_giver_entity.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
-import 'package:pusherman/domain/core/models/types/treatment_containers/organizer.dart';
-import 'package:pusherman/infrastructure/persistence/organizer_store.dart';
+import 'package:pusherman/infrastructure/persistence/care_giver_store.dart';
 import 'package:unrepresentable_state/unrepresentable_state.dart';
 
-class OrganizerStoreImpl implements OrganizerStore {
+class CareGiverStoreImpl implements CareGiverStore {
   final logger = Logger(
     printer: PrettyPrinter(printTime: true),
   );
@@ -15,11 +14,11 @@ class OrganizerStoreImpl implements OrganizerStore {
   final db = FirebaseFirestore.instance;
 
   @override
-  Future<OrganizerEntity> get(OrganizerEntity organizer) async {
-    final collection = db.collection(OrganizerStore.collection);
+  Future<CareGiverEntity> get(CareGiverEntity careGiver) async {
+    final collection = db.collection(CareGiverStore.collection);
 
     final snapshot = await collection
-        .doc(organizer.entityMetaData.id.value)
+        .doc(careGiver.entityMetaData.id.value)
         .get()
         .catchError((Object e, StackTrace stackTrace) {
       throw ServerException(
@@ -28,10 +27,10 @@ class OrganizerStoreImpl implements OrganizerStore {
     });
 
     if (snapshot.exists && snapshot.data()!.isNotEmpty) {
-      return OrganizerEntity.fromDocumentSnapshot(snapshot);
+      return CareGiverEntity.fromDocumentSnapshot(snapshot);
     } else {
       throw NotFoundException(
-        ExceptionMessage('Organizer with id [${organizer.entityMetaData.id.value}] was not found'),
+        ExceptionMessage('Organizer with id [${careGiver.entityMetaData.id.value}] was not found'),
       );
     }
 
@@ -45,7 +44,7 @@ class OrganizerStoreImpl implements OrganizerStore {
     //   onError: (e) => print("Error getting document: $e"),
     // );
     //
-    // await db.collection(OrganizerStore.collection)
+    // await db.collection(CaregiverStore.collection)
     //     .where(
     //   'uid',
     //   isEqualTo: organizer.id,
@@ -88,10 +87,10 @@ class OrganizerStoreImpl implements OrganizerStore {
   }
 
   // @override
-  // Future<OrganizerEntity> getByCaregiver(CareGiver caregiver) {
-  //   final collection = db.collection(OrganizerStore.collection);
+  // Future<CaregiverEntity> getByCaregiver(CareGiver caregiver) {
+  //   final collection = db.collection(CaregiverStore.collection);
   //
-  //   // await db.collection(OrganizerStore.collection)
+  //   // await db.collection(CaregiverStore.collection)
   //   //     .where(
   //   //   'uid',
   //   //   isEqualTo: organizer.id,
@@ -130,7 +129,7 @@ class OrganizerStoreImpl implements OrganizerStore {
   //   });
   //
   //   if (snapshot.exists && snapshot.data()!.isNotEmpty) {
-  //     return OrganizerEntity.fromDocumentSnapshot(snapshot);
+  //     return CaregiverEntity.fromDocumentSnapshot(snapshot);
   //   } else {
   //     throw NotFoundException(
   //       ExceptionMessage(
@@ -140,20 +139,20 @@ class OrganizerStoreImpl implements OrganizerStore {
   // }
 
   @override
-  Future<OrganizerEntity> getByDependent(Dependent dependent) {
-    // TODO: implement getByDependent
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<OrganizerEntity> add(Organizer organizer) async {
+  Future<CareGiverEntity> add(CareGiver organizer) async {
     // TODO: implement getByCaregiver
     throw UnimplementedError();
   }
 
   @override
-  Future<void> update(OrganizerEntity organizer) {
+  Future<void> update(CareGiverEntity organizer) {
     // TODO: implement update
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<CareGiverEntity> delete(CareGiverEntity organizer) {
+    // TODO: implement delete
     throw UnimplementedError();
   }
 }

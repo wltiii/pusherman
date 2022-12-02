@@ -7,6 +7,7 @@ import 'package:pusherman/features/schedule/data/datasources/user_local_data_sou
 import 'package:pusherman/features/schedule/data/models/caretaker_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
+
 import '../../../../fixtures/fixture_reader.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
@@ -29,8 +30,7 @@ void main() {
         final aDependent = 'Coda';
         final key = CACHED_CARETAKER + aDependent;
         final expectedCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
-        when(mockSharedPreferences.getString(key))
-            .thenReturn(fixtureAsString('caretaker.json'));
+        when(mockSharedPreferences.getString(key)).thenReturn(fixtureAsString('caretaker.json'));
         // when
         final result = await dataSource.get(aDependent);
         // then
@@ -42,8 +42,7 @@ void main() {
         when(mockSharedPreferences.getString(any)).thenReturn(null);
         // expect
         expect(() => dataSource.get('unknown'), throwsA(TypeMatcher<CacheException>()));
-       });
-
+      });
     });
 
     group('PUT', () {
@@ -52,14 +51,13 @@ void main() {
         final givenCaretaker = CaretakerModel.fromJson(fixtureAsMap('caretaker.json'));
         final expectedJsonString = json.encode(givenCaretaker);
         // when
-        await dataSource.put(givenCaretaker);
+        await dataSource.update(givenCaretaker);
         // then
         verify(mockSharedPreferences.setString(
           CACHED_CARETAKER + givenCaretaker.name,
           expectedJsonString,
         ));
       });
-
     });
   });
 }

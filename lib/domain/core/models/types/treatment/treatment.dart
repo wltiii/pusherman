@@ -1,9 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
-import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
-
-import '../../value_objects/non_empty_string.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 ///
 /// A [Treatment] can take many forms: pills, topicals, physical activity,
@@ -28,7 +25,7 @@ abstract class Treatment extends Equatable {
   ) {
     _caregiver = caregiver ??
         CareGiver(
-          UserId(dependent.id),
+          LoginId(dependent.id),
           UserName(dependent.name),
         );
   }
@@ -49,7 +46,7 @@ abstract class Treatment extends Equatable {
   bool get caregiverIsDependent =>
       _caregiver ==
       CareGiver(
-        UserId(dependent.id),
+        LoginId(dependent.id),
         UserName(dependent.name),
       );
 
@@ -81,7 +78,7 @@ class TreatmentDescription extends NonEmptyString {
           ],
         );
 
-  // factory TreatmentDescription.fromJson<Json json>
+// factory TreatmentDescription.fromJson<Json json>
 }
 
 class TreatmentDirections extends NonEmptyString {

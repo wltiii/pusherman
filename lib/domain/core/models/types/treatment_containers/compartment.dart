@@ -1,15 +1,23 @@
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
-import 'package:pusherman/domain/core/models/value_objects/exception_message.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
+import '../type_defs.dart';
+// import 'treatment.dart';
+
+// part 'compartment.freezed.dart';
 // part 'compartment.g.dart';
 
 // @JsonSerializable(explicitToJson: true)
-// class Compartment extends Equatable {
 class Compartment {
+// class Compartment extends Equatable {
+// class Compartment with _$Compartment implements Model {
   Compartment(
     List<Treatment> treatments,
   ) : _treatments = validate(treatments);
+
+  // Compartment._(
+  //   List<Treatment> treatments,
+  // ) : _treatments = validate(treatments);
 
 // factory Compartment.fromJson(Map<String, dynamic> json) {
 //   var somePills = json['pills'].map((pill) => Pill.fromJson(pill))
@@ -29,6 +37,9 @@ class Compartment {
   // /// Connect the generated [_$CompartmentFromJson] function to the `fromJson`
   // /// factory.
   // factory Compartment.fromJson(Json json) => _$CompartmentFromJson(json);
+  // factory Compartment.fromJson(Json json) {
+  //   return Compartment(treatments);
+  // }
 
   // /// Connect the generated [_$CompartmentToJson] function to the `toJson` method.
   // Map<String, dynamic> toJson() => _$CompartmentToJson(this);
@@ -52,21 +63,21 @@ class Compartment {
   /// factory.
 // factory Compartment.fromJson(Json json) => _$CompartmentFromJson(json);
 
-  // Json toJson() {
-  //   return {
-  //     "compartments": [
-  //       {
-  //         "runtimeType": "Prescription",
-  //         "caregiver": "Bill",
-  //         "dependent": "Coda",
-  //         "description": "A Test Prescription",
-  //         "directions": "Take frequently",
-  //         "prescriptionRefillQuantity": 30,
-  //         "prescriptionOnHandQuantity": 17
-  //       }
-  //     ]
-  //   };
-  // }
+  Json toJson() {
+    return {
+      "compartments": [
+        {
+          "runtimeType": "Prescription",
+          "caregiver": "Bill",
+          "dependent": "Coda",
+          "description": "A Test Prescription",
+          "directions": "Take frequently",
+          "prescriptionRefillQuantity": 30,
+          "prescriptionOnHandQuantity": 17
+        }
+      ]
+    };
+  }
 
   static Set<Treatment> validate(
     List<Treatment> treatments,
@@ -84,8 +95,7 @@ class Compartment {
 
     if (!treatments.every(
       (Treatment e) =>
-          e.dependent == treatments[0].dependent &&
-          e.caregiver == treatments[0].caregiver,
+          e.dependent == treatments[0].dependent && e.caregiver == treatments[0].caregiver,
     )) {
       throw ValueException(
         ExceptionMessage(

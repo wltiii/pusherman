@@ -1,38 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
-class AbstractTreatmentTester extends Treatment {
-  AbstractTreatmentTester(
-    Dependent dependent,
-    CareGiver? caregiver,
-    TreatmentDescription description,
-    TreatmentDirections directions,
-  ) : super(
-          dependent,
-          caregiver,
-          description,
-          directions,
-        );
-}
-
-class AbstractTreatmentDescriptionTester extends TreatmentDescription {
-  AbstractTreatmentDescriptionTester(String value) : super(value);
-}
-
-class AbstractTreatmentDirectionsTester extends TreatmentDirections {
-  AbstractTreatmentDirectionsTester(String value) : super(value);
-}
-
-class AnotherAbstractTreatmentDescriptionTester extends TreatmentDescription {
-  AnotherAbstractTreatmentDescriptionTester(String value) : super(value);
-}
-
-class AnotherAbstractTreatmentDirectionsTester extends TreatmentDirections {
-  AnotherAbstractTreatmentDirectionsTester(String value) : super(value);
-}
+import '../../../../test_utills/abstract_object_builders.dart';
 
 void main() {
   const givenDependentIdValue = 'abc123';
@@ -49,44 +21,40 @@ void main() {
   // const givenOnHandQuantityValue = 23;
 
   final givenDependent = Dependent(
-    UserId(givenDependentIdValue),
+    LoginId(givenDependentIdValue),
     UserName(givenDependentNameValue),
   );
 
   final givenOtherDependent = Dependent(
-    UserId(givenOtherDependentIdValue),
+    LoginId(givenOtherDependentIdValue),
     UserName(givenOtherDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
-    UserId(givenCaregiverIdValue),
+    LoginId(givenCaregiverIdValue),
     UserName(givenCaregiverNameValue),
   );
 
-  final givenOtcDescription =
-      AnotherAbstractTreatmentDescriptionTester(givenOtcDescriptionValue);
-  final givenOtcDirections =
-      AnotherAbstractTreatmentDirectionsTester(givenOtcDirectionsValue);
-  final givenSupplementDescription =
-      AbstractTreatmentDescriptionTester(givenSupplementDescriptionValue);
-  final givenSupplementDirections =
-      AbstractTreatmentDirectionsTester(givenSupplementDirectionsValue);
+  final givenOtcDescription = ConcreteTreatmentDescription(givenOtcDescriptionValue);
+  final givenOtcDirections = ConcreteTreatmentDirections(givenOtcDirectionsValue);
+  final givenSupplementDescription = ConcreteTreatmentDescription(givenSupplementDescriptionValue);
+  final givenSupplementDirections = ConcreteTreatmentDirections(givenSupplementDirectionsValue);
 
-  final givenTreatment = AbstractTreatmentTester(
+  final givenTreatment = ConcreteTreatment(
     givenDependent,
     givenCaregiver,
     givenSupplementDescription,
     givenSupplementDirections,
   );
 
-  final givenAnotherTreatment = AbstractTreatmentTester(
+  final givenAnotherTreatment = ConcreteTreatment(
     givenDependent,
     givenCaregiver,
     givenOtcDescription,
     givenOtcDirections,
   );
 
-  final givenTreatmentForOtherDependent = AbstractTreatmentTester(
+  final givenTreatmentForOtherDependent = ConcreteTreatment(
     givenOtherDependent,
     givenCaregiver,
     givenSupplementDescription,
@@ -161,8 +129,7 @@ void main() {
             predicate(
               (e) =>
                   e is ValueException &&
-                  e.message ==
-                      'Invalid value. Treatment list contains duplicates.',
+                  e.message == 'Invalid value. Treatment list contains duplicates.',
             ),
           ),
         );
@@ -190,18 +157,18 @@ void main() {
   });
 
   group('treatment list order', () {
-    final givenTreatment1 = AbstractTreatmentTester(
+    final givenTreatment1 = ConcreteTreatment(
       givenOtherDependent,
       givenCaregiver,
-      AbstractTreatmentDescriptionTester('treatment-1'),
-      AbstractTreatmentDirectionsTester('adDirection'),
+      ConcreteTreatmentDescription('treatment-1'),
+      ConcreteTreatmentDirections('adDirection'),
     );
 
-    final givenTreatment2 = AbstractTreatmentTester(
+    final givenTreatment2 = ConcreteTreatment(
       givenOtherDependent,
       givenCaregiver,
-      AbstractTreatmentDescriptionTester('treatment-2'),
-      AbstractTreatmentDirectionsTester('adDirection'),
+      ConcreteTreatmentDescription('treatment-2'),
+      ConcreteTreatmentDirections('adDirection'),
     );
 
     test('compartments with same values in same order are equal', () {
@@ -246,7 +213,7 @@ void main() {
       expect(
         compartment.toString(),
         equals(
-          'AbstractTreatmentTester('
+          'ConcreteTreatment('
           '$givenDependent'
           ', $givenCaregiver'
           // ', $givenTreatmentDescription'

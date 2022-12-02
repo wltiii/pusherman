@@ -5,6 +5,7 @@ import 'package:pusherman/domain/core/models/types/treatment/over_the_counter.da
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/organizer.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 void main() {
   const givenOrganizerNameValue = 'anOrganizerName';
@@ -18,17 +19,16 @@ void main() {
   const givenOtcDirectionsValue = 'aOtcDirections';
 
   final givenDependent = Dependent(
-    UserId(givenDependentIdValue),
+    LoginId(givenDependentIdValue),
     UserName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
-    UserId(givenCaregiverIdValue),
+    LoginId(givenCaregiverIdValue),
     UserName(givenCaregiverNameValue),
   );
 
-  final givenOtcDescription =
-      OverTheCounterDescription(givenOtcDescriptionValue);
+  final givenOtcDescription = OverTheCounterDescription(givenOtcDescriptionValue);
   final givenOtcDirections = OverTheCounterDirections(givenOtcDirectionsValue);
 
   final givenTreatment = OverTheCounter(
@@ -43,8 +43,7 @@ void main() {
   final givenCompartment = Compartment(
     <Treatment>[givenTreatment],
   );
-  final givenNumberOfCompartments =
-      NumberOfCompartments(givenNumberOfCompartmentsValue);
+  final givenNumberOfCompartments = NumberOfCompartments(givenNumberOfCompartmentsValue);
 
   group('construction', () {
     test('instantiates', () {
