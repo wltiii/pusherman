@@ -21,12 +21,12 @@ void main() {
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   group('Prescription value objects', () {
@@ -68,14 +68,10 @@ void main() {
     // const givenTherapyDirectionsValue = 'aPrescriptionDirections';
     // const givenRefillQuantityValue = 42;
     // const givenOnHandQuantityValue = 23;
-    final givenTreatmentDescription =
-        PrescriptionDescription(givenTherapyDescriptionValue);
-    final givenTreatmentDirections =
-        PrescriptionDirections(givenTherapyDirectionsValue);
-    final givenTreatmentRefillQuantity =
-        PrescriptionRefillQuantity(givenRefillQuantityValue);
-    final givenTreatmentOnHandQuantity =
-        PrescriptionOnHandQuantity(givenOnHandQuantityValue);
+    final givenTreatmentDescription = PrescriptionDescription(givenTherapyDescriptionValue);
+    final givenTreatmentDirections = PrescriptionDirections(givenTherapyDirectionsValue);
+    final givenTreatmentRefillQuantity = PrescriptionRefillQuantity(givenRefillQuantityValue);
+    final givenTreatmentOnHandQuantity = PrescriptionOnHandQuantity(givenOnHandQuantityValue);
 
     final prescription = Prescription(
       givenDependent,
@@ -146,8 +142,7 @@ void main() {
       });
 
       test('when refill quantities differ they are not equal', () {
-        final otherRefillQuantity =
-            PrescriptionRefillQuantity(givenRefillQuantityValue + 23);
+        final otherRefillQuantity = PrescriptionRefillQuantity(givenRefillQuantityValue + 23);
 
         final other = Prescription(
           givenDependent,
@@ -162,8 +157,7 @@ void main() {
       });
 
       test('when on-hand quantities differ they are not equal', () {
-        final otherOnHandQuantity =
-            PrescriptionOnHandQuantity(givenOnHandQuantityValue + 23);
+        final otherOnHandQuantity = PrescriptionOnHandQuantity(givenOnHandQuantityValue + 23);
 
         final other = Prescription(
           givenDependent,

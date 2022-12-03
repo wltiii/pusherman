@@ -18,12 +18,12 @@ void main() {
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   group('Supplement value objects', () {
@@ -61,14 +61,10 @@ void main() {
   });
 
   group('Supplement tests', () {
-    final givenTreatmentDescription =
-        SupplementDescription(givenTherapyDescriptionValue);
-    final givenTreatmentDirections =
-        SupplementDirections(givenTherapyDirectionsValue);
-    final givenTreatmentRefillQuantity =
-        SupplementRefillQuantity(givenRefillQuantityValue);
-    final givenTreatmentOnHandQuantity =
-        SupplementOnHandQuantity(givenOnHandQuantityValue);
+    final givenTreatmentDescription = SupplementDescription(givenTherapyDescriptionValue);
+    final givenTreatmentDirections = SupplementDirections(givenTherapyDirectionsValue);
+    final givenTreatmentRefillQuantity = SupplementRefillQuantity(givenRefillQuantityValue);
+    final givenTreatmentOnHandQuantity = SupplementOnHandQuantity(givenOnHandQuantityValue);
 
     final supplement = Supplement(
       givenDependent,
@@ -139,8 +135,7 @@ void main() {
       });
 
       test('when refill quantities differ they are not equal', () {
-        final otherRefillQuantity =
-            SupplementRefillQuantity(givenRefillQuantityValue + 23);
+        final otherRefillQuantity = SupplementRefillQuantity(givenRefillQuantityValue + 23);
 
         final other = Supplement(
           givenDependent,
@@ -155,8 +150,7 @@ void main() {
       });
 
       test('when on-hand quantities differ they are not equal', () {
-        final otherOnHandQuantity =
-            SupplementOnHandQuantity(givenOnHandQuantityValue + 23);
+        final otherOnHandQuantity = SupplementOnHandQuantity(givenOnHandQuantityValue + 23);
 
         final other = Supplement(
           givenDependent,

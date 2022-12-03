@@ -14,12 +14,12 @@ void main() {
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   group('OverTheCounterDescription', () {
@@ -41,10 +41,8 @@ void main() {
   });
 
   group('physical therapy', () {
-    final givenTreatmentDescription =
-        OverTheCounterDescription(givenTherapyDescriptionValue);
-    final givenTreatmentDirections =
-        OverTheCounterDirections(givenTherapyDirectionsValue);
+    final givenTreatmentDescription = OverTheCounterDescription(givenTherapyDescriptionValue);
+    final givenTreatmentDirections = OverTheCounterDirections(givenTherapyDirectionsValue);
 
     final otcTreatment = OverTheCounter(
       givenDependent,

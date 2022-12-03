@@ -22,17 +22,17 @@ void main() {
 
   final givenDependent = Dependent(
     LoginId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenOtherDependent = Dependent(
     LoginId(givenOtherDependentIdValue),
-    UserName(givenOtherDependentNameValue),
+    DependentName(givenOtherDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     LoginId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   final givenOtcDescription = ConcreteTreatmentDescription(givenOtcDescriptionValue);

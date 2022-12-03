@@ -29,12 +29,12 @@ void main() {
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   group('TreatmentDescription', () {
@@ -51,8 +51,7 @@ void main() {
         throwsA(
           predicate(
             (e) =>
-                e is ValueException &&
-                e.message == 'Invalid value. Description must not be empty.',
+                e is ValueException && e.message == 'Invalid value. Description must not be empty.',
           ),
         ),
       );
@@ -73,8 +72,7 @@ void main() {
         throwsA(
           predicate(
             (e) =>
-                e is ValueException &&
-                e.message == 'Invalid value. Directions must not be empty.',
+                e is ValueException && e.message == 'Invalid value. Directions must not be empty.',
           ),
         ),
       );
@@ -82,10 +80,8 @@ void main() {
   });
 
   group('abstract Treatment', () {
-    final givenTreatmentDescription =
-        TreatmentDescription(givenTherapyDescriptionValue);
-    final givenTreatmentDirections =
-        TreatmentDirections(givenTherapyDirectionsValue);
+    final givenTreatmentDescription = TreatmentDescription(givenTherapyDescriptionValue);
+    final givenTreatmentDirections = TreatmentDirections(givenTherapyDirectionsValue);
 
     final treatment = AbstractTreatmentTester(
       givenDependent,
@@ -122,7 +118,7 @@ void main() {
           equals(
             CareGiver(
               UserId(givenDependent.id),
-              UserName(givenDependent.name),
+              DependentName(givenDependent.name),
             ),
           ),
         );
@@ -163,7 +159,7 @@ void main() {
       test('when dependent ids differ they are not equal', () {
         final otherDependent = Dependent(
           UserId('otherDependentId'),
-          UserName(givenDependentNameValue),
+          DependentName(givenDependentNameValue),
         );
 
         final other = AbstractTreatmentTester(
@@ -179,7 +175,7 @@ void main() {
       test('when dependent names differ they are not equal', () {
         final otherDependent = Dependent(
           UserId(givenDependentIdValue),
-          UserName('otherDependentName'),
+          DependentName('otherDependentName'),
         );
 
         final other = AbstractTreatmentTester(
@@ -195,7 +191,7 @@ void main() {
       test('when caregiver ids differ they are not equal', () {
         final otherCaregiver = CareGiver(
           UserId('otherCaregiverId'),
-          UserName(givenCaregiverNameValue),
+          DependentName(givenCaregiverNameValue),
         );
 
         final other = AbstractTreatmentTester(
@@ -211,7 +207,7 @@ void main() {
       test('when caregiver names differ they are not equal', () {
         final otherCaregiver = CareGiver(
           UserId(givenCaregiverIdValue),
-          UserName('otherCaregiverName'),
+          DependentName('otherCaregiverName'),
         );
 
         final other = AbstractTreatmentTester(

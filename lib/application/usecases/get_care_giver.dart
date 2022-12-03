@@ -3,14 +3,16 @@ import 'package:fpdart/fpdart.dart';
 import 'package:pusherman/application/usecases/usecase.dart';
 import 'package:pusherman/domain/core/error/failures.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
-import 'package:pusherman/features/schedule/domain/repositories/caregiver_repository Params> {
-  GetCaregiver(this.repository);
+import 'package:pusherman/features/schedule/domain/repositories/care_giver_repository.dart';
 
-  final UserRepository repository;
+class GetCareGiver implements UseCase<CareGiver, Params> {
+  GetCareGiver(this.repository);
+
+  final CareGiverRepository repository;
 
   @override
   Future<Either<Failure, CareGiver>> call(Params params) async {
-    return await repository.getByCaregiver(params.caregiver);
+    return await repository.get(params.caregiver);
   }
 }
 

@@ -1,93 +1,82 @@
-import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/type_defs.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
+
+import '../../../../test_utils/user_builder.dart';
 
 class UserTester extends User {
-  const UserTester(UserId id, UserName name) : super(id, name);
+  const UserTester(Id id, DependentName name) : super(id, name);
 
-  factory UserTester.fromJson(String source) {
-    final map = json.decode(source) as Map<String, Object?>;
-
-    return UserTester(
-      UserId(map['id'] as String),
-      UserName(map['userName'] as String),
-    );
-  }
-
-  Json toJson() {
-    return super.toJson();
-  }
+// Json toJson() {
+//   return super.toJson();
+// }
 }
 
 void main() {
   group('construction', () {
-    test('all User types constructed', () {
-
-      final tester = UserTester(UserId('uid'), UserName('jack'));
+    test('abstract User', () {
+      final tester = UserTester(Id('uid'), DependentName('jack'));
       expect(tester, isA<User>());
       expect(tester, isA<Equatable>());
       expect(tester.id, equals('uid'));
       expect(tester.name, equals('jack'));
-
-      final dependent = Dependent(UserId('uid'), UserName('jack'));
-      expect(dependent.id, equals(tester.id));
-      expect(dependent.name, equals(tester.name));
-
-      final careGiver = CareGiver(UserId('uid'), UserName('jack'));
-      expect(careGiver.id, equals(tester.id));
-      expect(careGiver.name, equals(tester.name));
-
-      final careProvider = CareProvider(UserId('uid'), UserName('jack'));
-      expect(careProvider.id, equals(tester.id));
-      expect(careProvider.name, equals(tester.name));
     });
 
-    test('when id is empty string exception is thrown', () {
-      expect(
-            () => UserTester(UserId(''), UserName('jack')),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message == 'Invalid value. User id must not be empty.',
-          ),
-        ),
+    test('implemented User types constructed', () {
+      final dependent = Dependent(
+        DependentId(UserBuilder.DEFAULT_ID),
+        DependentName(UserBuilder.DEFAULT_NAME),
       );
-    });
+      // expect(dependent, isA<Equatable>());
+      expect(dependent, isA<User>());
+      expect(dependent.id, equals(UserBuilder.DEFAULT_ID));
+      expect(dependent.name, equals(UserBuilder.DEFAULT_NAME));
 
-    test('when name is empty string exception is thrown', () {
-      expect(
-            () => UserTester(UserId('uid'), UserName('')),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message == 'Invalid value. User name must not be empty.',
-          ),
-        ),
+      final careGiver = CareGiver(
+        CareGiverId(UserBuilder.DEFAULT_ID),
+        CareGiverName(UserBuilder.DEFAULT_NAME),
       );
+      expect(careGiver.id, equals(UserBuilder.DEFAULT_ID));
+      expect(careGiver.name, equals(UserBuilder.DEFAULT_NAME));
+
+      final careProvider = CareProvider(
+        CareProviderId(UserBuilder.DEFAULT_ID),
+        CareProviderName(UserBuilder.DEFAULT_NAME),
+      );
+      expect(careProvider.id, equals(UserBuilder.DEFAULT_ID));
+      expect(
+          careProvider.name,
+          equals(
+            DependentName(UserBuilder.DEFAULT_NAME).value,
+          ));
     });
   });
 
   group('toString', () {
-    test('from object', () {
+    test('from CareGiver', () {
+      final careGiver = CareGiver(
+        CareGiverId(UserBuilder.DEFAULT_ID),
+        CareGiverName(UserBuilder.DEFAULT_NAME),
+      );
       expect(
-        UserTester(UserId('uid'), UserName('jack')).toString(),
-        equals('UserTester(UserId(uid), UserName(jack))'),
+        careGiver.toString(),
+        equals(
+            'CareGiver(CareGiverId(${UserBuilder.DEFAULT_ID}), CareGiverName(${UserBuilder.DEFAULT_NAME}))'),
       );
     });
   });
 
   group('json', () {
-    test('all types from json', () {
-      final givenDependentJson = '''{
-        "runtimeType": "Dependent",
-        "id": "uid",
-        "userName": "jack"
-      }''';
+    test('implemented User types from json', () {
+      // final givenDependentJson = '''{
+      //   "runtimeType": "Dependent",
+      //   "id": "uid",
+      //   "userName": "jack"
+      // }''';
+
+      final givenDependentJson = {"runtimeType": "Dependent", "id": "uid", "userName": "jack"};
 
       final dependent = Dependent.fromJson(givenDependentJson);
 
@@ -95,22 +84,30 @@ void main() {
       expect(dependent.id, equals('uid'));
       expect(dependent.name, equals('jack'));
 
-      final givenCareGiverJson = '''{
-        "runtimeType": "CareGiver",
-        "id": "uid",
-        "userName": "jack"
-      }''';
+      // final givenCareGiverJson = '''{
+      //   "runtimeType": "CareGiver",
+      //   "id": "uid",
+      //   "userName": "jack"
+      // }''';
+
+      final givenCareGiverJson = {"runtimeType": "CareGiver", "id": "uid", "userName": "jack"};
       final careGiver = CareGiver.fromJson(givenCareGiverJson);
 
       expect(careGiver, isA<CareGiver>());
       expect(careGiver.id, equals('uid'));
       expect(careGiver.name, equals('jack'));
 
-      final givenCareProviderJson = '''{
+      // final givenCareProviderJson = '''{
+      //   "runtimeType": "CareProvider",
+      //   "id": "uid",
+      //   "userName": "jack"
+      // }''';
+
+      final givenCareProviderJson = {
         "runtimeType": "CareProvider",
         "id": "uid",
         "userName": "jack"
-      }''';
+      };
       final careProvider = CareProvider.fromJson(givenCareProviderJson);
 
       expect(careProvider, isA<CareProvider>());
@@ -118,7 +115,9 @@ void main() {
       expect(careProvider.name, equals('jack'));
     });
 
-    test('all types to json', () {
+    test('abstract User to json', () {});
+
+    test('implemented User types to json', () {
       final Json expectedDependentJson = {
         "runtimeType": "Dependent",
         "id": "uid",
@@ -136,77 +135,27 @@ void main() {
       };
 
       expect(
-        Dependent(UserId('uid'), UserName('jack')).toJson(),
+        Dependent(DependentId('uid'), DependentName('jack')).toJson(),
         equals(expectedDependentJson),
       );
       expect(
-        CareGiver(UserId('uid'), UserName('jack')).toJson(),
+        CareGiver(CareGiverId('uid'), CareGiverName('jack')).toJson(),
         equals(expectedCareGiverJson),
       );
       expect(
-        CareProvider(UserId('uid'), UserName('jack')).toJson(),
+        CareProvider(CareProviderId('uid'), CareProviderName('jack')).toJson(),
         equals(expectedCareProviderJson),
       );
     });
   });
 
-  group('user domain types', () {
-    test('when UserId instantiated with empty string exception thrown', () {
-      const givenEmptyString = '';
-      const givenStringOfSpacesOnly = ' ';
-
-      expect(
-            () => UserId(givenEmptyString),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message == 'Invalid value. User id must not be empty.',
-          ),
-        ),
-      );
-
-
-      expect(
-            () => UserId(givenStringOfSpacesOnly),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message ==
-                    'Invalid value. User id must not be empty.',
-          ),
-        ),
-      );
+  group('user domain sub types', () {
+    test('CareGiverId is an Id', () {
+      expect(CareGiverId(UserBuilder.DEFAULT_ID), isA<Id>());
     });
 
-    test('when UserName instantiated with empty string exception thrown', () {
-      const givenEmptyString = '';
-      const givenStringOfSpacesOnly = ' ';
-
-      expect(
-            () => UserName(givenEmptyString),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message == 'Invalid value. User name must not be empty.',
-          ),
-        ),
-      );
-
-
-      expect(
-            () => UserName(givenStringOfSpacesOnly),
-        throwsA(
-          predicate(
-                (e) =>
-            e is ValueException &&
-                e.message ==
-                    'Invalid value. User name must not be empty.',
-          ),
-        ),
-      );
+    test('UserName is a Name', () {
+      expect(DependentName(UserBuilder.DEFAULT_NAME), isA<Name>());
     });
   });
 }

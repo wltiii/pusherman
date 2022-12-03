@@ -26,7 +26,7 @@ abstract class Treatment extends Equatable {
     _caregiver = caregiver ??
         CareGiver(
           LoginId(dependent.id),
-          UserName(dependent.name),
+          DependentName(dependent.name),
         );
   }
 
@@ -47,7 +47,7 @@ abstract class Treatment extends Equatable {
       _caregiver ==
       CareGiver(
         LoginId(dependent.id),
-        UserName(dependent.name),
+        DependentName(dependent.name),
       );
 
   @override

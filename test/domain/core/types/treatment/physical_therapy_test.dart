@@ -15,12 +15,12 @@ void main() {
 
   final givenDependent = Dependent(
     UserId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     UserId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   final givenRepetitions = PhysicalTherapyRepetitions(givenRepetitionValue);
@@ -44,10 +44,8 @@ void main() {
   });
 
   group('physical therapy', () {
-    final givenTreatmentDescription =
-        PhysicalTherapyDescription(givenTherapyDescriptionValue);
-    final givenTreatmentDirections =
-        PhysicalTherapyDirections(givenTherapyDirectionsValue);
+    final givenTreatmentDescription = PhysicalTherapyDescription(givenTherapyDescriptionValue);
+    final givenTreatmentDirections = PhysicalTherapyDirections(givenTherapyDirectionsValue);
 
     final physicalTherapy = PhysicalTherapy(
       givenDependent,

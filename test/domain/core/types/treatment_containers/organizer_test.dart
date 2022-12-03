@@ -20,12 +20,12 @@ void main() {
 
   final givenDependent = Dependent(
     LoginId(givenDependentIdValue),
-    UserName(givenDependentNameValue),
+    DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
     LoginId(givenCaregiverIdValue),
-    UserName(givenCaregiverNameValue),
+    DependentName(givenCaregiverNameValue),
   );
 
   final givenOtcDescription = OverTheCounterDescription(givenOtcDescriptionValue);
