@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pusherman/domain/core/error/exceptions.dart';
 import 'package:pusherman/domain/core/models/types/auth/user.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
-import 'package:pusherman/domain/core/models/value_objects/non_empty_string.dart';
+import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 class AbstractTreatmentTester extends Treatment {
   AbstractTreatmentTester(
@@ -28,13 +27,13 @@ void main() {
   const givenTherapyDirectionsValue = 'aSupplementDirections';
 
   final givenDependent = Dependent(
-    UserId(givenDependentIdValue),
+    DependentId(givenDependentIdValue),
     DependentName(givenDependentNameValue),
   );
 
   final givenCaregiver = CareGiver(
-    UserId(givenCaregiverIdValue),
-    DependentName(givenCaregiverNameValue),
+    CareGiverId(givenCaregiverIdValue),
+    CareGiverName(givenCaregiverNameValue),
   );
 
   group('TreatmentDescription', () {
@@ -117,8 +116,8 @@ void main() {
           treatment.caregiver,
           equals(
             CareGiver(
-              UserId(givenDependent.id),
-              DependentName(givenDependent.name),
+              CareGiverId(givenDependent.id),
+              CareGiverName(givenDependent.name),
             ),
           ),
         );
@@ -158,7 +157,7 @@ void main() {
 
       test('when dependent ids differ they are not equal', () {
         final otherDependent = Dependent(
-          UserId('otherDependentId'),
+          DependentId('otherDependentId'),
           DependentName(givenDependentNameValue),
         );
 
@@ -174,7 +173,7 @@ void main() {
 
       test('when dependent names differ they are not equal', () {
         final otherDependent = Dependent(
-          UserId(givenDependentIdValue),
+          DependentId(givenDependentIdValue),
           DependentName('otherDependentName'),
         );
 
@@ -190,8 +189,8 @@ void main() {
 
       test('when caregiver ids differ they are not equal', () {
         final otherCaregiver = CareGiver(
-          UserId('otherCaregiverId'),
-          DependentName(givenCaregiverNameValue),
+          CareGiverId('otherCaregiverId'),
+          CareGiverName(givenCaregiverNameValue),
         );
 
         final other = AbstractTreatmentTester(
@@ -206,8 +205,8 @@ void main() {
 
       test('when caregiver names differ they are not equal', () {
         final otherCaregiver = CareGiver(
-          UserId(givenCaregiverIdValue),
-          DependentName('otherCaregiverName'),
+          CareGiverId(givenCaregiverIdValue),
+          CareGiverName('otherCaregiverName'),
         );
 
         final other = AbstractTreatmentTester(

@@ -1,16 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pusherman/domain/core/models/model.dart';
 import 'package:pusherman/domain/core/models/types/treatment/treatment.dart';
 import 'package:unrepresentable_state/unrepresentable_state.dart';
 
 import '../type_defs.dart';
-// import 'treatment.dart';
 
-// part 'compartment.freezed.dart';
-// part 'compartment.g.dart';
+part 'compartment.freezed.dart';
+part 'compartment.g.dart';
 
-// @JsonSerializable(explicitToJson: true)
-class Compartment {
-// class Compartment extends Equatable {
-// class Compartment with _$Compartment implements Model {
+@JsonSerializable(explicitToJson: true)
+@freezed
+class Compartment with _$Compartment implements Model {
   Compartment(
     List<Treatment> treatments,
   ) : _treatments = validate(treatments);
@@ -46,7 +46,6 @@ class Compartment {
 
   late final Set<Treatment> _treatments;
 
-  // List<Treatment> get list => _treatments.toList();
   List<Treatment> get list => _treatments.toList();
 
   String get dependentName => list.isNotEmpty ? list[0].dependent.name : '';

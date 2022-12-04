@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pusherman/domain/core/models/model.dart';
-import 'package:unrepresentable_state/unrepresentable_state.dart';
+import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 
 import '../type_defs.dart';
-import 'compartment.dart';
+import 'organizer_types/types.dart' show NumberOfCompartments, OrganizerFrequency, OrganizerName;
 
 part 'organizer.freezed.dart';
 part 'organizer.g.dart';
@@ -14,10 +14,10 @@ class Organizer with _$Organizer implements Model {
   const Organizer._();
 
   const factory Organizer({
-    final OrganizerName name,
-    final OrganizerFrequency frequency,
-    final Compartment compartment,
-    final NumberOfCompartments numberOfCompartments,
+    required OrganizerName name,
+    required OrganizerFrequency frequency,
+    required Compartment compartment,
+    required NumberOfCompartments numberOfCompartments,
   }) = _Organizer;
 
   factory Organizer.fromJson(Json json) => _$OrganizerFromJson(json);
@@ -46,19 +46,4 @@ class Organizer with _$Organizer implements Model {
   String get organizerFrequency => frequency.value;
 
   int get compartments => numberOfCompartments.value;
-}
-
-// TODO(wltiii): add logic such as TreatmentDescription for meaningful message
-// TODO(wltiii): also remove tests of other types with no logic
-// @JsonSerializable(explicitToJson: true)
-class OrganizerName extends NonEmptyString {
-  OrganizerName(String value) : super(value);
-}
-
-class OrganizerFrequency extends NonEmptyString {
-  OrganizerFrequency(String value) : super(value);
-}
-
-class NumberOfCompartments extends NaturalNumber {
-  NumberOfCompartments(int value) : super(value);
 }

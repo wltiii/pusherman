@@ -25,8 +25,8 @@ abstract class Treatment extends Equatable {
   ) {
     _caregiver = caregiver ??
         CareGiver(
-          LoginId(dependent.id),
-          DependentName(dependent.name),
+          CareGiverId(dependent.id),
+          CareGiverName(dependent.name),
         );
   }
 
@@ -43,12 +43,8 @@ abstract class Treatment extends Equatable {
 
   String get directions => _treatmentDirections.value;
 
-  bool get caregiverIsDependent =>
-      _caregiver ==
-      CareGiver(
-        LoginId(dependent.id),
-        DependentName(dependent.name),
-      );
+  // TODO(wltiii): is this necessary?
+  bool get caregiverIsDependent => _caregiver.id == _dependent.id;
 
   @override
   List get props => <dynamic>[
