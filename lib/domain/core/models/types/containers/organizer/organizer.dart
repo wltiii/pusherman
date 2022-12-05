@@ -2,11 +2,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pusherman/domain/core/models/model.dart';
 import 'package:pusherman/domain/core/models/types/treatment_containers/compartment.dart';
 
-import '../type_defs.dart';
-import 'organizer_types/types.dart' show NumberOfCompartments, OrganizerFrequency, OrganizerName;
+import '../../type_defs.dart';
+import '../organizer_types/types.dart' show NumberOfCompartments, OrganizerFrequency, OrganizerName;
 
-part 'organizer.freezed.dart';
-part 'organizer.g.dart';
+part '../organizer.freezed.dart';
+part '../organizer.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 @freezed

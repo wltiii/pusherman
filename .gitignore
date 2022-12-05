@@ -94,6 +94,6 @@ app.*.map.json
 # OTHER
 /test/fixtures/my_pill_box_set.json
 
-/lib/domain/core/models/types/treatment_containers/organizer.freezed.dart
-/lib/domain/core/models/types/treatment/prescription.freezed.dart
-/lib/domain/core/models/types/treatment/supplement.freezed.dart
+/lib/domain/core/models/types/containers/organizer.freezed.dart
+/lib/domain/core/models/types/treatments/prescription.freezed.dart
+/lib/domain/core/models/types/treatments/supplement.freezed.dart
